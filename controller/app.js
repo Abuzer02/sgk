@@ -67,14 +67,27 @@ mavikentApp.config(function ($stateProvider, $urlRouterProvider, $authProvider){
       url : 'guvenlik_tanimlama',
       templateUrl: 'template/guvenlik_tanimlama.html'
   })
-  .state('menu.oda_tanimlama', {
-      url : 'oda_tanimlama',
-      templateUrl: 'template/oda_tanimlama.html'
+  .state('menu.odaci_tanimlama', {
+      url : 'odaci_tanimlama',
+      templateUrl: 'template/odaci_tanimlama.html'
   })
   .state('menu.cay_ocagi_tanimlama', {
       url : 'cay_ocagi_tanimlama',
       templateUrl: 'template/cay_ocagi_tanimlama.html',
       controller:'teacenterController'
+  })
+  .state('logout', {
+      url : 'logout',
+      controller:function($scope,$window,$localStorage,$rootScope){
+          console.log("sadasd")
+          localStorage.clear();
+          $rootScope.mkb = {
+                current_user : '',
+                authenticated : false,
+                token : null
+          }
+          $window.location.reload()
+      }
   })
 })
 
@@ -116,16 +129,10 @@ function AuthController ($scope,$auth, $state, $rootScope, $localStorage) {
 }
 
 function MenuController ($scope,$state,$http ,$rootScope,$localStorage) {
-  $scope.logout=function(){
-      localStorage.clear();
-      $rootScope.mkb = {
-        current_user : '',
-        authenticated : false,
-        token : null
-    }
-      $state.go("login");
-  }
-  $scope.checkTR=function(){
+   $scope.logout = function(){
+       $state.go("logout")
+   }
+   $scope.checkTR=function(){
       var token =$localStorage["token"];
       alert(token);
       $http.get("http://192.168.1.22:3000/api/role?token="+token).then(function(resp){
