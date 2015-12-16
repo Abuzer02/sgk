@@ -1,0 +1,212 @@
+
+<div class="row">
+    <div class="col-sm-12">
+        <div class="card-box">
+            <h4 class="m-t-0 header-title"><b>Kullanıcı Tanımı</b></h4>
+            <p class="text-muted m-b-30 font-13">
+                Most common form control, text-based input fields. Includes support for all HTML5 types
+            </p>
+            <div class="row">
+                <div class="col-md-9">
+                    <form class="form-horizontal" role="form">
+                        <div class="form-group">
+                            <label class="col-md-2 control-label">E-mail</label>
+                            <div class="col-md-10">
+                                <input type="email" class="form-control" placeholder="e-mail giriniz...">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-2 control-label">Kullanici Adı</label>
+                            <div class="col-md-10">
+                                <input type="text" class="form-control" placeholder="kullanici adı giriniz...">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-2 control-label">Şifre</label>
+                            <div class="col-md-10">
+                                <input type="password" class="form-control" placeholder="şifre giriniz...">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-2 control-label">Şifre Tekrar</label>
+                            <div class="col-md-10">
+                                <input type="password" class="form-control" placeholder="şifreyi tekrar giriniz...">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-2 control-label">Telefon</label>
+                            <div class="col-md-10">
+                                <input type="text" class="form-control" placeholder="telefon numarası giriniz...">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-2 control-label">Aktif mi </label>
+                            <div class="col-md-10">
+                                <div class="checkbox checkbox-primary">
+                                    <input id="checkbox3" type="checkbox">
+                                    <label for="checkbox3"></label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-2 control-label">Kat No</label>
+                            <div class="col-md-10">
+                                <ui-select class="form-control" ng-model="person.selected" theme="select2" ng-disabled="disabled">
+                                    <ui-select-match  placeholder="Kat no seçiniz">{{$select.selected.name}}</ui-select-match>
+                                    <ui-select-choices repeat="person in people | propsFilter: {name: $select.search, age: $select.search}">
+                                      <div ng-bind-html="person.name | highlight: $select.search"></div>
+                                      <small>
+                                        email: {{person.email}}
+                                        age: <span ng-bind-html="''+person.age | highlight: $select.search"></span>
+                                      </small>
+                                    </ui-select-choices>
+                                </ui-select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-2 control-label">Oda No</label>
+                            <div class="col-md-10">
+                                <ui-select class="form-control" ng-model="person.selected" theme="select2" ng-disabled="disabled">
+                                    <ui-select-match placeholder="Oda no giriniz">{{$select.selected.name}}</ui-select-match>
+                                    <ui-select-choices repeat="person in people | propsFilter: {name: $select.search, age: $select.search}">
+                                      <div ng-bind-html="person.name | highlight: $select.search"></div>
+                                      <small>
+                                        email: {{person.email}}
+                                        age: <span ng-bind-html="''+person.age | highlight: $select.search"></span>
+                                      </small>
+                                    </ui-select-choices>
+                                </ui-select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-2 control-label">Sıra No</label>
+                            <div class="col-md-10">
+                                <ui-select class="form-control" ng-model="person.selected" theme="select2" ng-disabled="disabled">
+                                    <ui-select-match placeholder="Sıra no giriniz">{{$select.selected.name}}</ui-select-match>
+                                    <ui-select-choices repeat="person in people | propsFilter: {name: $select.search, age: $select.search}">
+                                      <div ng-bind-html="person.name | highlight: $select.search"></div>
+                                      <small>
+                                        email: {{person.email}}
+                                        age: <span ng-bind-html="''+person.age | highlight: $select.search"></span>
+                                      </small>
+                                    </ui-select-choices>
+                                </ui-select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-2 control-label">Görev</label>
+                            <div class="col-md-10">
+                                <ui-select class="form-control" ng-model="person.selected" theme="select2" ng-disabled="disabled">
+                                    <ui-select-match placeholder="Görev giriniz">{{$select.selected.name}}</ui-select-match>
+                                    <ui-select-choices repeat="person in people | propsFilter: {name: $select.search, age: $select.search}">
+                                      <div ng-bind-html="person.name | highlight: $select.search"></div>
+                                      <small>
+                                        email: {{person.email}}
+                                        age: <span ng-bind-html="''+person.age | highlight: $select.search"></span>
+                                      </small>
+                                    </ui-select-choices>
+                                </ui-select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-2 control-label">Sağlayıcı</label>
+                            <div class="col-md-10">
+                                <ui-select class="form-control" ng-model="person.selected" theme="select2" ng-disabled="disabled">
+                                    <ui-select-match placeholder="Sağlayıcı giriniz">{{$select.selected.name}}</ui-select-match>
+                                    <ui-select-choices repeat="person in people | propsFilter: {name: $select.search, age: $select.search}">
+                                      <div ng-bind-html="person.name | highlight: $select.search"></div>
+                                      <small>
+                                        email: {{person.email}}
+                                        age: <span ng-bind-html="''+person.age | highlight: $select.search"></span>
+                                      </small>
+                                    </ui-select-choices>
+                                </ui-select>
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
+
+                <div class="col-md-3">
+                    <form class="form-horizontal" role="form">
+                        <div class="form-group">
+                            <img src="http://placehold.it/400x400" alt="" class="img-responsive">
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-4 control-label">Resim Yükle</label>
+                            <div class="col-md-8">
+                                <div class="fileupload btn btn-block btn-default waves-effect waves-light">
+                                    <span><i class="ion-upload m-r-5"></i>Resim Seç</span>
+                                    <input type="file" class="upload">
+                                </div>
+                            </div>
+                        </div>
+                        
+
+                    </form>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-12">
+        <div class="card-box">
+            <h4 class="m-t-0 header-title"><b>Kullanıcı Tanımı Listele</b></h4>
+            <p class="text-muted m-b-30 font-13">
+                İçeriğin üstüne tıklayıp düzenleme yapabilirsiniz.
+            </p>
+
+            <div class="table-responsive">
+                <table id="mainTable" class="table">
+                    <thead style="background-color:#36404a">
+                        <tr>
+                            <th style="color:#fff;">E-mail</th>
+                            <th style="color:#fff;">Kullanıcı Adı</th>
+                            <th style="color:#fff;">Telefon</th>
+                            <th style="color:#fff;">Aktif</th>
+                            <th style="color:#fff;">Son Giriş</th>
+                            <th style="color:#fff;">Oluşturma Zamanı</th>
+                            <th style="color:#fff;">Oluşturan</th>
+                            <th style="color:#fff;">Kat No</th>
+                            <th style="color:#fff;">Oda No</th>
+                            <th style="color:#fff;">Sıra No</th>
+                            <th style="color:#fff;">Rol</th>
+                            <th style="color:#fff;">Görev</th>
+                            <th style="color:#fff;">Sağlayıcı</th>
+                            <th style="width:90px; color:#fff;">İşlem</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>sinan@gmail.com</td>
+                            <td>Sinan</td>
+                            <td>0544 215 15 42</td>
+                            <td>
+                                <div class="checkbox checkbox-success" style="margin:0">
+                                    <input id="checkbox3" type="checkbox" checked>
+                                    <label for="checkbox3"></label>
+                                </div>
+                            </td>
+                            <td>12:08</td>
+                            <td>10:58</td>
+                            <td>Sinan BORA</td>
+                            <td>1</td>
+                            <td>1</td>
+                            <td>1</td>
+                            <td>Kantin</td>
+                            <td>Çaycı</td>
+                            <td>Çay</td>
+                            <td>
+                                <button class="btn btn-sm btn-danger" data-placement="top" data-toggle="tooltip" data-original-title="Sil"><i class="glyphicon glyphicon-trash"></i></button>
+                                <button class="btn btn-sm btn-default" data-placement="top" data-toggle="tooltip" data-original-title="Kaydet"><i class="glyphicon glyphicon-ok"></i></button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
