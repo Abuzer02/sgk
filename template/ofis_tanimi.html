@@ -2,22 +2,37 @@
 <div class="row">
     <div class="col-sm-12">
         <div class="card-box">
-            <h4 class="m-t-0 header-title"><b>Kat Tanımı</b></h4>
+            <h4 class="m-t-0 header-title"><b>Ofis Tanımı</b></h4>
             <p class="text-muted m-b-30 font-13">
             </p>
             <div class="row">
                 <div class="col-md-6">
                     <form class="form-horizontal" role="form">
-                        <div class="form-group">
-                            <label class="col-md-2 control-label">Kat</label>
+                           <div class="form-group">
+                            <label class="col-md-2 control-label">Kat No</label>
                             <div class="col-md-10">
-                                <input type="text" class="form-control" placeholder="Kat giriniz..." ng-model="obj.name">
+                                <ui-select class="form-control" ng-model="floor.selected" theme="select2" ng-disabled="disabled" ng-change=deg()>
+                                    <ui-select-match  placeholder="Kat no seçiniz">{{$select.selected.name}}</ui-select-match>
+                                    <ui-select-choices repeat="floor in floors | propsFilter: {name: $select.search, id: $select.search}">
+                                      <div ng-bind-html="floor.name | highlight: $select.search"></div>
+                                      <small>
+                                        Kat Adı: {{floor.name}}
+                                        
+                                      </small>
+                                    </ui-select-choices>
+                                </ui-select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-2 control-label">Ofis Adı</label>
+                            <div class="col-md-10">
+                                <input type="text" class="form-control" placeholder="Ofis adi giriniz..." ng-model="obj.name">
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-md-2 control-label">Sıra</label>
                             <div class="col-md-10">
-                                <input type="number" class="form-control" placeholder="Sıra giriniz..." ng-model="obj.floor_order">
+                                <input type="number" class="form-control" placeholder="Sıra giriniz..." ng-model="obj.office_order">
                             </div>
                         </div>
 
@@ -52,7 +67,7 @@
 <div class="row">
     <div class="col-sm-12">
         <div class="card-box">
-            <h4 class="m-t-0 header-title"><b>Kat Tanımı Listele</b></h4>
+            <h4 class="m-t-0 header-title"><b>Görev Tanımı Listele</b></h4>
             <p class="text-muted m-b-30 font-13">
             </p>
 
@@ -60,7 +75,7 @@
                 <table id="mainTable" class="table">
                     <thead style="background-color:#36404a">
                         <tr>
-                            <th style="color:#fff;">Kat</th>
+                            <th style="color:#fff;">Görev</th>
                             <th style="color:#fff;">Sıra</th>
                             <th style="color:#fff;">Düzenleyen</th>
                             <th style="width:90px; color:#fff;">İşlem</th>
@@ -69,7 +84,7 @@
                     <tbody>
                         <tr ng-repeat="item in list track by $index">
                             <td ng-bind="item.name"></td>
-                            <td ng-bind="item.floor_order"></td>
+                            <td ng-bind="item.office_order"></td>
                             <td ng-bind="item.updated_by"></td>
                             <td>
                                 <button class="btn btn-sm btn-danger" data-placement="top" data-toggle="tooltip" data-original-title="Sil" ng-click="delete(item._id,$index)"><i class="glyphicon glyphicon-trash"></i></button>

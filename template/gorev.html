@@ -4,7 +4,6 @@
         <div class="card-box">
             <h4 class="m-t-0 header-title"><b>Görev Tanımı</b></h4>
             <p class="text-muted m-b-30 font-13">
-                Most common form control, text-based input fields. Includes support for all HTML5 types
             </p>
             <div class="row">
                 <div class="col-md-6">
@@ -12,13 +11,13 @@
                         <div class="form-group">
                             <label class="col-md-2 control-label">Görev</label>
                             <div class="col-md-10">
-                                <input type="text" class="form-control" placeholder="Görev giriniz...">
+                                <input type="text" class="form-control" placeholder="Görev giriniz..." ng-model="obj.name">
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-md-2 control-label">Sıra</label>
                             <div class="col-md-10">
-                                <input type="number" class="form-control" placeholder="Sıra giriniz...">
+                                <input type="number" class="form-control" placeholder="Sıra giriniz..." ng-model="obj.task_order">
                             </div>
                         </div>
 
@@ -31,7 +30,7 @@
                         <div class="form-group">
                             <label class="col-md-2 control-label">Düzenleyen</label>
                             <div class="col-md-10">
-                                <input type="text" class="form-control" readonly="" value="Ahmet Şık">
+                                <input type="text" class="form-control" readonly="" ng-model="obj.updated_by">
                             </div>
                         </div>
 
@@ -43,7 +42,7 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="pull-right">
-                        <button class="btn btn-default" style="border-radius :0px">Kaydet</button>
+                        <button class="btn btn-default" style="border-radius :0px" ng-click="save()">Kaydet</button>
                     </div>
                 </div>
             </div>
@@ -55,7 +54,6 @@
         <div class="card-box">
             <h4 class="m-t-0 header-title"><b>Görev Tanımı Listele</b></h4>
             <p class="text-muted m-b-30 font-13">
-                İçeriğin üstüne tıklayıp düzenleme yapabilirsiniz.
             </p>
 
             <div class="table-responsive">
@@ -69,22 +67,13 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>Çaycı</td>
-                            <td>1</td>
-                            <td>Ahmet Şık</td>
+                        <tr ng-repeat="item in list track by $index">
+                            <td ng-bind="item.name"></td>
+                            <td ng-bind="item.task_order"></td>
+                            <td ng-bind="item.updated_by"></td>
                             <td>
-                                <button class="btn btn-sm btn-danger" data-placement="top" data-toggle="tooltip" data-original-title="Sil"><i class="glyphicon glyphicon-trash"></i></button>
-                                <button class="btn btn-sm btn-default" data-placement="top" data-toggle="tooltip" data-original-title="Kaydet"><i class="glyphicon glyphicon-ok"></i></button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Çaycı</td>
-                            <td>1</td>
-                            <td>Ahmet Şık</td>
-                            <td>
-                                <button class="btn btn-sm btn-danger" data-placement="top" data-toggle="tooltip" data-original-title="Sil"><i class="glyphicon glyphicon-trash"></i></button>
-                                <button class="btn btn-sm btn-default" data-placement="top" data-toggle="tooltip" data-original-title="Kaydet"><i class="glyphicon glyphicon-ok"></i></button>
+                                <button class="btn btn-sm btn-danger" data-placement="top" data-toggle="tooltip" data-original-title="Sil" ng-click="delete(item._id,$index)"><i class="glyphicon glyphicon-trash"></i></button>
+                                <button class="btn btn-sm btn-default" data-placement="top" data-toggle="tooltip" data-original-title="Kaydet" ng-click="edit(item._id,$index)"><i class="glyphicon glyphicon-ok"></i></button>
                             </td>
                         </tr>
                     </tbody>
