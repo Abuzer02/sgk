@@ -4,46 +4,61 @@
         <div class="card-box">
             <h4 class="m-t-0 header-title"><b>Kullanıcı Tanımı</b></h4>
             <p class="text-muted m-b-30 font-13">
-                Most common form control, text-based input fields. Includes support for all HTML5 types
             </p>
             <div class="row">
                 <div class="col-md-9">
-                    <form class="form-horizontal" role="form">
+                    <form class="form-horizontal" role="form" name="form" novalidate>
                         <div class="form-group">
                             <label class="col-md-2 control-label">E-mail</label>
                             <div class="col-md-10">
-                                <input type="email" class="form-control" placeholder="e-mail giriniz...">
+                               <input type="email" name="email" ng-model="obj.email" class="form-control" required>
+                                    <span style="color:red" ng-show="form.email.$dirty && form.email.$invalid">
+                                    <span ng-show="form.email.$error.email">lütfen email adresinizi doğru giriniz</span>
+                                    </span>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-md-2 control-label">Kullanici Adı</label>
                             <div class="col-md-10">
-                                <input type="text" class="form-control" placeholder="kullanici adı giriniz...">
+                                <input type="text" class="form-control" placeholder="kullanici adı giriniz..." ng-model="obj.username" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-2 control-label">Adı Soyadı</label>
+                            <div class="col-md-10">
+                                <input type="text" class="form-control" placeholder="ad soyad giriniz..." ng-model="obj.name" required>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-md-2 control-label">Şifre</label>
                             <div class="col-md-10">
-                                <input type="password" class="form-control" placeholder="şifre giriniz...">
+                                <input data-ng-model='obj.password' type="password" name='password' placeholder='şifre giriniz' class="form-control">
                             </div>
                         </div>
-                        <div class="form-group">
+                            <div class="form-group">
                             <label class="col-md-2 control-label">Şifre Tekrar</label>
                             <div class="col-md-10">
-                                <input type="password" class="form-control" placeholder="şifreyi tekrar giriniz...">
+                                 <input ng-model='password_verify' class="form-control" type="password" name='confirm_password' placeholder='tekrar şifre giriniz' data-password-verify="obj.password"><div ng-show="form.confirm_password.$error.passwordVerify" style="color:red;">Şifreler eşleşmedi</div>
                             </div>
+                            
                         </div>
                         <div class="form-group">
                             <label class="col-md-2 control-label">Telefon</label>
                             <div class="col-md-10">
-                                <input type="text" class="form-control" placeholder="telefon numarası giriniz...">
+                                <input type="text" class="form-control" placeholder="telefon numarası giriniz..." ng-model="obj.phone_number" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-2 control-label">Sıra</label>
+                            <div class="col-md-10">
+                                <input type="text" class="form-control" placeholder="gösterimdeki sırayı giriniz..." ng-model="obj.account_order" required>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-md-2 control-label">Aktif mi </label>
                             <div class="col-md-10">
                                 <div class="checkbox checkbox-primary">
-                                    <input id="checkbox3" type="checkbox">
+                                    <input id="checkbox3" type="checkbox" ng-model="obj.is_active">
                                     <label for="checkbox3"></label>
                                 </div>
                             </div>
@@ -51,13 +66,12 @@
                         <div class="form-group">
                             <label class="col-md-2 control-label">Kat No</label>
                             <div class="col-md-10">
-                                <ui-select class="form-control" ng-model="person.selected" theme="select2" ng-disabled="disabled">
+                                <ui-select class="form-control" ng-model="floor.selected" theme="select2" ng-disabled="disabled" required>
                                     <ui-select-match  placeholder="Kat no seçiniz">{{$select.selected.name}}</ui-select-match>
-                                    <ui-select-choices repeat="person in people | propsFilter: {name: $select.search, age: $select.search}">
-                                      <div ng-bind-html="person.name | highlight: $select.search"></div>
+                                    <ui-select-choices repeat="floor in floors | propsFilter: {name: $select.search}">
+                                      <div ng-bind-html="floor.name | highlight: $select.search"></div>
                                       <small>
-                                        email: {{person.email}}
-                                        age: <span ng-bind-html="''+person.age | highlight: $select.search"></span>
+                                        kat adı: {{floor.name}}
                                       </small>
                                     </ui-select-choices>
                                 </ui-select>
@@ -66,28 +80,26 @@
                         <div class="form-group">
                             <label class="col-md-2 control-label">Oda No</label>
                             <div class="col-md-10">
-                                <ui-select class="form-control" ng-model="person.selected" theme="select2" ng-disabled="disabled">
+                                <ui-select class="form-control" ng-model="office.selected" theme="select2" ng-disabled="disabled">
                                     <ui-select-match placeholder="Oda no giriniz">{{$select.selected.name}}</ui-select-match>
-                                    <ui-select-choices repeat="person in people | propsFilter: {name: $select.search, age: $select.search}">
-                                      <div ng-bind-html="person.name | highlight: $select.search"></div>
+                                    <ui-select-choices repeat="office in offices | propsFilter: {name: $select.search}">
+                                      <div ng-bind-html="office.name | highlight: $select.search"></div>
                                       <small>
-                                        email: {{person.email}}
-                                        age: <span ng-bind-html="''+person.age | highlight: $select.search"></span>
+                                        no: {{office.name}}
                                       </small>
                                     </ui-select-choices>
                                 </ui-select>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-md-2 control-label">Sıra No</label>
+                            <label class="col-md-2 control-label">Masa No</label>
                             <div class="col-md-10">
-                                <ui-select class="form-control" ng-model="person.selected" theme="select2" ng-disabled="disabled">
-                                    <ui-select-match placeholder="Sıra no giriniz">{{$select.selected.name}}</ui-select-match>
-                                    <ui-select-choices repeat="person in people | propsFilter: {name: $select.search, age: $select.search}">
-                                      <div ng-bind-html="person.name | highlight: $select.search"></div>
+                                <ui-select class="form-control" ng-model="desk.selected" theme="select2" ng-disabled="disabled">
+                                    <ui-select-match placeholder="Oda no giriniz">{{$select.selected.name}}</ui-select-match>
+                                    <ui-select-choices repeat="desk in desks | propsFilter: {name: $select.search}">
+                                      <div ng-bind-html="desk.name | highlight: $select.search"></div>
                                       <small>
-                                        email: {{person.email}}
-                                        age: <span ng-bind-html="''+person.age | highlight: $select.search"></span>
+                                        no: {{desk.name}}
                                       </small>
                                     </ui-select-choices>
                                 </ui-select>
@@ -96,28 +108,26 @@
                         <div class="form-group">
                             <label class="col-md-2 control-label">Görev</label>
                             <div class="col-md-10">
-                                <ui-select class="form-control" ng-model="person.selected" theme="select2" ng-disabled="disabled">
+                                <ui-select class="form-control" ng-model="task.selected" theme="select2" ng-disabled="disabled" required>
                                     <ui-select-match placeholder="Görev giriniz">{{$select.selected.name}}</ui-select-match>
-                                    <ui-select-choices repeat="person in people | propsFilter: {name: $select.search, age: $select.search}">
-                                      <div ng-bind-html="person.name | highlight: $select.search"></div>
+                                    <ui-select-choices repeat="task in tasks | propsFilter: {name: $select.search}">
+                                      <div ng-bind-html="task.name | highlight: $select.search"></div>
                                       <small>
-                                        email: {{person.email}}
-                                        age: <span ng-bind-html="''+person.age | highlight: $select.search"></span>
+                                        görev: {{task.name}}
                                       </small>
                                     </ui-select-choices>
                                 </ui-select>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-md-2 control-label">Sağlayıcı</label>
+                            <label class="col-md-2 control-label">Rol</label>
                             <div class="col-md-10">
-                                <ui-select class="form-control" ng-model="person.selected" theme="select2" ng-disabled="disabled">
+                                <ui-select class="form-control" ng-model="role.selected" theme="select2" ng-disabled="disabled" required>
                                     <ui-select-match placeholder="Sağlayıcı giriniz">{{$select.selected.name}}</ui-select-match>
-                                    <ui-select-choices repeat="person in people | propsFilter: {name: $select.search, age: $select.search}">
-                                      <div ng-bind-html="person.name | highlight: $select.search"></div>
+                                    <ui-select-choices repeat="role in roles | propsFilter: {name: $select.search}">
+                                      <div ng-bind-html="role.name | highlight: $select.search"></div>
                                       <small>
-                                        email: {{person.email}}
-                                        age: <span ng-bind-html="''+person.age | highlight: $select.search"></span>
+                                        görev: {{role.name}}
                                       </small>
                                     </ui-select-choices>
                                 </ui-select>
@@ -128,25 +138,30 @@
                 </div>
 
                 <div class="col-md-3">
-                    <form class="form-horizontal" role="form">
+                    <form class="form-horizontal" role="form" method="post" id="myForm" enctype="multipart/form-data">
                         <div class="form-group">
-                            <img src="http://placehold.it/400x400" alt="" class="img-responsive">
+                            <img  id="img" src="http://placehold.it/400x400" alt="" class="img-responsive">
                         </div>
                         <div class="form-group">
                             <label class="col-md-4 control-label">Resim Yükle</label>
                             <div class="col-md-8">
-                                <div class="fileupload btn btn-block btn-default waves-effect waves-light">
-                                    <span><i class="ion-upload m-r-5"></i>Resim Seç</span>
-                                    <input type="file" class="upload">
-                                </div>
+                                    <input type="button" value="Fotograf Seç" class="btn btn-success" ng-click="resimSec($event)">
+                                     <input id="resim" type="file" name="mediaList" style="display:none;">
+                                
                             </div>
                         </div>
-                        
-
                     </form>
                 </div>
 
 
+            </div>
+            
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="pull-right">
+                        <button class="btn btn-default" style="border-radius :0px" ng-click="save()" ng-disabled="form.$invalid">Kaydet</button>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -156,52 +171,53 @@
         <div class="card-box">
             <h4 class="m-t-0 header-title"><b>Kullanıcı Tanımı Listele</b></h4>
             <p class="text-muted m-b-30 font-13">
-                İçeriğin üstüne tıklayıp düzenleme yapabilirsiniz.
             </p>
 
             <div class="table-responsive">
                 <table id="mainTable" class="table">
                     <thead style="background-color:#36404a">
-                        <tr>
-                            <th style="color:#fff;">E-mail</th>
-                            <th style="color:#fff;">Kullanıcı Adı</th>
-                            <th style="color:#fff;">Telefon</th>
+                        <tr >
+                            <th style="color:#fff;" >E-mail</th>
+                            <th style="color:#fff;" >Kullanıcı Adı</th>
+                            <th style="color:#fff;" >Adı Soyadı</th>
+                            <th style="color:#fff;" >Telefon</th>
                             <th style="color:#fff;">Aktif</th>
                             <th style="color:#fff;">Son Giriş</th>
                             <th style="color:#fff;">Oluşturma Zamanı</th>
                             <th style="color:#fff;">Oluşturan</th>
                             <th style="color:#fff;">Kat No</th>
                             <th style="color:#fff;">Oda No</th>
+                            <th style="color:#fff;">Masa No</th>
                             <th style="color:#fff;">Sıra No</th>
                             <th style="color:#fff;">Rol</th>
                             <th style="color:#fff;">Görev</th>
-                            <th style="color:#fff;">Sağlayıcı</th>
                             <th style="width:90px; color:#fff;">İşlem</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>sinan@gmail.com</td>
-                            <td>Sinan</td>
-                            <td>0544 215 15 42</td>
+                        <tr ng-repeat="user in accounts track by $index">
+                            <td ng-bind="user.email"></td>
+                            <td ng-bind="user.username"></td>
+                            <td ng-bind="user.name"></td>
+                            <td ng-bind="user.phone_number"></td>
                             <td>
                                 <div class="checkbox checkbox-success" style="margin:0">
-                                    <input id="checkbox3" type="checkbox" checked>
-                                    <label for="checkbox3"></label>
+                                    <input id="checkbox7" type="checkbox" ng-checked="user.is_active">
+                                    <label for="checkbox7"></label>
                                 </div>
                             </td>
-                            <td>12:08</td>
-                            <td>10:58</td>
-                            <td>Sinan BORA</td>
-                            <td>1</td>
-                            <td>1</td>
-                            <td>1</td>
-                            <td>Kantin</td>
-                            <td>Çaycı</td>
-                            <td>Çay</td>
+                            <td ng-bind="user.last_login"></td>
+                            <td ng-bind="user.created_time"></td>
+                            <td ng-bind="user.created_by"></td>
+                            <td ng-bind="user.floor_name"></td>
+                            <td ng-bind="user.room_name"></td>
+                            <td ng-bind="user.desk_name"></td>
+                            <td ng-bind="user.account_order"></td>
+                            <td ng-bind="user.role_name"></td>
+                            <td ng-bind="user.task_name"></td>
                             <td>
-                                <button class="btn btn-sm btn-danger" data-placement="top" data-toggle="tooltip" data-original-title="Sil"><i class="glyphicon glyphicon-trash"></i></button>
-                                <button class="btn btn-sm btn-default" data-placement="top" data-toggle="tooltip" data-original-title="Kaydet"><i class="glyphicon glyphicon-ok"></i></button>
+                                <button class="btn btn-sm btn-danger" data-placement="top" data-toggle="tooltip" data-original-title="Sil" ng-click="delete(user._id,$index)"><i class="glyphicon glyphicon-trash"></i></button>
+                                <button class="btn btn-sm btn-default" data-placement="top" data-toggle="tooltip" data-original-title="Kaydet" ng-click="edit(user._id,$index)"><i class="glyphicon glyphicon-ok"></i></button>
                             </td>
                         </tr>
                     </tbody>

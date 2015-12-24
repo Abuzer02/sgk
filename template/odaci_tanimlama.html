@@ -4,42 +4,50 @@
         <div class="card-box">
             <h4 class="m-t-0 header-title"><b>Odacı Tanımı</b></h4>
             <p class="text-muted m-b-30 font-13">
-                Most common form control, text-based input fields. Includes support for all HTML5 types
             </p>
             <div class="row">
                 <div class="col-md-6">
                     <form class="form-horizontal" role="form">
                         <div class="form-group">
-                            <label class="col-md-2 control-label">Kullanıcı</label>
+                            <label class="col-md-2 control-label">Kat Seçiniz</label>
                             <div class="col-md-10">
-                                <ui-select class="form-control" ng-model="person.selected" theme="select2" ng-disabled="disabled">
-                                    <ui-select-match placeholder="Kullanıcı seçiniz">{{$select.selected.name}}</ui-select-match>
-                                    <ui-select-choices repeat="person in people | propsFilter: {name: $select.search, age: $select.search}">
-                                      <div ng-bind-html="person.name | highlight: $select.search"></div>
+                                <ui-select class="form-control" ng-model="floor.selected" theme="select2" ng-disabled="disabled">
+                                    <ui-select-match placeholder="Kat seçiniz">{{$select.selected.name}}</ui-select-match>
+                                    <ui-select-choices repeat="floor in floors | propsFilter: {name: $select.search}">
+                                      <div ng-bind-html="floor.name | highlight: $select.search"></div>
                                       <small>
-                                        email: {{person.email}}
-                                        age: <span ng-bind-html="''+person.age | highlight: $select.search"></span>
+                                        kat: {{floor.name}}
                                       </small>
                                     </ui-select-choices>
                                 </ui-select>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-md-2 control-label">Kat</label>
+                            <label class="col-md-2 control-label">Kullanıcı Seçiniz</label>
                             <div class="col-md-10">
-                                <ui-select class="form-control" ng-model="person.selected" theme="select2" ng-disabled="disabled">
-                                    <ui-select-match placeholder="Kat seçiniz">{{$select.selected.name}}</ui-select-match>
-                                    <ui-select-choices repeat="person in people | propsFilter: {name: $select.search, age: $select.search}">
-                                      <div ng-bind-html="person.name | highlight: $select.search"></div>
+                                <ui-select class="form-control" ng-model="user.selected" theme="select2" ng-disabled="disabled">
+                                    <ui-select-match placeholder="Kullanıcı seçiniz">{{$select.selected.name}}</ui-select-match>
+                                    <ui-select-choices repeat="user in users | propsFilter: {name: $select.search}">
+                                      <div ng-bind-html="user.name | highlight: $select.search"></div>
                                       <small>
-                                        email: {{person.email}}
-                                        age: <span ng-bind-html="''+person.age | highlight: $select.search"></span>
+                                        Kullanıcı: {{user.role_name}}
                                       </small>
                                     </ui-select-choices>
                                 </ui-select>
                             </div>
                         </div>
-
+                         <div class="form-group">
+                            <label class="col-md-2 control-label">Odacı Tanımı</label>
+                            <div class="col-md-10">
+                                <input type="text" class="form-control" placeholder="Odacı tanımı giriniz..." ng-model="obj.name">
+                            </div>
+                        </div>
+                         <div class="form-group">
+                            <label class="col-md-2 control-label">Sıra</label>
+                            <div class="col-md-10">
+                                <input type="number" class="form-control" placeholder="Sıra giriniz..." ng-model="obj.crew_order">
+                            </div>
+                        </div>
                     </form>
                 </div>
                 
@@ -50,7 +58,7 @@
                         <div class="form-group">
                             <label class="col-md-2 control-label">Düzenleyen</label>
                             <div class="col-md-10">
-                                <input type="text" class="form-control" readonly="" value="Ahmet Şık">
+                                <input type="text" class="form-control" readonly="" ng-model="obj.updated_by">
                             </div>
                         </div>
 
@@ -62,7 +70,7 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="pull-right">
-                        <button class="btn btn-default" style="border-radius :0px">Kaydet</button>
+                        <button class="btn btn-default" style="border-radius :0px" ng-click="save()">Kaydet</button>
                     </div>
                 </div>
             </div>
@@ -74,7 +82,6 @@
         <div class="card-box">
             <h4 class="m-t-0 header-title"><b>Odacı Tanımı Listele</b></h4>
             <p class="text-muted m-b-30 font-13">
-                İçeriğin üstüne tıklayıp düzenleme yapabilirsiniz.
             </p>
 
             <div class="table-responsive">
@@ -83,27 +90,22 @@
                         <tr>
                             <th style="color:#fff;">Kullanıcı</th>
                             <th style="color:#fff;">Kat</th>
+                            <th style="color:#fff;">Odacı Tanımı</th>
+                            <th style="color:#fff;">Sıra</th>
                             <th style="color:#fff;">Düzenleyen</th>
                             <th style="width:90px; color:#fff;">İşlem</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>Çaycı</td>
-                            <td>1</td>
-                            <td>Ahmet Şık</td>
+                        <tr ng-repeat="item in list track by $index">
+                            <td ng-bind="item.crew_id"></td>
+                            <td ng-bind="item.floor_id"></td>
+                            <td ng-bind="item.name"></td>
+                            <td ng-bind="item.crew_order"></td>
+                            <td ng-bind="item.updated_by"></td>
                             <td>
-                                <button class="btn btn-sm btn-danger" data-placement="top" data-toggle="tooltip" data-original-title="Sil"><i class="glyphicon glyphicon-trash"></i></button>
-                                <button class="btn btn-sm btn-default" data-placement="top" data-toggle="tooltip" data-original-title="Kaydet"><i class="glyphicon glyphicon-ok"></i></button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Çaycı</td>
-                            <td>1</td>
-                            <td>Ahmet Şık</td>
-                            <td>
-                                <button class="btn btn-sm btn-danger" data-placement="top" data-toggle="tooltip" data-original-title="Sil"><i class="glyphicon glyphicon-trash"></i></button>
-                                <button class="btn btn-sm btn-default" data-placement="top" data-toggle="tooltip" data-original-title="Kaydet"><i class="glyphicon glyphicon-ok"></i></button>
+                                <button class="btn btn-sm btn-danger" data-placement="top" data-toggle="tooltip" data-original-title="Sil" ng-click="delete(item._id,$index)"><i class="glyphicon glyphicon-trash"></i></button>
+                                <button class="btn btn-sm btn-default" data-placement="top" data-toggle="tooltip" data-original-title="Kaydet" ng-click="edit(item._id,$index)"><i class="glyphicon glyphicon-ok"></i></button>
                             </td>
                         </tr>
                     </tbody>

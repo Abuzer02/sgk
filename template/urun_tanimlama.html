@@ -2,48 +2,74 @@
 <div class="row">
     <div class="col-sm-12">
         <div class="card-box">
-            <h4 class="m-t-0 header-title"><b>Ürün Tanımı</b></h4>
+            <h4 class="m-t-0 header-title"><b>Kullanıcı Tanımı</b></h4>
             <p class="text-muted m-b-30 font-13">
-                Most common form control, text-based input fields. Includes support for all HTML5 types
             </p>
             <div class="row">
-                <div class="col-md-6">
-                    <form class="form-horizontal" role="form">
+                <div class="col-md-9">
+                    <form class="form-horizontal" role="form" name="form">
                         <div class="form-group">
-                            <label class="col-md-2 control-label">Ad</label>
+                            <label class="col-md-2 control-label">Kantin Seçiniz</label>
                             <div class="col-md-10">
-                                <input type="text" class="form-control" placeholder="Rol giriniz...">
+                                <ui-select class="form-control" ng-model="canteen.selected" theme="select2" ng-disabled="disabled">
+                                    <ui-select-match  placeholder="Kantin seçiniz">{{$select.selected.name}}</ui-select-match>
+                                    <ui-select-choices repeat="canteen in canteens | propsFilter: {name: $select.search}">
+                                      <div ng-bind-html="canteen.name | highlight: $select.search"></div>
+                                      <small>
+                                        kat adı: {{canteen.name}}
+                                      </small>
+                                    </ui-select-choices>
+                                </ui-select>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-md-2 control-label">Miktar</label>
+                            <label class="col-md-2 control-label">Ürün Adı</label>
                             <div class="col-md-10">
-                                <input type="number" class="form-control" placeholder="Sıra giriniz...">
+                               <input type="text"  ng-model="obj.name" placeholder="ürün adi giriniz" class="form-control">
                             </div>
                         </div>
-
+                        <div class="form-group">
+                            <label class="col-md-2 control-label">Ürün Fiyatı</label>
+                            <div class="col-md-10">
+                                <input type="text" class="form-control" placeholder="ürün fiyatı giriniz..." ng-model="obj.price">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-2 control-label">Sıra</label>
+                            <div class="col-md-10">
+                                <input type="text" class="form-control" placeholder="gösterimdeki sırayı giriniz..." ng-model="obj.product_order">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-2 control-label">Ekleyen</label>
+                            <div class="col-md-10">
+                                <input type="text" class="form-control" readonly="" ng-model="obj.updated_by">
+                            </div>
+                        </div>
                     </form>
                 </div>
-
-                <div class="col-md-6">
-                    <form class="form-horizontal" role="form">
-
+                <div class="col-md-3">
+                    <form class="form-horizontal" role="form" method="post" id="myForm" enctype="multipart/form-data">
                         <div class="form-group">
-                            <label class="col-md-2 control-label">Düzenleyen</label>
-                            <div class="col-md-10">
-                                <input type="text" class="form-control" readonly="" value="Ahmet Şık">
+                            <img  id="img" src="http://placehold.it/400x400" alt="" class="img-responsive">
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-4 control-label">Resim Yükle</label>
+                            <div class="col-md-8">
+                                    <input type="button" value="Fotograf Seç" class="btn btn-success" ng-click="resimSec($event)">
+                                     <input id="resim" type="file" name="mediaList" style="display:none;">
+                                
                             </div>
                         </div>
-
                     </form>
                 </div>
-
 
             </div>
+            
             <div class="row">
                 <div class="col-md-12">
                     <div class="pull-right">
-                        <button class="btn btn-default" style="border-radius :0px">Kaydet</button>
+                        <button class="btn btn-default" style="border-radius :0px" ng-click="save()">Kaydet</button>
                     </div>
                 </div>
             </div>
@@ -53,38 +79,32 @@
 <div class="row">
     <div class="col-sm-12">
         <div class="card-box">
-            <h4 class="m-t-0 header-title"><b>Ürün Tanımı Listele</b></h4>
+            <h4 class="m-t-0 header-title"><b>Kullanıcı Tanımı Listele</b></h4>
             <p class="text-muted m-b-30 font-13">
-                İçeriğin üstüne tıklayıp düzenleme yapabilirsiniz.
             </p>
 
             <div class="table-responsive">
                 <table id="mainTable" class="table">
                     <thead style="background-color:#36404a">
-                        <tr>
-                            <th style="color:#fff;">Ad</th>
-                            <th style="color:#fff;">Miktar</th>
-                            <th style="color:#fff;">Düzenleyen</th>
+                        <tr >
+                            <th style="color:#fff;" >Kantin</th>
+                            <th style="color:#fff;" >ürün adi</th>
+                            <th style="color:#fff;" >ürün fiyatı</th>
+                            <th style="color:#fff;" >sıra</th>
+                            <th style="color:#fff;">ekleyen</th>
                             <th style="width:90px; color:#fff;">İşlem</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>Çaycı</td>
-                            <td>1</td>
-                            <td>Ahmet Şık</td>
+                        <tr ng-repeat="product in list track by $index">
+                            <td ng-bind="product.canteen_id"></td>
+                            <td ng-bind="product.name"></td>
+                            <td ng-bind="product.price"></td>
+                            <td ng-bind="product.product_order"></td>
+                            <td ng-bind="product.updated_by"></td>
                             <td>
-                                <button class="btn btn-sm btn-danger" data-placement="top" data-toggle="tooltip" data-original-title="Sil"><i class="glyphicon glyphicon-trash"></i></button>
-                                <button class="btn btn-sm btn-default" data-placement="top" data-toggle="tooltip" data-original-title="Kaydet"><i class="glyphicon glyphicon-ok"></i></button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Çaycı</td>
-                            <td>1</td>
-                            <td>Ahmet Şık</td>
-                            <td>
-                                <button class="btn btn-sm btn-danger" data-placement="top" data-toggle="tooltip" data-original-title="Sil"><i class="glyphicon glyphicon-trash"></i></button>
-                                <button class="btn btn-sm btn-default" data-placement="top" data-toggle="tooltip" data-original-title="Kaydet"><i class="glyphicon glyphicon-ok"></i></button>
+                                <button class="btn btn-sm btn-danger" data-placement="top" data-toggle="tooltip" data-original-title="Sil" ng-click="delete(product._id,$index)"><i class="glyphicon glyphicon-trash"></i></button>
+                                <button class="btn btn-sm btn-default" data-placement="top" data-toggle="tooltip" data-original-title="Kaydet" ng-click="edit(product._id,$index)"><i class="glyphicon glyphicon-ok"></i></button>
                             </td>
                         </tr>
                     </tbody>

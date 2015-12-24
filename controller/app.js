@@ -25,7 +25,7 @@ mavikentApp.run(function($rootScope, $location, $http,$localStorage) {
 mavikentApp.config(function ($stateProvider, $urlRouterProvider, $authProvider){
   // Satellizer configuration that specifies which API
   // route the JWT should be retrieved from
-  $authProvider.baseUrl = 'http://192.168.1.22:3000';
+  $authProvider.baseUrl = host;
   $authProvider.loginUrl = '/auth/signin';
 
   // Redirect to the auth state if any other states
@@ -71,25 +71,33 @@ mavikentApp.config(function ($stateProvider, $urlRouterProvider, $authProvider){
   })
   .state('menu.urun_tanimlama', {
       url : 'urun_tanimlama',
-      templateUrl: 'template/urun_tanimlama.html'
+      templateUrl: 'template/urun_tanimlama.html',
+      controller:"ProductCtrl"
   })
   .state('menu.guvenlik_tanimlama', {
       url : 'guvenlik_tanimlama',
-      templateUrl: 'template/guvenlik_tanimlama.html'
+      templateUrl: 'template/guvenlik_tanimlama.html',
+      controller : "SecurityCtrl"
+  })
+  .state('menu.kantin_tanimi', {
+      url : 'kantin_tanimi',
+      templateUrl: 'template/kantin_tanimi.html',
+      controller : "CanteenCtrl"
   })
   .state('menu.odaci_tanimlama', {
       url : 'odaci_tanimlama',
-      templateUrl: 'template/odaci_tanimlama.html'
-  })
-  .state('menu.cay_ocagi_tanimlama', {
-      url : 'cay_ocagi_tanimlama',
-      templateUrl: 'template/cay_ocagi_tanimlama.html',
-      controller:'teacenterController'
+      templateUrl: 'template/odaci_tanimlama.html',
+      controller: "CrewCtrl"
   })
   .state('menu.ofis_tanimi', {
       url : 'ofis_tanimi',
       templateUrl: 'template/ofis_tanimi.html',
       controller:'OfficeCtrl'
+  })
+  .state('menu.masa_tanimi', {
+      url : 'masa_tanimi',
+      templateUrl: 'template/masa_tanimi.html',
+      controller:'DeskCtrl'
   })
   .state('logout', {
       url : 'logout',
@@ -170,3 +178,47 @@ mavikentApp.filter('getById', function() {
   }
 });
 
+mavikentApp.filter('getByName', function() {
+  return function(input, name) {
+    var i=0, len=input.length;
+    for (; i<len; i++) {
+      if (input[i].name == name) {
+        return input[i];
+      }
+    }
+    return null;
+  }
+});
+
+
+mavikentApp.directive("passwordVerify", function() {
+   return {
+      require: "ngModel",
+      scope: {
+        passwordVerify: '='
+      },
+      link: function(scope, element, attrs, ctrl) {
+        scope.$watch(function() {
+            var combined;
+
+            if (scope.passwordVerify || ctrl.$viewValue) {
+               combined = scope.passwordVerify + '_' + ctrl.$viewValue; 
+            }                    
+            return combined;
+        }, function(value) {
+            if (value) {
+                ctrl.$parsers.unshift(function(viewValue) {
+                    var origin = scope.passwordVerify;
+                    if (origin !== viewValue) {
+                        ctrl.$setValidity("passwordVerify", false);
+                        return undefined;
+                    } else {
+                        ctrl.$setValidity("passwordVerify", true);
+                        return viewValue;
+                    }
+                });
+            }
+        });
+     }
+   };
+});

@@ -1,0 +1,21 @@
+{
+   "_id":"56714fb40b58c1c4144ff660",
+   "password":"$2a$08$Fe1ioqIb8q/rdTH.OnV8Aue7ETbqpPaLys15tU/bKkBx8CyrRG9MG",
+   "email":"asd@asd.com",
+   "created_by":"super admin",
+   "__v":0,
+   "name":"Yusuf Hasbek",
+   "provider":"SGK-IZMIR",
+   "task":"other",
+   "role":"admin",
+   "desk_no":1,
+   "room_no":1,
+   "floor_no":1,
+   "updated_by":"super admin",
+   "created_time":"2015-12-16T11:49:08.001Z",
+   "last_login":"2015-12-16T11:49:07.999Z",
+   "is_active":true,
+   "phone_number":"+90 *** *** ** **",
+   "profile_picture":"/images/default_profile_picture.png",
+   "username":"yusufHasbek"
+}
