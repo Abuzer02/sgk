@@ -53,7 +53,7 @@ function UserController ($scope ,$http,$rootScope,$filter) {
             desk_id:"",
             task_id:"",
             role_id:"",
-            created_by:updatedBy
+            updated_by:updatedBy
         }
         $("#img").attr("src","http://placehold.it/400x400");
     }
@@ -92,9 +92,9 @@ function UserController ($scope ,$http,$rootScope,$filter) {
         console.error(JSON.stringify(err));
     });
     
-    $http.get(host+"/api/account/detail?token="+token).success(function(resp){
+    $http.get(host+"/api/account?token="+token).success(function(resp){
         $scope.accounts=resp.data;
-        console.log(JSON.stringify(resp));
+       // console.log(JSON.stringify(resp));
     }).error(function(err){
         console.error(JSON.stringify(err));
     });
@@ -106,14 +106,12 @@ function UserController ($scope ,$http,$rootScope,$filter) {
         $scope.obj.desk_id = $scope.desk.selected._id
         $scope.obj.role_id = $scope.role.selected._id
         $scope.obj.task_id = $scope.task.selected._id
-        console.log(JSON.stringify($scope.obj));
         if($scope.IsEdit){
             $http.put(host+"/api/account?token="+token,$scope.obj).success(function(resp){
                 if(!resp.status){
                     console.log("status : "+JSON.stringify(resp));
                     return;
                 }
-                console.log(JSON.stringify(resp));
                 $scope.IsEdit=false;
                 $scope.accounts[$scope.listIndex]=resp.data;
                 initialize();
@@ -126,7 +124,6 @@ function UserController ($scope ,$http,$rootScope,$filter) {
                     console.log("status : "+JSON.stringify(resp));
                     return;
                 }
-                console.log(JSON.stringify(resp));
                 $scope.accounts.push(resp.data);
                  initialize();
             }).error(function(err){
@@ -150,7 +147,6 @@ function UserController ($scope ,$http,$rootScope,$filter) {
         $scope.IsEdit=true;
         $scope.listIndex=index;
         $scope.editId=id;
-        console.log(id);
         $scope.obj={
            _id:id,
             email:$scope.accounts[index].email,
@@ -162,11 +158,11 @@ function UserController ($scope ,$http,$rootScope,$filter) {
             updated_by:updatedBy
         }
         $("#img").attr("src",$scope.accounts[index].profile_picture);
-        $scope.office={selected:$filter('getById')($scope.offices, $scope.accounts[index].room_id)}
-        $scope.floor={selected:$filter('getById')($scope.floors, $scope.accounts[index].floor_id)}
-        $scope.desk={selected:$filter('getById')($scope.desks, $scope.accounts[index].desk_id)}
-        $scope.role={selected:$filter('getById')($scope.roles, $scope.accounts[index].role_id)}
-        $scope.task={selected:$filter('getById')($scope.tasks, $scope.accounts[index].task_id)}
+        $scope.office={selected:$filter('getById')($scope.offices, $scope.accounts[index].room_id._id)}
+        $scope.floor={selected:$filter('getById')($scope.floors, $scope.accounts[index].floor_id._id)}
+        $scope.desk={selected:$filter('getById')($scope.desks, $scope.accounts[index].desk_id._id)}
+        $scope.role={selected:$filter('getById')($scope.roles, $scope.accounts[index].role_id._id)}
+        $scope.task={selected:$filter('getById')($scope.tasks, $scope.accounts[index].task_id._id)}
         //console.log(JSON.stringify( $scope.accounts[index].task_id));
     }
 }

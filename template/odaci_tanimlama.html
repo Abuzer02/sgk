@@ -98,8 +98,8 @@
                     </thead>
                     <tbody>
                         <tr ng-repeat="item in list track by $index">
-                            <td ng-bind="item.crew_id"></td>
-                            <td ng-bind="item.floor_id"></td>
+                            <td ng-bind="item.crew_id.name"></td>
+                            <td ng-bind="item.floor_id.name"></td>
                             <td ng-bind="item.name"></td>
                             <td ng-bind="item.crew_order"></td>
                             <td ng-bind="item.updated_by"></td>

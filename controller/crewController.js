@@ -101,8 +101,8 @@ mavikentApp.controller("CrewCtrl",function($scope,$state,$http,$localStorage,$ro
         $scope.obj.crew_order=$scope.list[index].crew_order;
         $scope.obj.updated_by=$rootScope.mkb.current_user.name;
         $scope.obj._id=id;
-        $scope.floor={selected:$filter('getById')($scope.floors, $scope.obj.floor_id)}
-        $scope.user={selected:$filter('getById')($scope.users, $scope.obj.crew_id)}
+        $scope.floor={selected:$filter('getById')($scope.floors, $scope.obj.floor_id._id)}
+        $scope.user={selected:$filter('getById')($scope.users, $scope.obj.crew_id._id)}
        
     }
 });

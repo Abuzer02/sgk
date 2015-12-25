@@ -75,6 +75,7 @@
                 <table id="mainTable" class="table">
                     <thead style="background-color:#36404a">
                         <tr>
+                            <th style="color:#fff;">Ofis</th>
                             <th style="color:#fff;">Masa</th>
                             <th style="color:#fff;">Sıra</th>
                             <th style="color:#fff;">Düzenleyen</th>
@@ -83,6 +84,7 @@
                     </thead>
                     <tbody>
                         <tr ng-repeat="item in list track by $index">
+                            <td ng-bind="item.room_id.name"></td>
                             <td ng-bind="item.name"></td>
                             <td ng-bind="item.desk_order"></td>
                             <td ng-bind="item.updated_by"></td>

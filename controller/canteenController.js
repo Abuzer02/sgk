@@ -57,6 +57,7 @@ mavikentApp.controller("CanteenCtrl",function($scope,$state,$http,$localStorage,
                     return;
                 }
                 $scope.IsEdit=false;
+                console.log(JSON.stringify(resp.data));
                 $scope.list[$scope.listIndex]=resp.data;
                 initiliaze();
                 $scope.office={selected : ""};
@@ -101,8 +102,8 @@ mavikentApp.controller("CanteenCtrl",function($scope,$state,$http,$localStorage,
         $scope.obj.canteen_order=$scope.list[index].canteen_order;
         $scope.obj.updated_by=$rootScope.mkb.current_user.name;
         $scope.obj._id=id;
-        $scope.floor={selected:$filter('getById')($scope.floors, $scope.obj.floor_id)}
-        $scope.user={selected:$filter('getById')($scope.users, $scope.obj.canteen_boy_id)}
+        $scope.floor={selected:$filter('getById')($scope.floors, $scope.obj.floor_id._id)}
+        $scope.user={selected:$filter('getById')($scope.users, $scope.obj.canteen_boy_id._id)}
        
     }
 });

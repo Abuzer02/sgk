@@ -62,7 +62,7 @@ mavikentApp.controller("ProductCtrl",function($scope,$state,$http,$localStorage,
     //add function
     $scope.save=function(){
         $scope.obj.picture=$("#img").attr("src");
-        $scope.obj.canteen_id=$scope.canteen.selected._id;
+        $scope.obj.canteen_id=$scope.canteen.selected._id; 
         if($scope.IsEdit){
             $http.put(host+"/api/product?token="+token,$scope.obj).success(function(resp){
                 if(!resp.status){
@@ -70,6 +70,7 @@ mavikentApp.controller("ProductCtrl",function($scope,$state,$http,$localStorage,
                     return;
                 }
                 $scope.IsEdit=false;
+                console.log(JSON.stringify(resp.data));
                 $scope.list[$scope.listIndex]=resp.data;
                 initiliaze();
                 $scope.office={selected : ""};
@@ -105,7 +106,7 @@ mavikentApp.controller("ProductCtrl",function($scope,$state,$http,$localStorage,
     //edit function
     
     $scope.edit=function(id,index){
-        
+        console.log(id);
         $("#img").attr("src",$scope.list[index].picture);
         $scope.IsEdit=true;
         $scope.listIndex=index;
@@ -116,7 +117,7 @@ mavikentApp.controller("ProductCtrl",function($scope,$state,$http,$localStorage,
         $scope.obj.price=$scope.list[index].price;
         $scope.obj.updated_by=$rootScope.mkb.current_user.name;
         $scope.obj._id=id;
-        $scope.canteen={selected:$filter('getById')($scope.canteens, $scope.obj.canteen_id)}
+        $scope.canteen={selected:$filter('getById')($scope.canteens, $scope.list[index].canteen_id._id)}
        
     }
 });

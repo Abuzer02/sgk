@@ -51,6 +51,7 @@ mavikentApp.controller("OfficeCtrl",function($scope,$state,$http,$localStorage,$
                     console.error("state is false "+resp.code);
                     return;
                 }
+                //console.log(JSON.stringify(resp.data));
                 $scope.IsEdit=false;
                 $scope.list[$scope.listIndex]=resp.data;
                 $scope.obj={
@@ -109,6 +110,6 @@ mavikentApp.controller("OfficeCtrl",function($scope,$state,$http,$localStorage,$
         $scope.obj.office_order=$scope.list[index].office_order;
         $scope.obj.updated_by=$rootScope.mkb.current_user.name;
         $scope.obj._id=id;
-        $scope.floor={selected:$filter('getById')($scope.floors, $scope.obj.floor_id)}
+        $scope.floor={selected:$filter('getById')($scope.floors, $scope.obj.floor_id._id)}
     }
 });
