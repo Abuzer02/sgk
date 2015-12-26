@@ -16,8 +16,7 @@
                                     <ui-select-choices repeat="office in offices | propsFilter: {name: $select.search, id: $select.search}">
                                       <div ng-bind-html="office.name | highlight: $select.search"></div>
                                       <small>
-                                        Ofis Adı: {{office.name}}
-                                        
+                                        Kat : {{office.floor_id.name}}
                                       </small>
                                     </ui-select-choices>
                                 </ui-select>

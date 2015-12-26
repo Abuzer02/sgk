@@ -1,6 +1,6 @@
 var mavikentApp = angular.module('mavikentApp', ['ui.router','satellizer', 'ngStorage','ngSanitize', 'ui.select'])
 
-mavikentApp.run(function($rootScope, $location, $http,$localStorage) {
+mavikentApp.run(function($rootScope, $location,$state, $http,$localStorage) {
     $rootScope.mkb = {
         current_user : '',
         authenticated : false,
@@ -13,6 +13,7 @@ mavikentApp.run(function($rootScope, $location, $http,$localStorage) {
         token : $localStorage["token"]
     }
     }
+   
     $rootScope.$on('$locationChangeStart', function(event, toState, toParams, fromState, fromParams) {
         
         if(!$localStorage["user"] && !$localStorage["token"]){
@@ -20,6 +21,12 @@ mavikentApp.run(function($rootScope, $location, $http,$localStorage) {
              
         }
     });
+    if($rootScope.mkb.current_user){
+        if( $rootScope.mkb.current_user.role_id["name"]=="Admin"){
+         $state.go('menu2.anasayfa');
+        } 
+    }
+    
 })
 
 mavikentApp.config(function ($stateProvider, $urlRouterProvider, $authProvider){
@@ -37,6 +44,26 @@ mavikentApp.config(function ($stateProvider, $urlRouterProvider, $authProvider){
       url : '/login',
       templateUrl: 'template/login-v2.html',
       controller: 'authController as auth'
+  })
+  .state('menu2', {
+      url : '/',
+      abstract : true,
+      templateUrl: 'template/menu2.html',
+      controller:"Menu2Ctrl"
+  })
+  .state('menu2.anasayfa', {
+      url : 'anasayfa',
+      templateUrl: 'template/anasayfa.html'
+  })
+  .state('menu2.siparis', {
+      url : 'siparis',
+      templateUrl: 'template/siparis_ver.html',
+      controller:"OrderCtrl"
+  })
+  .state('menu2.odaci', {
+      url : 'odaci',
+      templateUrl: 'template/odaci.html',
+      controller:"OdaciCtrl"
   })
   .state('menu', {
       url : '/',

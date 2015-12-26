@@ -112,6 +112,7 @@ function UserController ($scope ,$http,$rootScope,$filter) {
                     console.log("status : "+JSON.stringify(resp));
                     return;
                 }
+                console.log(JSON.stringify(resp.data));
                 $scope.IsEdit=false;
                 $scope.accounts[$scope.listIndex]=resp.data;
                 initialize();
