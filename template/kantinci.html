@@ -46,7 +46,7 @@
                                                    <td ng-bind="item.order_date"></td>
                                                    <td ng-bind="key"></td>
                                                    <td><span class="a_seen"></span></td>
-                                                   <td class="text-center"><div class="checkbox checkbox-custom"><input id="checkbox11" type="checkbox" checked><label for="checkbox11"></label></div></td>
+                                                   <td class="text-center"><div class="checkbox checkbox-custom"><input id="checkbox11" type="checkbox" ng-model="item.isThere" ng-change="degCheck(item._id)" ><label for="checkbox11"></label></div></td>
                                                </tr>
                                            </tbody>
                                         </table>
