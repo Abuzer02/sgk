@@ -284,6 +284,7 @@ Slide Content
     color: #db9e34;
 }
 .msg-danger-text {
+    font-size: 18px;
     color: #c9302c;
 }
 .msg-primary-text {
@@ -345,27 +346,7 @@ Slide Content
 ***********************/
 
 .card-container {
-  perspective: 700;
-}
-
-.businesscard {
-  position: relative;
-  transition: all 0.9s ease-in;
-  transform-style: preserve-3d;
-}
-
-.businesscard:hover {
-  transform: rotateY(180deg);
-}
-
-.front, .back {
-  position: absolute;
-  backface-visibility: hidden;
-}
-
-
-.back {
-  transform: rotateY(180deg);
+  background-color:#303030;
 }
 
 
