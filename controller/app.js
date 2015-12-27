@@ -45,6 +45,11 @@ mavikentApp.config(function ($stateProvider, $urlRouterProvider, $authProvider){
       templateUrl: 'template/login-v2.html',
       controller: 'authController as auth'
   })
+  .state("guvenlik",{
+      url:"/guvenlik",
+      templateUrl:"template/guvenlik_kart.html",
+      controller:"SecurityCardCtrl"
+  })
   .state('menu2', {
       url : '/',
       abstract : true,

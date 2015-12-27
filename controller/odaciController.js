@@ -15,6 +15,8 @@ mavikentApp.controller("OdaciCtrl",function($scope,$http,$rootScope){
         console.error(JSON.stringify(err));
     })
     
+    //$http.post(host+"/api/crew")
+    
     $scope.save=function(){
         console.log(JSON.stringify($scope.obj));
         
