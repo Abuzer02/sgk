@@ -50,6 +50,11 @@ mavikentApp.config(function ($stateProvider, $urlRouterProvider, $authProvider){
       templateUrl:"template/guvenlik_kart.html",
       controller:"SecurityCardCtrl"
   })
+  .state("deneme",{
+      url:"/deneme",
+      templateUrl:"template/deneme.html",
+      controller:"SecurityCardCtrl"
+  })
   .state('menu2', {
       url : '/',
       abstract : true,
