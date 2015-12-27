@@ -1,37 +1,54 @@
 <section class="cd-section projects visible">
     <header>
+      
       <div class="cd-title">
-       <div class="row">
-           <div class="col-md-6">
-               <textarea name="" id="" cols="30" rows="10" class="form-control" ng-model="obj.description"></textarea>
+      
+      <div class="col-md-6 col-md-offset-3">
+            <div class="row">
+
+                <div class="col-md-12">
+                    <div class="widget-area no-padding blank">
+                        <div class="status-upload">
+                            <form>
+                                <textarea ng-model="obj.description" placeholder="What are you doing right now?" ></textarea>
+                                <button ng-click="save()" class="btn btn-default text-center btn-block" ><i class="fa fa-share"></i> Gönder</button>
+                            </form>
+                        </div><!-- Status Upload  -->
+                    </div><!-- Widget Area -->
+                </div>
+                
+
            </div>
-           <div class="col-md-3">
-               <button class="btn btn-info" ng-click="save()">ÇAĞIR</button>
+           <br>
+           <div class="row">
+               <div class="col-md-12">
+                    <table class="table" style="background-color:white">
+                       <thead>
+                          <tr>
+                          <th>#</th>
+                           <th>Açıklama</th>
+                           <th>Tarih</th>
+                           <th>Odacı</th>
+                           <th>Durum</th>
+                           </tr>
+                       </thead>
+                       <tbody>
+                           <tr ng-repeat="item in odaciIstekler track by $index">
+                               <td ng-bind="$index+1"></td>
+                               <td ng-bind="item.description"></td>
+                               <td ng-bind="item.service_date"></td>
+                               <td ng-bind="item.crew_id.name"></td>
+                               <td ng-show="item.isActive == true"><span class="a_seen"></span></td>
+                               <td ng-show="item.isActive == false"><span class="not_seen"></span></td>
+                           </tr>
+                       </tbody>
+                    </table>
+                </div>
            </div>
        </div>
        <br>
        <br>
-       <table class="table" style="background-color:white">
-           <thead>
-              <tr>
-              <th>#</th>
-               <th>Açıklama</th>
-               <th>Tarih</th>
-               <th>Odacı</th>
-               <th>Durum</th>
-               </tr>
-           </thead>
-           <tbody>
-               <tr ng-repeat="item in odaciIstekler track by $index">
-                   <td ng-bind="$index+1"></td>
-                   <td ng-bind="item.description"></td>
-                   <td ng-bind="item.service_date"></td>
-                   <td ng-bind="item.crew_id.name"></td>
-                   <td ng-show="item.isActive == true"><span class="a_seen"></span></td>
-                   <td ng-show="item.isActive == false"><span class="not_seen"></span></td>
-               </tr>
-           </tbody>
-       </table>
+       
         </div>
     </header>
 </section>

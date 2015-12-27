@@ -198,7 +198,7 @@ Navigation
   background-color: #d35657;
 }
 .cd-section.projects header {
-  background-color: #343943;
+  background-color: #f5f5f5;
 }
 .cd-section.contact header {
   background-color: #e4b162;
@@ -413,7 +413,7 @@ Navigation
   background-color: #d35657;
 }
 #cd-loading-bar.projects {
-  background-color: #343943;
+  background-color: #f5f5f5;
 }
 #cd-loading-bar.contact {
   background-color: #e4b162;

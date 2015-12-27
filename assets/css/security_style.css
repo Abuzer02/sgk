@@ -304,19 +304,19 @@ Slide Content
     text-shadow: 0 1px 0 rgba(255,255,255,.6);
 }
 .notification {
-  position: absolute;
-  top: -15px;
-  right: -15px;
-  padding: 3px 9px;
-  border: 2px solid #c45158;
-  border-radius: 100%;
-  background: -webkit-linear-gradient(top, #d9534f 100%, #d9534f 100%);
-  box-shadow: 0 1px 2px rgba(0, 0, 0, .5), 0 1px 4px rgba(0, 0, 0, .4), 0 0 1px rgba(0, 0, 0, .7) inset, 0 10px 0px rgba(255, 255, 255, .11) outset;
-  -webkit-background-clip: padding-box;
-  font: bold 16px/20px "Helvetica Neue", sans-serif;
-  color: white;
-  text-decoration: none;
-  text-shadow: 0 -1px 0 rgba(0, 0, 0, .6);
+    position: absolute;
+    top: -15px;
+    right: -15px;
+    padding: 3px 9px;
+    border: 2px solid #c45158;
+    border-radius: 100%;
+    background: -webkit-linear-gradient(top, #d9534f 100%, #d9534f 100%);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, .5), 0 1px 4px rgba(0, 0, 0, .4), 0 0 1px rgba(0, 0, 0, .7) inset, 0 10px 0px rgba(255, 255, 255, .11) outset;
+    -webkit-background-clip: padding-box;
+    font: bold 16px/20px "Helvetica Neue", sans-serif;
+    color: white;
+    text-decoration: none;
+    text-shadow: 0 -1px 0 rgba(0, 0, 0, .6);
 }
 .modal {
   text-align: center;
@@ -346,9 +346,50 @@ Slide Content
 ***********************/
 
 .card-container {
-  background-color:#303030;
+    background-color:#303030;
 }
 
+.widget-area {
+    background-color: #fff;
+    -webkit-box-shadow: 0 0 16px rgba(0, 0, 0, 0.05);
+    -moz-box-shadow: 0 0 16px rgba(0, 0, 0, 0.05);
+    -ms-box-shadow: 0 0 16px rgba(0, 0, 0, 0.05);
+    -o-box-shadow: 0 0 16px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 0 16px rgba(0, 0, 0, 0.05);
+    float: left;
+    margin-top: 30px;
+    padding: 25px 30px;
+    position: relative;
+    width: 100%;
+}
+.status-upload {
+    background: none repeat scroll 0 0 #f5f5f5;
+    float: left;
+    width: 100%;
+    -webkit-box-shadow: 0 0 16px rgba(0, 0, 0, 0.05);
+    -moz-box-shadow: 0 0 16px rgba(0, 0, 0, 0.05);
+    -ms-box-shadow: 0 0 16px rgba(0, 0, 0, 0.05);
+    -o-box-shadow: 0 0 16px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 0 16px rgba(0, 0, 0, 0.05);
+}
+.status-upload form {
+    float: left;
+    width: 100%;
+}
+.status-upload form textarea {
+    background: none repeat scroll 0 0 #fff;
+    border: medium none;
+    color: #131519;
+    float: left;
+    font-size: 14px;
+    height: 142px;
+    letter-spacing: 0.3px;
+    padding: 20px;
+    width: 100%;
+    resize:vertical;
+    outline:none;
+    border: 1px solid #F2F2F2;
+}
 
 
 
