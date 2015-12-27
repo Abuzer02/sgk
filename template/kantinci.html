@@ -1,0 +1,66 @@
+<div class="card-container" ng-repeat="(key, value) in list | groupBy: 'account_id.name'">
+      <div class="businesscard">
+           <div class="back">
+            <div class="cd-slideshow-wrapper">
+                <ol class="cd-slideshow">
+                    <li class="visible" id="slide-1">
+                        <div class="cd-slider-content">
+                            <div class="content-wrapper">
+                                <div class="container" >
+                                    <div class="row">
+                                        <div class="col-sm-6 col-sm-offset-3">
+
+                                            <div class="col-sm-12">
+                                                <div class="">
+                                                    <div class="row">
+                                                    <h2 class="text-center" ng-bind="value[0].desk_no"></h2
+                                                        
+                                                    ><h2 class="text-center" ng-bind="value[0].room_no"></h2>
+                                                </div>
+                                                <br>
+                                                <div class="row">
+                                                    <h2 class="text-center" ng-bind="key"></h2>
+                                                </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <br>
+                                    <br>
+                                    <div class="col-sm-10 col-sm-offset-1">
+                                        <table class="table table-bordered" style="background-color:white">
+                                           <thead>
+                                              <tr>
+                                                   <th>#</th>
+                                                   <th>Açıklama</th>
+                                                   <th>Tarih</th>
+                                                   <th>Odacı</th>
+                                                   <th>Durum</th>
+                                                   <th style="width:20px" class="text-center"><div style="margin-top:0; margin-bottom:0 " class="checkbox checkbox-custom"><input id="checkbox11" type="checkbox" checked><label for="checkbox11"></label></div></th>
+                                               </tr>
+                                           </thead>
+                                           <tbody>
+                                               <tr class="success" ng-repeat="item in value">
+                                                   <td ng-bind="$index+1"></td>
+                                                   <td ng-bind="item.product_name"></td>
+                                                   <td ng-bind="item.order_date"></td>
+                                                   <td ng-bind="key"></td>
+                                                   <td><span class="a_seen"></span></td>
+                                                   <td class="text-center"><div class="checkbox checkbox-custom"><input id="checkbox11" type="checkbox" checked><label for="checkbox11"></label></div></td>
+                                               </tr>
+                                           </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </li>
+
+                </ol> <!-- .cd-slideshow -->
+            </div> <!-- .cd-slideshow-wrapper -->
+            
+        </div>
+    </div>
+</div>
+        

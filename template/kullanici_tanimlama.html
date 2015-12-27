@@ -66,7 +66,7 @@
                         <div class="form-group">
                             <label class="col-md-2 control-label">Kat No</label>
                             <div class="col-md-10">
-                                <ui-select class="form-control" ng-model="floor.selected" theme="select2" ng-disabled="disabled" required>
+                                <ui-select class="form-control" ng-model="floor.selected" theme="select2" ng-disabled="disabled" ng-change="degKat()">
                                     <ui-select-match  placeholder="Kat no seçiniz">{{$select.selected.name}}</ui-select-match>
                                     <ui-select-choices repeat="floor in floors | propsFilter: {name: $select.search}">
                                       <div ng-bind-html="floor.name | highlight: $select.search"></div>
@@ -80,7 +80,7 @@
                         <div class="form-group">
                             <label class="col-md-2 control-label">Oda No</label>
                             <div class="col-md-10">
-                                <ui-select class="form-control" ng-model="office.selected" theme="select2" ng-disabled="disabled">
+                                <ui-select class="form-control" ng-model="office.selected" theme="select2" ng-disabled="disabled" ng-change="degOfis()">
                                     <ui-select-match placeholder="Oda no giriniz">{{$select.selected.name}}</ui-select-match>
                                     <ui-select-choices repeat="office in offices | propsFilter: {name: $select.search}">
                                       <div ng-bind-html="office.name | highlight: $select.search"></div>
@@ -106,28 +106,28 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-md-2 control-label">Görev</label>
+                            <label class="col-md-2 control-label">Rol</label>
                             <div class="col-md-10">
-                                <ui-select class="form-control" ng-model="task.selected" theme="select2" ng-disabled="disabled" required>
-                                    <ui-select-match placeholder="Görev giriniz">{{$select.selected.name}}</ui-select-match>
-                                    <ui-select-choices repeat="task in tasks | propsFilter: {name: $select.search}">
-                                      <div ng-bind-html="task.name | highlight: $select.search"></div>
+                                <ui-select class="form-control" ng-model="role.selected" theme="select2" ng-disabled="disabled" >
+                                    <ui-select-match placeholder="Sağlayıcı giriniz">{{$select.selected.name}}</ui-select-match>
+                                    <ui-select-choices repeat="role in roles | propsFilter: {name: $select.search}">
+                                      <div ng-bind-html="role.name | highlight: $select.search"></div>
                                       <small>
-                                        görev: {{task.name}}
+                                        görev: {{role.name}}
                                       </small>
                                     </ui-select-choices>
                                 </ui-select>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-md-2 control-label">Rol</label>
+                            <label class="col-md-2 control-label">Görev</label>
                             <div class="col-md-10">
-                                <ui-select class="form-control" ng-model="role.selected" theme="select2" ng-disabled="disabled" required>
-                                    <ui-select-match placeholder="Sağlayıcı giriniz">{{$select.selected.name}}</ui-select-match>
-                                    <ui-select-choices repeat="role in roles | propsFilter: {name: $select.search}">
-                                      <div ng-bind-html="role.name | highlight: $select.search"></div>
+                                <ui-select class="form-control" ng-model="task.selected" theme="select2" ng-disabled="disabled" >
+                                    <ui-select-match placeholder="Görev giriniz">{{$select.selected.name}}</ui-select-match>
+                                    <ui-select-choices repeat="task in tasks | propsFilter: {name: $select.search}">
+                                      <div ng-bind-html="task.name | highlight: $select.search"></div>
                                       <small>
-                                        görev: {{role.name}}
+                                        görev: {{task.name}}
                                       </small>
                                     </ui-select-choices>
                                 </ui-select>

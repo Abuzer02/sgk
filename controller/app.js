@@ -1,4 +1,4 @@
-var mavikentApp = angular.module('mavikentApp', ['ui.router','satellizer', 'ngStorage','ngSanitize', 'ui.select'])
+var mavikentApp = angular.module('mavikentApp', ['ui.router','satellizer', 'ngStorage','ngSanitize', 'ui.select',"angular.filter"])
 
 mavikentApp.run(function($rootScope, $location,$state, $http,$localStorage) {
     $rootScope.mkb = {
@@ -50,10 +50,10 @@ mavikentApp.config(function ($stateProvider, $urlRouterProvider, $authProvider){
       templateUrl:"template/guvenlik_kart.html",
       controller:"SecurityCardCtrl"
   })
-  .state("deneme",{
-      url:"/deneme",
-      templateUrl:"template/deneme.html",
-      controller:"SecurityCardCtrl"
+  .state("kantin",{
+      url:"/kantin",
+      templateUrl:"template/kantinci.html",
+      controller:"GetOrderCtrl"
   })
   .state('menu2', {
       url : '/',
@@ -135,6 +135,11 @@ mavikentApp.config(function ($stateProvider, $urlRouterProvider, $authProvider){
       url : 'masa_tanimi',
       templateUrl: 'template/masa_tanimi.html',
       controller:'DeskCtrl'
+  })
+  .state("menu.button",{
+      url:"button",
+      templateUrl:"template/button.html",
+      controller:"ButtonCtrl"
   })
   .state('logout', {
       url : 'logout',

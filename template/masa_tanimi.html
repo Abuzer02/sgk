@@ -9,14 +9,28 @@
                 <div class="col-md-6">
                     <form class="form-horizontal" role="form">
                            <div class="form-group">
+                            <label class="col-md-2 control-label">Kat No</label>
+                            <div class="col-md-10">
+                                <ui-select class="form-control" ng-model="floor.selected" theme="select2" ng-disabled="disabled" ng-change="degKat()">
+                                    <ui-select-match  placeholder="kat no seçiniz">{{$select.selected.name}}</ui-select-match>
+                                    <ui-select-choices repeat="floor in floors | propsFilter: {name: $select.search, id: $select.search}">
+                                      <div ng-bind-html="floor.name | highlight: $select.search"></div>
+                                      <small>
+                                        No : {{floor.name}}
+                                      </small>
+                                    </ui-select-choices>
+                                </ui-select>
+                            </div>
+                        </div>
+                           <div class="form-group">
                             <label class="col-md-2 control-label">Ofis No</label>
                             <div class="col-md-10">
-                                <ui-select class="form-control" ng-model="office.selected" theme="select2" ng-disabled="disabled" ng-change=deg()>
+                                <ui-select class="form-control" ng-model="office.selected" theme="select2" ng-disabled="disabled" ng-change="degOfis()">
                                     <ui-select-match  placeholder="ofis no seçiniz">{{$select.selected.name}}</ui-select-match>
                                     <ui-select-choices repeat="office in offices | propsFilter: {name: $select.search, id: $select.search}">
                                       <div ng-bind-html="office.name | highlight: $select.search"></div>
                                       <small>
-                                        Kat : {{office.floor_id.name}}
+                                        No : {{office.name}}
                                       </small>
                                     </ui-select-choices>
                                 </ui-select>
@@ -74,6 +88,7 @@
                 <table id="mainTable" class="table">
                     <thead style="background-color:#36404a">
                         <tr>
+                            <th style="color:#fff;">Kat</th>
                             <th style="color:#fff;">Ofis</th>
                             <th style="color:#fff;">Masa</th>
                             <th style="color:#fff;">Sıra</th>
@@ -83,6 +98,7 @@
                     </thead>
                     <tbody>
                         <tr ng-repeat="item in list track by $index">
+                            <td ng-bind="item.floor_id.name"></td>
                             <td ng-bind="item.room_id.name"></td>
                             <td ng-bind="item.name"></td>
                             <td ng-bind="item.desk_order"></td>

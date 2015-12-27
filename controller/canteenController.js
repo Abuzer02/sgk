@@ -37,7 +37,6 @@ mavikentApp.controller("CanteenCtrl",function($scope,$state,$http,$localStorage,
     }).error(function(err){
         console.error(JSON.stringify(err));
     });
-    
     $http.get(host+"/api/canteen?token="+token).success(function(resp){
          
         $scope.list=resp.data;

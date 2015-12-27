@@ -6,18 +6,22 @@ mavikentApp.controller("DeskCtrl",function($scope,$state,$http,$localStorage,$ro
     $scope.editId;
     $scope.list=[];
     $scope.offices=[];
+    $scope.floors=[];
     $scope.office={selected : ""};
+    $scope.floor={selected : ""};
     
     $scope.obj={
         name:"",
+        floor_id:"",
         room_id:"",
         desk_order:"",
         updated_by:$rootScope.mkb.current_user.name
     };
+    
     //list all office
-    $http.get(host+"/api/office?token="+token).success(function(resp){
+    $http.get(host+"/api/floor?token="+token).success(function(resp){
         if(resp.status==true){
-             $scope.offices=resp.data;
+             $scope.floors=resp.data;
            // console.log(JSON.stringify($scope.offices));
         }
         else{
@@ -27,8 +31,24 @@ mavikentApp.controller("DeskCtrl",function($scope,$state,$http,$localStorage,$ro
     }).error(function(err){
         console.error(JSON.stringify(err));
     });
+    $scope.degKat=function(){
+        console.log($scope.floor.selected._id);
+        $http.get(host+"/api/office/get_by_floor/"+$scope.floor.selected._id+"?token="+token).success(function(resp){
+            if(resp.status==true){
+                 $scope.offices=resp.data;
+               // console.log(JSON.stringify($scope.offices));
+            }
+            else{
+                console.error("state is false "+resp.state);
+            }
+
+        }).error(function(err){
+            console.error(JSON.stringify(err));
+        });
     
-      //list all ofis
+    }
+    //list all office
+    
     $http.get(host+"/api/desk?token="+token).success(function(resp){
         if(resp.status==true){
             $scope.list=resp.data;
@@ -45,6 +65,7 @@ mavikentApp.controller("DeskCtrl",function($scope,$state,$http,$localStorage,$ro
     //add function
     $scope.save=function(){
         $scope.obj.room_id=$scope.office.selected._id;
+        $scope.obj.floor_id=$scope.floor.selected._id;
         if($scope.IsEdit){
             console.log("here 1");
             $http.put(host+"/api/desk?token="+token,$scope.obj).success(function(resp){

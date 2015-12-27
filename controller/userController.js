@@ -65,19 +65,22 @@ function UserController ($scope ,$http,$rootScope,$filter) {
         console.error(JSON.stringify(err));
     });
     
+    $scope.degKat=function(){
+         $http.get(host+"/api/office/get_by_floor/"+$scope.floor.selected._id+"?token="+token).success(function(resp){
+                $scope.offices=resp.data;
+            }).error(function(err){
+                console.error(JSON.stringify(err));
+            });
+    }
+   
+    $scope.degOfis=function(){
+      $http.get(host+"/api/desk/get_by_office/"+$scope.office.selected._id+"?token="+token).success(function(resp){
+            $scope.desks=resp.data;
+        }).error(function(err){
+            console.error(JSON.stringify(err));
+        });
     
-    $http.get(host+"/api/office?token="+token).success(function(resp){
-        $scope.offices=resp.data;
-    }).error(function(err){
-        console.error(JSON.stringify(err));
-    });
-    
-     $http.get(host+"/api/desk?token="+token).success(function(resp){
-        $scope.desks=resp.data;
-    }).error(function(err){
-        console.error(JSON.stringify(err));
-    });
-    
+    }
     
     $http.get(host+"/api/task?token="+token).success(function(resp){
         $scope.tasks=resp.data;
