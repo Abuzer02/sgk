@@ -14,16 +14,21 @@
        <table class="table" style="background-color:white">
            <thead>
               <tr>
-               <th>istek</th>
-               <th>tarih</th>
-               <th>durum</th>
+              <th>#</th>
+               <th>Açıklama</th>
+               <th>Tarih</th>
+               <th>Odacı</th>
+               <th>Durum</th>
                </tr>
            </thead>
            <tbody>
-               <tr>
-                   <td>dfhkldfh</td>
-                   <td>d040403434</td>
-                   <td>görüldü</td>
+               <tr ng-repeat="item in odaciIstekler track by $index">
+                   <td ng-bind="$index+1"></td>
+                   <td ng-bind="item.description"></td>
+                   <td ng-bind="item.service_date"></td>
+                   <td ng-bind="item.crew_id.name"></td>
+                   <td ng-show="item.isActive == true"><span class="a_seen"></span></td>
+                   <td ng-show="item.isActive == false"><span class="not_seen"></span></td>
                </tr>
            </tbody>
        </table>

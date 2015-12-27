@@ -16,12 +16,16 @@ mavikentApp.controller("OdaciCtrl",function($scope,$http,$rootScope){
         console.error(JSON.stringify(err));
     })
     
-    $http.post(host+"/api/crew")
+    $http.get(host+"/api/service?token="+$rootScope.mkb.token).success(function(resp){
+        $scope.odaciIstekler=resp.data;
+    }).error(function(err){
+        console.log(JSON.stringify(err));
+    })
     
     $scope.save=function(){
         
         $http.post(host+"/api/service?token="+$rootScope.mkb.token,$scope.obj).success(function(resp){
-            console.log(JSON.stringify(resp.data));
+            $scope.obj.description="";
             $scope.odaciIstekler.push(resp.data);
             
         }).error(function(err){
