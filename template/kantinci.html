@@ -1,4 +1,4 @@
-<div class="card-container" ng-repeat="(key, value) in list | groupBy: 'account_id.name'">
+<div class="card-container">
       <div class="businesscard">
            <div class="back">
             <div class="cd-slideshow-wrapper">
@@ -13,13 +13,12 @@
                                             <div class="col-sm-12">
                                                 <div class="">
                                                     <div class="row">
-                                                    <h2 class="text-center" ng-bind="value[0].desk_no"></h2
-                                                        
-                                                    ><h2 class="text-center" ng-bind="value[0].room_no"></h2>
+                                                    <h2 class="text-center" ng-bind="obj.orders[0].room_no"></h2>
+                                                    <h2 class="text-center" ng-bind="obj.orders[0].desk_no"></h2>
                                                 </div>
                                                 <br>
                                                 <div class="row">
-                                                    <h2 class="text-center" ng-bind="key"></h2>
+                                                    <h2 class="text-center" ng-bind="obj.orders[0].account_id.name"></h2>
                                                 </div>
                                                 </div>
                                             </div>
@@ -32,25 +31,37 @@
                                            <thead>
                                               <tr>
                                                    <th>#</th>
-                                                   <th>Açıklama</th>
-                                                   <th>Tarih</th>
-                                                   <th>Odacı</th>
-                                                   <th>Durum</th>
-                                                   <th style="width:20px" class="text-center"><div style="margin-top:0; margin-bottom:0 " class="checkbox checkbox-custom"><input id="checkbox11" type="checkbox" checked><label for="checkbox11"></label></div></th>
+                                                   <th>Ürün</th>
+                                                   <th>Adet</th>
+                                                   <th>Toplam Fiyat</th>
+                                                   <th style="text-align : center">Düzenle</th>
                                                </tr>
                                            </thead>
                                            <tbody>
-                                               <tr class="success" ng-repeat="item in value">
-                                                   <td ng-bind="$index+1"></td>
+                                               <tr class="success" ng-repeat="item in obj.orders track by $index">
+                                                   <td ng-bind="$index +1"></td>
                                                    <td ng-bind="item.product_name"></td>
-                                                   <td ng-bind="item.order_date"></td>
-                                                   <td ng-bind="key"></td>
-                                                   <td><span class="a_seen"></span></td>
-                                                   <td class="text-center"><div class="checkbox checkbox-custom"><input id="checkbox11" type="checkbox" ng-model="item.isThere" ng-change="degCheck(item._id)" ><label for="checkbox11"></label></div></td>
+                                                   
+                                                   <td> <div ng-hide="viewField">{{item.piece}}</div>
+							                            <div ng-show="modifyField"><input type="text" ng-model="item.piece" /></div>
+                                                  </td>
+                                                   <td ng-bind="item.total_price"></td>
+                                                   <td style="text-align : center">
+                                                   <button class="btn btn-info btn-sm" ng-hide="viewField" ng-click="modify(item,$index)">Modify</button>
+							                     <button class="btn btn-success btn-sm" ng-show="modifyField" ng-click="update(item,$index)">Update</button>
+                                              </td>
                                                </tr>
                                            </tbody>
                                         </table>
                                     </div>
+                                    <div class="row">
+                                        <button class="btn btn-success" ng-click="onayla()">onayla</button>
+                                   <br>
+                                   <button class="btn btn-success" ng-click="iptal()">iptal</button>
+                                   <br>
+                                   <button class="btn btn-success" ng-click="ertele()">ertele</button>
+                                    </div>
+                                   
                                 </div>
 
                             </div>
@@ -59,8 +70,28 @@
 
                 </ol> <!-- .cd-slideshow -->
             </div> <!-- .cd-slideshow-wrapper -->
-            
         </div>
     </div>
+    <table class="table">
+        <thead>
+            <th>#</th>
+            <th>Ofis No</th>
+            <th>Masa No</th>
+            <th>İsim</th>
+            <th style="text-align : center">İşlem</th>
+        </thead>
+        <tbody>
+            <tr ng-repeat="item in list track by $index">
+               <td ng-bind="$index+1"></td>
+               <td ng-bind="item.orders[0].room_no"></td>
+               <td ng-bind="item.orders[0].desk_no"></td>
+               <td ng-bind="item.orders[0].account_id.name"></td>
+               <td style="text-align : center"><button class="btn btn-success" ng-click="goster(item)" ng-disabled= "obj._id">Göster</button></td>
+                
+            </tr>
+        </tbody>
+    </table>
+
 </div>
-        
+       
+

@@ -11,7 +11,7 @@
                         <div class="form-group">
                             <label class="col-md-2 control-label">Kat Seçiniz</label>
                             <div class="col-md-10">
-                                <ui-select class="form-control" ng-model="floor.selected" theme="select2" ng-disabled="disabled" ng-change="degKat()">
+                                <ui-select class="form-control" ng-model="floor.selected" theme="select2" ng-disabled="disabled" ng-change="degKat()000">
                                     <ui-select-match placeholder="Kat seçiniz">{{$select.selected.name}}</ui-select-match>
                                     <ui-select-choices repeat="floor in floors | propsFilter: {name: $select.search}">
                                       <div ng-bind-html="floor.name | highlight: $select.search"></div>
@@ -88,18 +88,18 @@
                 <table id="mainTable" class="table">
                     <thead style="background-color:#36404a">
                         <tr>
-                            <th style="color:#fff;">Kullanıcı</th>
-                            <th style="color:#fff;">Kat</th>
-                            <th style="color:#fff;">kantin Tanımı</th>
-                            <th style="color:#fff;">Sıra</th>
-                            <th style="color:#fff;">Düzenleyen</th>
-                            <th style="width:90px; color:#fff;">İşlem</th>
+                            <th style="color:#000;">Kat</th>
+                            <th style="color:#000;">Kullanıcı</th>
+                            <th style="color:#000;">kantin Tanımı</th>
+                            <th style="color:#000;">Sıra</th>
+                            <th style="color:#000;">Düzenleyen</th>
+                            <th style="width:90px; color:#000;">İşlem</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr ng-repeat="item in list track by $index">
-                            <td ng-bind="item.canteen_boy_id.name"></td>
                             <td ng-bind="item.floor_id.name"></td>
+                            <td ng-bind="item.canteen_boy_id.name"></td>
                             <td ng-bind="item.name"></td>
                             <td ng-bind="item.canteen_order"></td>
                             <td ng-bind="item.updated_by"></td>

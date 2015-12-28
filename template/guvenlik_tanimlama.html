@@ -89,18 +89,18 @@
                 <table id="mainTable" class="table">
                     <thead style="background-color:#36404a">
                         <tr>
-                            <th style="color:#000;">Kullanıcı</th>
                             <th style="color:#000;">Kat</th>
+                            <th style="color:#000;">Kullanıcı</th>
                             <th style="color:#000;">Güvenlik Tanımı</th>
                             <th style="color:#000;">Sıra</th>
                             <th style="color:#000;">Düzenleyen</th>
-                            <th style="width:90px; color:#fff;">İşlem</th>
+                            <th style="width:90px; color:#000;">İşlem</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr ng-repeat="item in list track by $index">
-                            <td ng-bind="item.security_guard_id.name"></td>
                             <td ng-bind="item.floor_id.name"></td>
+                            <td ng-bind="item.security_guard_id.name"></td>
                             <td ng-bind="item.name"></td>
                             <td ng-bind="item.security_order"></td>
                             <td ng-bind="item.updated_by"></td>
