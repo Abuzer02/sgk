@@ -1,3 +1,170 @@
-<div>
-    izinler
+
+<div class="row">
+    <div class="col-sm-12">
+        <div class="card-box">
+            <h4 class="m-t-0 header-title"><b>İzİnler Tanımı</b></h4>
+            <p class="text-muted m-b-30 font-13">
+            </p>
+            <div class="row">
+                <div class="col-md-6">
+                    <form class="form-horizontal" role="form">
+                        <div class="form-group">
+                            <div class="col-md-12">
+                                <ui-select class="form-control"  theme="select2">
+                                    <ui-select-match  placeholder="Kullanıcı Seçiniz">
+                                        
+                                    </ui-select-match>
+                                    <ui-select-choices>
+                                    
+                                    </ui-select-choices>
+                                </ui-select>
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
+
+                <div class="col-md-6">
+                    <form class="form-horizontal" role="form">
+                        <div class="form-group">
+                            <div class="col-md-12">
+                                <ui-select class="form-control"  theme="select2">
+                                    <ui-select-match  placeholder="Kullanıcı Seçiniz">
+                                        
+                                    </ui-select-match>
+                                    <ui-select-choices>
+                                    
+                                    </ui-select-choices>
+                                </ui-select>
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
+
+
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="dual-list list-left col-md-5">
+                        
+                        <div class="well text-right">
+                            <div class="row">
+                                <div class="col-md-10">
+                                    <div class="input-group">
+                                        <span class="input-group-addon glyphicon glyphicon-search"></span>
+                                        <input type="text" name="SearchDualList" class="form-control" placeholder="İzin verilen sayfaları seçiniz" />
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="btn-group">
+                                        <a class="btn btn-default selector" title="tümünü seç"><i class="glyphicon glyphicon-unchecked"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                            <ul class="list-group">
+                                <li class="list-group-item">Sayfa 1</li>
+                                <li class="list-group-item">Sayfa 2</li>
+                                <li class="list-group-item">Sayfa 3</li>
+                                <li class="list-group-item">Sayfa 4</li>
+                                <li class="list-group-item">Sayfa 5</li>
+                                <li class="list-group-item">Sayfa 5</li>
+                                <li class="list-group-item">Sayfa 5</li>
+                                <li class="list-group-item">Sayfa 5</li>
+                                <li class="list-group-item">Sayfa 5</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="list-arrows col-md-2 pull-left">
+                        <div class="arrow-padd" style="padding-left:20px;">
+                            <div class=" move-left">
+                                <input type="checkbox"> Ekle
+                            </div>
+                            <div class="move-left">
+                                <input type="checkbox"> Oku
+                            </div>
+                            <div class="move-left">
+                                <input type="checkbox"> Düzenle
+                            </div>
+                            <div class="move-left">
+                                <input type="checkbox"> Sil
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="dual-list list-right col-md-5">
+                        <div class="well">
+                            <div class="row">
+                                <div class="col-md-2">
+                                    <div class="btn-group">
+                                        <a class="btn btn-default selector" title="tümünü seç"><i class="glyphicon glyphicon-unchecked"></i></a>
+                                    </div>
+                                </div>
+                                <div class="col-md-10">
+                                    <div class="input-group">
+                                        <input type="text" name="SearchDualList" class="form-control" placeholder="İzin verilen sayfalar" />
+                                        <span class="input-group-addon glyphicon glyphicon-search"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <ul class="list-group">
+                                <li class="list-group-item">Sayfa 11</li>
+                                <li class="list-group-item">Sayfa 12</li>
+                                <li class="list-group-item">Sayfa 13</li>
+                                <li class="list-group-item">Sayfa 14</li>
+                                <li class="list-group-item">Sayfa 15</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="pull-right">
+                        <button class="btn btn-default" style="border-radius :0px">Kaydet</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-12">
+        <div class="card-box">
+            <h4 class="m-t-0 header-title"><b>İzİnler Tanımı Listele</b></h4>
+            <p class="text-muted m-b-30 font-13">
+            </p>
+
+            <div class="table-responsive">
+                <table id="mainTable" class="table">
+                    <thead style="background-color:#36404a">
+                        <tr>
+                            <th style="color:#fff;">Kullanıcı</th>
+                            <th style="color:#fff;">Rol</th>
+                            <th style="color:#fff;">Sayfa</th>
+                            <th style="color:#fff;">Operasyon</th>
+                            <th style="width:90px; color:#fff;">İşlem</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Sinan BORA </td>
+                            <td>Admin </td>
+                            <td>Kullanici tanımlama </td>
+                            <td>
+                                <span>Ekle ,</span>
+                                <span>Sil ,</span>
+                                <span>Düzenle </span>
+                            </td>
+                            <td>
+                                <button class="btn btn-sm btn-danger"><i class="glyphicon glyphicon-trash"></i></button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
 </div>

@@ -427,3 +427,27 @@ Navigation
     left: 90px;
   }
 }
+table > thead > tr > th{
+    color: #343943 !important;
+}
+
+/*************
+****Dual list****/
+
+.dual-list .list-group {
+    margin-top: 8px;
+    height: 200px;
+    overflow-y: scroll;
+}
+
+.list-left li, .list-right li {
+    cursor: pointer;
+}
+
+.list-arrows {
+    padding-top: 65px;
+}
+
+.list-arrows div {
+    margin-bottom: 20px;
+}
