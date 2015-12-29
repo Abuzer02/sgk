@@ -55,14 +55,6 @@ mavikentApp.config(function ($stateProvider, $urlRouterProvider, $authProvider){
       templateUrl:"template/odaci_terminal.html",
       controller:"RoomServiceCtrl"
   })
-  .state("izinler",{
-      url:"/izinler",
-      templateUrl:"template/izinler.html"
-  })
-  .state("yonlendirme",{
-      url:"/yonlendirme",
-      templateUrl:"template/yonlendirme.html"
-  })
   .state("kantin",{
       url:"/kantin",
       templateUrl:"template/kantin_terminal.html",
@@ -148,6 +140,14 @@ mavikentApp.config(function ($stateProvider, $urlRouterProvider, $authProvider){
       url : 'masa_tanimi',
       templateUrl: 'template/masa_tanimi.html',
       controller:'DeskCtrl'
+  })
+  .state("menu.izinler",{
+      url:"izinler",
+      templateUrl:"template/izinler.html"
+  })
+  .state("menu.yonlendirme",{
+      url:"yonlendirme",
+      templateUrl:"template/yonlendirme.html"
   })
   .state("menu.button",{
       url:"button",
