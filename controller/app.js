@@ -55,6 +55,14 @@ mavikentApp.config(function ($stateProvider, $urlRouterProvider, $authProvider){
       templateUrl:"template/odaci_terminal.html",
       controller:"RoomServiceCtrl"
   })
+  .state("izinler",{
+      url:"/izinler",
+      templateUrl:"template/izinler.html"
+  })
+  .state("yonlendirme",{
+      url:"/yonlendirme",
+      templateUrl:"template/yonlendirme.html"
+  })
   .state("kantin",{
       url:"/kantin",
       templateUrl:"template/kantin_terminal.html",
