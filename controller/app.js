@@ -47,12 +47,17 @@ mavikentApp.config(function ($stateProvider, $urlRouterProvider, $authProvider){
   })
   .state("guvenlik",{
       url:"/guvenlik",
-      templateUrl:"template/guvenlik_kart.html",
-      controller:"SecurityCardCtrl"
+      templateUrl:"template/guvenlik_terminal.html",
+      controller:"SecturityTerminalCtrl"
+  })
+  .state("servis",{
+      url:"/servis",
+      templateUrl:"template/odaci_terminal.html",
+      controller:"RoomServiceCtrl"
   })
   .state("kantin",{
       url:"/kantin",
-      templateUrl:"template/kantinci.html",
+      templateUrl:"template/kantin_terminal.html",
       controller:"GetOrderCtrl"
   })
   .state('menu2', {
@@ -70,9 +75,9 @@ mavikentApp.config(function ($stateProvider, $urlRouterProvider, $authProvider){
       templateUrl: 'template/siparis_ver.html',
       controller:"OrderCtrl"
   })
-  .state('menu2.odaci', {
-      url : 'odaci',
-      templateUrl: 'template/odaci.html',
+  .state('menu2.servis_cagir', {
+      url : 'servis_cagir',
+      templateUrl: 'template/servis_cagir.html',
       controller:"OdaciCtrl"
   })
   .state('menu', {

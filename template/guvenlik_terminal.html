@@ -1,7 +1,7 @@
 <div class="card-container">
       <div class="businesscard">
 
-        <div class="front" style="display:none">
+        <div class="front" ng-show="!istekler[0]">
             <div class="cd-slideshow-wrapper">
                 <ol class="cd-slideshow">
                     <li class="visible" id="slide-1">
@@ -42,10 +42,10 @@
                                             <div class="col-sm-8">
                                                 <div class="">
                                                     <div class="row">
-                                                    <h2 class="pull-left">12 Nolu Oda</h2>
+                                                    <h2 class="pull-left">{{istekler[0].room_no}} {{istekler[0].desk_no}}</h2>
                                                 </div>
                                                 <div class="row">
-                                                    <h2 class="pull-left">Ahmet TURAN</h2>
+                                                    <h2 class="pull-left">{{istekler[0].account_id.name}}</h2>
                                                 </div>
                                                 </div>
                                             </div>
@@ -56,27 +56,15 @@
                                         <br>
                                         <h3 style="color:#fff">Bekleyen İstekler</h3>
                                         <br>
-                                        <div class="row">
+                                        <div class="row" ng-repeat="item in istekler track by $index">
                                             <div class="col-sm-10" style="padding:0">
                                                 <div class="msg msg-danger msg-danger-text">
-                                                    12 Ahmet Hilmi Özkök
+                                                <span>Ofis :  {{item.room_no}} </span>   Masa :   {{item.desk_no}}    Adı :  {{item.account_id.name}}
                                                 </div>
                                             </div>
                                             <div class="col-sm-2" style="padding:0">
-                                                <button class="btn btn-danger btn-block btn-lg" style="border-radius:0">dismiss</button>
+                                                <button class="btn btn-danger btn-block btn-lg" style="border-radius:0" ng-click="istekAl(item,$index)">İstek Al</button>
                                             </div>
-
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-sm-10" style="padding:0">
-                                                <div class="msg msg-danger msg-danger-text">
-                                                    12 Ahmet Hilmi Özkök
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-2" style="padding:0">
-                                                <button class="btn btn-danger btn-block btn-lg" style="border-radius:0">dismiss</button>
-                                            </div>
-
                                         </div>
                                     </div>
                                 </div>

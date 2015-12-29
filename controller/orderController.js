@@ -1,4 +1,4 @@
-mavikentApp.controller("OrderCtrl",function($scope,$rootScope,$http){
+mavikentApp.controller("OrderCtrl",function($scope,$rootScope,$http,$interval){
     
     $scope.token=$rootScope.mkb.token;
     $scope.floor_id=$rootScope.mkb.current_user.floor_id._id;
@@ -13,20 +13,36 @@ mavikentApp.controller("OrderCtrl",function($scope,$rootScope,$http){
         $scope.obj[index].piece=$scope.obj[index].piece-1
     }
     
-    $http.post(host+"/api/order/search?token="+$scope.token,{limit : 6, account_id:$rootScope.mkb.current_user._id}).success(function(resp){
+    $interval(function(){
+        $http.post(host+"/api/order/search?token="+$scope.token,{limit : 6, account_id:$rootScope.mkb.current_user._id}).success(function(resp){
         
         $scope.siparisler=resp.data
-        for(var i=0;i<$scope.siparisler.length;i++){
-            if($scope.siparisler[i].isActive == "true"){
-                $scope.gecmis_siparis_toplami+=parseFloat($scope.siparisler[i].total_price);
-            }else{
-                $scope.guncel_siparis_toplami+=parseFloat($scope.siparisler[i].total_price);
-            }
-            
-        }
+        var results = totalHesapla()
+        $scope.gecmis_siparis_toplami = results.gecmis
+        $scope.guncel_siparis_toplami = results.guncel
     }).error(function(err){
         console.error(JSON.stringify(err));
     });
+    
+    },1000)
+    
+    function totalHesapla(){
+            var results = {
+                gecmis : 0,
+                guncel : 0
+            }
+          for(var i=0;i<$scope.siparisler.length;i++){
+            if($scope.siparisler[i].isActive == "true"){
+                results.gecmis+=parseFloat($scope.siparisler[i].total_price);
+                
+            }else{
+                results.guncel+=parseFloat($scope.siparisler[i].total_price);
+            } 
+        }
+        
+        
+        return results
+    }
     
     $http.get(host+"/api/product/canteen_products/"+$scope.floor_id+"?token="+$scope.token).success(function(resp){
         $scope.products=resp.data;

@@ -16,7 +16,7 @@ mavikentApp.controller("OdaciCtrl",function($scope,$http,$rootScope){
         console.error(JSON.stringify(err));
     })
     
-    $http.get(host+"/api/service?token="+$rootScope.mkb.token).success(function(resp){
+    $http.post(host+"/api/service/search?token="+$rootScope.mkb.token,{account_id :$rootScope.mkb.current_user._id }).success(function(resp){
         $scope.odaciIstekler=resp.data;
     }).error(function(err){
         console.log(JSON.stringify(err));
