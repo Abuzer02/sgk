@@ -1,4 +1,4 @@
-mavikentApp.controller("PermissionCtrl",function($scope,$rootScope,$http){
+mavikentApp.controller("PermissionCtrl",function($scope,$rootScope,$http,$filter){
     
     ///Önemli Bu sayfa Çalışmıyor elden geçir
     
@@ -8,6 +8,8 @@ mavikentApp.controller("PermissionCtrl",function($scope,$rootScope,$http){
      $scope.users=[];
      $scope.roles=[];
      $scope.izinliSayfalar=[]
+     $scope.obj=[];
+     $scope.list=[]
      $scope.user={selected : ""};
      $scope.role={selected : ""};
     
@@ -20,6 +22,40 @@ mavikentApp.controller("PermissionCtrl",function($scope,$rootScope,$http){
        $scope.role.selected = "";
     };
     
+    $http.get(host+"/api/account?token="+$rootScope.mkb.token).success(function(resp){
+             $scope.users=resp.data;
+       
+    }).error(function(err){
+        console.error(JSON.stringify(err));
+    });
+    
+    $http.get(host+"/api/role?token="+$rootScope.mkb.token).success(function(resp){
+        $scope.roles=resp.data;
+    }).error(function(err){
+        console.error(JSON.stringify(err));
+    });
+
+    
+    $http.get(host+"/api/permission?token="+$rootScope.mkb.token).success(function(resp){
+      // console.log(JSON.stringify(resp.data))
+        var arrList=resp.data;
+        for(var i=0;i<arrList.length;i++){
+             var element23=$filter('getById')($scope.roles, arrList[i].permission_id);
+             var element24=$filter('getById')($scope.users, arrList[i].permission_id);
+            if(element23 !=null){
+                arrList[i].name=element23.name;
+            }
+            if(element24 !=null){
+                arrList[i].name=element24.name;
+            }
+        }
+        
+        $scope.list=arrList;
+       console.log($scope.list,undefined,4);
+        
+    }).error(function(err){
+        console.log(JSON.stringify(err));
+    })
     
     $scope.userChange=function(){
         $scope.izinliSayfalar=[];
@@ -59,21 +95,6 @@ mavikentApp.controller("PermissionCtrl",function($scope,$rootScope,$http){
         })
     }
     
-    $http.get(host+"/api/account?token="+$rootScope.mkb.token).success(function(resp){
-             $scope.users=resp.data;
-       
-    }).error(function(err){
-        console.error(JSON.stringify(err));
-    });
-    
-    $http.get(host+"/api/role?token="+$rootScope.mkb.token).success(function(resp){
-        $scope.roles=resp.data;
-      //  $scope.roles.unshift({});
-    }).error(function(err){
-        console.error(JSON.stringify(err));
-    });
-
-    $scope.obj=[];
     
     $scope.al=function(item,index){
          var elem1={service_label :item.name, service_url : item.url , disabled :item.disabled}
@@ -147,6 +168,9 @@ mavikentApp.controller("PermissionCtrl",function($scope,$rootScope,$http){
                 $scope.obj[i].permission_id=$scope.user.selected._id;
             }
             
+        }
+        for(var j=0;j<$scope.sayfalar.length;j++){
+                $scope.sayfalar[j].disabled=false;
         }
        // console.log($scope.obj);
         $http.post(host+"/api/permission?token="+$rootScope.mkb.token,$scope.obj).success(function(resp){
