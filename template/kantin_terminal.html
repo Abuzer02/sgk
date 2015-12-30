@@ -16,7 +16,7 @@
 <div class="row" style="padding-top: 50px">
     <div class="col-md-8 col-md-offset-2">
         <!--Ürün Ekle-->
-        <div class="row" style="">
+        <div class="row" style="display:none">
             <div class="col-sm-12">
                 <div class="card-box">
                     <h4 class="m-t-0 header-title"><b>Ürün Tanımı</b></h4>
@@ -94,7 +94,7 @@
         </div>
 
         <!--Gelen ilk ürün (ana ekran)--->
-        <div class="text-center" style="display:none">
+        <div class="text-center" style="display:">
             <div class="row">
                 <div class="jumbotron" style="background-color: #343642; border-radius: 12px">
                     <div class="row">
@@ -122,25 +122,25 @@
                     <table class="table table-bordered" style="background-color: white">
                         <thead>
                             <tr>
-                                <th>#</th>
-                                <th>Ürün</th>
-                                <th>Adet</th>
-                                <th>Toplam Fiyat</th>
-                                <th style="text-align: center">Düzenle</th>
+                                <th style="width:50px;" class="text-center">#</th>
+                                <th class="text-center">Ürün</th>
+                                <th class="text-center">Adet</th>
+                                <th class="text-center">Toplam Fiyat</th>
+                                <th style="width:100px;" class="text-center">Düzenle</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr class="" ng-repeat="item in obj.orders track by $index">
-                                <td ng-bind="$index +1"></td>
-                                <td ng-bind="item.product_name"></td>
+                            <tr ng-repeat="item in obj.orders track by $index">
+                                <td class="text-center" ng-bind="$index +1"></td>
+                                <td style="font-style:italic; font-weight:800; text-transform:uppercase;" class="text-center" ng-bind="item.product_name"></td>
 
-                                <td>
+                                <td class="text-center" style="font-weight:800; ">
                                     <div ng-hide="viewField">{{item.piece}}</div>
                                     <div ng-show="modifyField">
                                         <input type="text" ng-model="item.piece" /></div>
                                 </td>
-                                <td ng-bind="item.total_price"></td>
-                                <td style="text-align: center">
+                                <td class="text-center" style="font-weight:800; ">{{item.total_price}} &#x20BA;</td>
+                                <td class="text-center">
                                     <button class="btn btn-info btn-sm" ng-hide="viewField" ng-click="modify(item,$index)">Düzenle</button>
                                     <button class="btn btn-success btn-sm" ng-show="modifyField" ng-click="update(item,$index)">Tamam</button>
                                 </td>
@@ -172,20 +172,21 @@
                 <div class="col-md-12">
                     <table class="table table-bordered" style="background-color: white">
                         <thead>
-                            <th>#</th>
-                            <th>Ofis No</th>
-                            <th>Masa No</th>
-                            <th>İsim</th>
-                            <th style="text-align: center">İşlem</th>
+                            <th style="width:50px">#</th>
+                            <th class="text-center">Ofis No</th>
+                            <th class="text-center">Masa No</th>
+                            <th class="text-center">İsim</th>
+                            <th class="text-center">İşlem</th>
                         </thead>
                         <tbody>
                             <tr ng-repeat="item in list track by $index">
-                                <td ng-bind="$index+1"></td>
-                                <td ng-bind="item.orders[0].room_no"></td>
-                                <td ng-bind="item.orders[0].desk_no"></td>
-                                <td ng-bind="item.orders[0].account_id.name"></td>
-                                <td style="text-align: center">
-                                    <button class="btn btn-success" ng-click="goster(item)" ng-disabled="obj._id">Göster</button></td>
+                                <td class="text-center" ng-bind="$index+1"></td>
+                                <td class="text-center" ng-bind="item.orders[0].room_no"></td>
+                                <td class="text-center" ng-bind="item.orders[0].desk_no"></td>
+                                <td class="text-center" ng-bind="item.orders[0].account_id.name"></td>
+                                <td class="text-center" style="width:100px;">
+                                    <button class="btn btn-success" ng-click="goster(item)" ng-disabled="obj._id">Göster</button>
+                                </td>
 
                             </tr>
                         </tbody>
@@ -216,7 +217,7 @@
                             </thead>
                             <tbody>
                                 <tr ng-repeat="product in list track by $index">
-                                    <td ng-bind="product.canteen_id.name"></td>
+                                    <td ng-bind="product.canteen_id.name" style="font-style:italic; font-weight:800; text-transform:uppercase;"></td>
                                     <td ng-bind="product.name"></td>
                                     <td ng-bind="product.price"></td>
                                     <td ng-bind="product.product_order"></td>
