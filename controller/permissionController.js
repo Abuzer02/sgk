@@ -22,14 +22,19 @@ mavikentApp.controller("PermissionCtrl",function($scope,$rootScope,$http){
     
     
     $scope.userChange=function(){
-        $scope.izinliSayfalar=[]
+        $scope.izinliSayfalar=[];
+        for(var j=0;j<$scope.sayfalar.length;j++){
+            $scope.sayfalar[j].disabled=false;
+        }
         $http.post(host+"/api/permission/search?token="+$rootScope.mkb.token,{permission_id:$scope.user.selected._id}).success(function(resp){
-           for(var i=0;i<resp.data.length;i++){
-               var result = $scope.sayfalar.find(function (d) {
-                                return d.url === resp.data[i].service_url;
-                            });
-               $scope.izinliSayfalar.push(result);
-           }
+            $scope.izinliSayfalar=resp.data;
+            for(var i =0;i<$scope.izinliSayfalar.length;i++){
+                for(var j=0;j<$scope.sayfalar.length;j++){
+                    if($scope.izinliSayfalar[i].service_url == $scope.sayfalar[j].url){
+                        $scope.sayfalar[j].disabled=true;
+                    }
+                }
+            }
         }).error(function(err){
             console.error(JSON.stringify(err));
         })
@@ -37,13 +42,18 @@ mavikentApp.controller("PermissionCtrl",function($scope,$rootScope,$http){
     
     $scope.roleChange=function(){
         $scope.izinliSayfalar=[]
+        for(var j=0;j<$scope.sayfalar.length;j++){
+            $scope.sayfalar[j].disabled=false;
+        }
         $http.post(host+"/api/permission/search?token="+$rootScope.mkb.token,{permission_id:$scope.role.selected._id}).success(function(resp){
-           for(var i=0;i<resp.data.length;i++){
-               var result = $scope.sayfalar.find(function (d) {
-                                return d.url === resp.data[i].service_url;
-                            });
-               $scope.izinliSayfalar.push(result);
-           }
+           $scope.izinliSayfalar=resp.data;
+            for(var i =0;i<$scope.izinliSayfalar.length;i++){
+                for(var j=0;j<$scope.sayfalar.length;j++){
+                    if($scope.izinliSayfalar[i].service_url == $scope.sayfalar[j].url){
+                        $scope.sayfalar[j].disabled=true;
+                    }
+                }
+            }
         }).error(function(err){
             console.error(JSON.stringify(err));
         })
@@ -66,22 +76,20 @@ mavikentApp.controller("PermissionCtrl",function($scope,$rootScope,$http){
     $scope.obj=[];
     
     $scope.al=function(item,index){
-        ///hataaa Önemli 
-         var elem={service_url : item.url}
-         if($scope.obj.length == 0){
-             $scope.obj.push(elem)
-         }else{
-             var len=$scope.obj.length;
-          for(var i=0;i<len;i++){
-            if( $scope.obj[i].service_url == item.url){
-                     $scope.obj.splice(i,1);
-            }else{
-    
-                $scope.obj.push(elem)
-            }
-        }
-     }
-        console.log(JSON.stringify($scope.obj))
+         var elem1={service_label :item.name, service_url : item.url , disabled :item.disabled}
+         var result = $scope.obj.filter(function( a ) {
+                          return a.service_url == item.url;
+                        });
+        if(result.length!=0){
+            for(var i =0; i <$scope.obj.length;i++){
+             if($scope.obj[i].service_url == item.url){
+                 $scope.obj.splice(i,1);
+                 break;
+             }
+         }
+        }else{
+             $scope.obj.push(elem1);
+         }
 }
     
     $scope.save=function(item){
@@ -104,7 +112,6 @@ mavikentApp.controller("PermissionCtrl",function($scope,$rootScope,$http){
             }else{
                 $scope.obj[i].method_get=false;
             }
-
         }
         
     }
@@ -116,7 +123,7 @@ mavikentApp.controller("PermissionCtrl",function($scope,$rootScope,$http){
             }else{
                 $scope.obj[i].method_put=false;
             }
-
+           $scope.obj
         }
         
     }
@@ -132,7 +139,7 @@ mavikentApp.controller("PermissionCtrl",function($scope,$rootScope,$http){
         
     }
     $scope.saveAll=function(){
-        
+        console.log($scope.obj);
         for(var i=0;i<$scope.obj.length;i++){
             if($scope.user.selected==""){
                 $scope.obj[i].permission_id=$scope.role.selected._id;
@@ -141,14 +148,20 @@ mavikentApp.controller("PermissionCtrl",function($scope,$rootScope,$http){
             }
             
         }
+       // console.log($scope.obj);
         $http.post(host+"/api/permission?token="+$rootScope.mkb.token,$scope.obj).success(function(resp){
-            console.log(resp,undefined,4);
+               console.log(resp,undefined,4);
             for(var i=0;i<resp.data.ops.length;i++){
-               var result = $scope.sayfalar.find(function (d) {
-                                return d.url === resp.data.ops[i].service_url;
-                            });
-               $scope.izinliSayfalar.push(result);
-           }
+                $scope.izinliSayfalar.push(resp.data.ops[i]);
+            }
+            for(var i =0;i<$scope.sayfalar.length;i++){
+                for(var j=0;j<$scope.izinliSayfalar.length;j++){
+                     if($scope.izinliSayfalar[j].service_url == $scope.sayfalar[i].url){
+                         console.log($scope.sayfalar[i]);
+                        $scope.sayfalar[i].disabled=true;
+                    }  
+                }
+            }
             $scope.obj=[];
             $("#ulIzinsiz li").attr("class","list-group-item");
             $scope.editCheck=false;
