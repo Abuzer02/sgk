@@ -143,7 +143,8 @@ mavikentApp.config(function ($stateProvider, $urlRouterProvider, $authProvider){
   })
   .state("menu.izinler",{
       url:"izinler",
-      templateUrl:"template/izinler.html"
+      templateUrl:"template/izinler.html",
+      controller:"PermissionCtrl"
   })
   .state("menu.yonlendirme",{
       url:"yonlendirme",

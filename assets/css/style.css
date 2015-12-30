@@ -451,3 +451,13 @@ table > thead > tr > th{
 .list-arrows div {
     margin-bottom: 20px;
 }
+
+.clear {
+      background:none;
+      border:none;
+      cursor:pointer;
+      padding:0px 10px;
+      position:absolute;
+      right:30px;
+      top:2px;
+    }
