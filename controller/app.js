@@ -4,12 +4,14 @@ mavikentApp.run(function($rootScope, $location,$state, $http,$localStorage) {
     $rootScope.mkb = {
         current_user : '',
         authenticated : false,
+        navigation_url : "",
         token : null
     }
-    if($localStorage["user"] && $localStorage["token"]){
+    if($localStorage["user"] && $localStorage["token"] && $localStorage["navigation_url"]){
         $rootScope.mkb = {
         current_user : $localStorage["user"],
         authenticated : true,
+        navigation_url : $localStorage["navigation_url"],
         token : $localStorage["token"]
     }
     }
@@ -21,10 +23,9 @@ mavikentApp.run(function($rootScope, $location,$state, $http,$localStorage) {
              
         }
     });
-    if($rootScope.mkb.current_user){
-        if( $rootScope.mkb.current_user.role_id["name"]=="Admin"){
-         $state.go('menu2.anasayfa');
-        } 
+    if($rootScope.mkb.current_user && $rootScope.mkb.navigation_url ){
+         $state.go($rootScope.mkb.navigation_url);
+
     }
     
 })
@@ -148,7 +149,8 @@ mavikentApp.config(function ($stateProvider, $urlRouterProvider, $authProvider){
   })
   .state("menu.yonlendirme",{
       url:"yonlendirme",
-      templateUrl:"template/yonlendirme.html"
+      templateUrl:"template/yonlendirme.html",
+      controller: "NavigationCtrl"
   })
   .state("menu.button",{
       url:"button",

@@ -13,13 +13,12 @@ mavikentApp.controller("FloorCtrl",function($scope,$state,$http,$localStorage,$r
     };
     //list all item
     $http.get(host+"/api/floor?token="+token).success(function(resp){
-        if(resp.status==true){
+        if (resp.status == false) {
+                console.log("error : ", JSON.stringify(resp));
+                return;
+            }
              $scope.list=resp.data;
-             //console.log(JSON.stringify($scope.list));
-        }
-        else{
-            console.error("state is false "+resp.state);
-        }
+        
        
     }).error(function(err){
         console.error(JSON.stringify(err));
@@ -29,6 +28,10 @@ mavikentApp.controller("FloorCtrl",function($scope,$state,$http,$localStorage,$r
     $scope.save=function(){
         if($scope.IsEdit){
             $http.put(host+"/api/floor/?token="+token,$scope.obj).success(function(resp){
+                if (resp.status == false) {
+                console.log("error : ", JSON.stringify(resp));
+                return;
+            }
                 $scope.IsEdit=false;
                 //console.log(resp);
                 $scope.list[$scope.listIndex]=resp.data;
@@ -43,6 +46,10 @@ mavikentApp.controller("FloorCtrl",function($scope,$state,$http,$localStorage,$r
             
         }else{
             $http.post(host+"/api/floor?token="+token,$scope.obj).success(function(resp){
+                if (resp.status == false) {
+                console.log("error : ", JSON.stringify(resp));
+                return;
+            }
               $scope.list.push(resp.data);
               $scope.obj={
                 name:"",
@@ -61,6 +68,10 @@ mavikentApp.controller("FloorCtrl",function($scope,$state,$http,$localStorage,$r
     
     $scope.delete=function(id,index){
         $http.delete(host+"/api/floor/"+id+"?token="+token).success(function(resp){
+            if (resp.status == false) {
+                console.log("error : ", JSON.stringify(resp));
+                return;
+            }
             $scope.list.splice(index,1);
             console.log(JSON.stringify(resp));
         }).error(function(err){

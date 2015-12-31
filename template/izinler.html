@@ -61,7 +61,7 @@
                                 </div>
                                 <div class="col-md-2">
                                     <div class="btn-group">
-                                        <a class="btn btn-default selector" title="tümünü seç"><i class="glyphicon glyphicon-unchecked"></i></a>
+                                        <a class="btn btn-default selector" title="tümünü seç" ng-click="selectAllIzinsiz()"><i class="glyphicon glyphicon-unchecked"></i></a>
                                     </div>
                                 </div>
                             </div>
@@ -73,16 +73,16 @@
                     <div class="list-arrows col-md-2 pull-left">
                         <div class="arrow-padd" style="padding-left:20px;">
                             <div class=" move-left">
-                                <input type="checkbox" ng-model="saveCheck" ng-change="save(saveCheck)"> Ekle
+                                <input type="checkbox" ng-model="saveCheck" > Ekle
                             </div>
                             <div class="move-left">
-                                <input type="checkbox" ng-model="readCheck" ng-change="read(readCheck)"> Oku
+                                <input type="checkbox" ng-model="readCheck" > Oku
                             </div>
                             <div class="move-left">
-                                <input type="checkbox" ng-model="editCheck" ng-change="edit(editCheck)"> Düzenle
+                                <input type="checkbox" ng-model="editCheck" > Düzenle
                             </div>
                             <div class="move-left">
-                                <input type="checkbox" ng-model="deleteCheck" ng-change="delete(deleteCheck)"> Sil
+                                <input type="checkbox" ng-model="deleteCheck"> Sil
                             </div>
                         </div>
                     </div>
@@ -92,7 +92,7 @@
                             <div class="row">
                                 <div class="col-md-2">
                                     <div class="btn-group">
-                                        <a class="btn btn-default selector" title="tümünü seç"><i class="glyphicon glyphicon-unchecked"></i></a>
+                                        <a class="btn btn-default selector" title="tümünü seç" ng-click="selectAllIzinli()"><i class="glyphicon glyphicon-unchecked"></i></a>
                                     </div>
                                 </div>
                                 <div class="col-md-10">
@@ -102,7 +102,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <ul class="list-group">
+                            <ul class="list-group" id="ulIzinli">
                                 <li class="list-group-item" ng-repeat="item in izinliSayfalar track by $index" ng-bind="item.service_label"></li>
                             </ul>
                         </div>

@@ -61,6 +61,10 @@ function UserController ($scope ,$http,$rootScope,$filter) {
     initialize();
     
     $http.get(host+"/api/floor?token="+token).success(function(resp){
+        if(resp.status==false){
+            console.log(JSON.stringify(resp));
+            return;
+         }
         $scope.floors=resp.data;
     }).error(function(err){
         console.error(JSON.stringify(err));
@@ -69,6 +73,10 @@ function UserController ($scope ,$http,$rootScope,$filter) {
     
     $scope.degKat=function(){
          $http.get(host+"/api/office/get_by_floor/"+$scope.floor.selected._id+"?token="+token).success(function(resp){
+             if(resp.status==false){
+                console.log(JSON.stringify(resp));
+                return;
+             }
                 $scope.offices=resp.data;
             }).error(function(err){
                 console.error(JSON.stringify(err));
@@ -78,6 +86,10 @@ function UserController ($scope ,$http,$rootScope,$filter) {
     //////////////////////////////////////////
     
     $http.get(host+"/api/office?token="+token).success(function(resp){
+        if(resp.status==false){
+            console.log(JSON.stringify(resp));
+            return;
+         }
         $scope.rooms=resp.data;
     }).error(function(err){
         console.error(JSON.stringify(err));
@@ -107,6 +119,10 @@ function UserController ($scope ,$http,$rootScope,$filter) {
     //////////////////////////////////////////
     
     $http.get(host+"/api/task?token="+token).success(function(resp){
+        if(resp.status==false){
+            console.log(JSON.stringify(resp));
+            return;
+         }
         $scope.tasks=resp.data;
     }).error(function(err){
         console.error(JSON.stringify(err));
@@ -114,12 +130,20 @@ function UserController ($scope ,$http,$rootScope,$filter) {
     
     
     $http.get(host+"/api/role?token="+token).success(function(resp){
+        if(resp.status==false){
+            console.log(JSON.stringify(resp));
+            return;
+         }
         $scope.roles=resp.data;
     }).error(function(err){
         console.error(JSON.stringify(err));
     });
     
     $http.get(host+"/api/account?token="+token).success(function(resp){
+         if(resp.status==false){
+            console.log(JSON.stringify(resp));
+            return;
+         }
         $scope.accounts=resp.data;
        // console.log(JSON.stringify(resp));
     }).error(function(err){

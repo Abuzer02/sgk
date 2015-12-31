@@ -1,3 +1,115 @@
-<div>
-    yonlendirme
+
+<div class="row">
+    <div class="col-sm-12">
+        <div class="card-box">
+            <h4 class="m-t-0 header-title"><b>Masa Tanımı</b></h4>
+            <p class="text-muted m-b-30 font-13">
+            </p>
+            <div class="row">
+                <div class="col-md-6">
+                    <form class="form-horizontal" role="form">
+                           <div class="form-group">
+                            <label class="col-md-2 control-label">Rol</label>
+                            <div class="col-md-10">
+                                <ui-select class="form-control" ng-model="role.selected" theme="select2" ng-disabled="disabled" ng-change="degKat()">
+                                    <ui-select-match  placeholder="rol seçiniz">{{$select.selected.name}}</ui-select-match>
+                                    <ui-select-choices repeat="role in roles | propsFilter: {name: $select.search, id: $select.search}">
+                                      <div ng-bind-html="role.name | highlight: $select.search"></div>
+                                      <small>
+                                        rol : {{role.name}}
+                                      </small>
+                                    </ui-select-choices>
+                                </ui-select>
+                            </div>
+                        </div>
+                           <div class="form-group">
+                            <label class="col-md-2 control-label">Görev</label>
+                            <div class="col-md-10">
+                                <ui-select class="form-control" ng-model="task.selected" theme="select2" ng-disabled="disabled" ng-change="degOfis()">
+                                    <ui-select-match  placeholder="görev seçiniz">{{$select.selected.name}}</ui-select-match>
+                                    <ui-select-choices repeat="task in tasks | propsFilter: {name: $select.search, id: $select.search}">
+                                      <div ng-bind-html="task.name | highlight: $select.search"></div>
+                                      <small>
+                                        Görev : {{task.name}}
+                                      </small>
+                                    </ui-select-choices>
+                                </ui-select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-2 control-label">Sayfa</label>
+                            <div class="col-md-10">
+                                <ui-select class="form-control" ng-model="page.selected" theme="select2" ng-disabled="disabled" ng-change="degOfis()">
+                                    <ui-select-match  placeholder="yönlendiileceği sayfayı seçiniz">{{$select.selected.name}}</ui-select-match>
+                                    <ui-select-choices repeat="page in pages | propsFilter: {name: $select.search, id: $select.search}">
+                                      <div ng-bind-html="page.name | highlight: $select.search"></div>
+                                      <small>
+                                        Sayfa : {{page.name}}
+                                      </small>
+                                    </ui-select-choices>
+                                </ui-select>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="col-md-6">
+                    <form class="form-horizontal" role="form">
+
+                        <div class="form-group">
+                            <label class="col-md-2 control-label">Düzenleyen</label>
+                            <div class="col-md-10">
+                                <input type="text" class="form-control" readonly="" ng-model="obj.updated_by">
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
+
+
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="pull-right">
+                        <button class="btn btn-default" style="border-radius :0px" ng-click="save()">Kaydet</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-12">
+        <div class="card-box">
+            <h4 class="m-t-0 header-title"><b>Masa Tanımı Listele</b></h4>
+            <p class="text-muted m-b-30 font-13">
+            </p>
+
+            <div class="table-responsive">
+                <table id="mainTable" class="table">
+                    <thead style="background-color:#36404a">
+                        <tr>
+                            <th style="color:#fff;">Rol</th>
+                            <th style="color:#fff;">Görev</th>
+                            <th style="color:#fff;"> Yönlendirilecek Sayfa</th>
+                            <th style="color:#fff;">Düzenleyen</th>
+                            <th style="width:90px; color:#fff;">İşlem</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="item in list track by $index">
+                            <td ng-bind="item.role.name"></td>
+                            <td ng-bind="item.task.name"></td>
+                            <td ng-bind="item.page_name"></td>
+                            <td ng-bind="item.updated_by"></td>
+                            <td>
+                                <button class="btn btn-sm btn-danger" data-placement="top" data-toggle="tooltip" data-original-title="Sil" ng-click="delete(item._id,$index)"><i class="glyphicon glyphicon-trash"></i></button>
+                                <button class="btn btn-sm btn-default" data-placement="top" data-toggle="tooltip" data-original-title="Kaydet" ng-click="edit(item._id,$index)"><i class="glyphicon glyphicon-ok"></i></button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
 </div>

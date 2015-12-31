@@ -21,13 +21,13 @@ function AuthController ($scope,$auth, $state, $rootScope, $localStorage) {
          if(!$localStorage["user"]){
              $localStorage["user"]=response.data.data;
          }
+            if(!$localStorage["navigation_url"]){
+             $localStorage["navigation_url"]=response.data.navigation_url;
+         }
           $rootScope.mkb.token = response.data.token
+          $rootScope.mkb.navigation_url = response.data.navigation_url
           $rootScope.mkb.current_user = response.data.data
-            if($rootScope.mkb.current_user.role_id["name"]=="Admin" || $rootScope.mkb.current_user.role_id["name"]=="Süper Admin"){
-                $state.go('menu.dashboard', {});
-            }else{
-                $state.go('menu2.anasayfa',{});
-            } 
+          $state.go($rootScope.mkb.navigation_url);
           
         }else{
            $scope.message=stateControl(response.data.code);
