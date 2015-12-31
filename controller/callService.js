@@ -1,4 +1,4 @@
-mavikentApp.controller("OdaciCtrl",function($scope,$http,$rootScope){
+mavikentApp.controller("OdaciCtrl",function($scope,$http,$rootScope , $interval){
     $scope.obj={};
     $scope.odaciIstekler=[];
     
@@ -15,12 +15,13 @@ mavikentApp.controller("OdaciCtrl",function($scope,$http,$rootScope){
     }).error(function(err){
         console.error(JSON.stringify(err));
     })
-    
-    $http.post(host+"/api/service/search?token="+$rootScope.mkb.token,{account_id :$rootScope.mkb.current_user._id }).success(function(resp){
-        $scope.odaciIstekler=resp.data;
-    }).error(function(err){
-        console.log(JSON.stringify(err));
-    })
+    $interval(function(){
+          $http.post(host+"/api/service/search?token="+$rootScope.mkb.token,{account_id :$rootScope.mkb.current_user._id }).success(function(resp){
+            $scope.odaciIstekler=resp.data;
+        }).error(function(err){
+            console.log(JSON.stringify(err));
+        })  
+    },1000);
     
     $scope.save=function(){
         
