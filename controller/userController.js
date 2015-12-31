@@ -65,6 +65,7 @@ function UserController ($scope ,$http,$rootScope,$filter) {
         console.error(JSON.stringify(err));
     });
     
+    
     $scope.degKat=function(){
          $http.get(host+"/api/office/get_by_floor/"+$scope.floor.selected._id+"?token="+token).success(function(resp){
                 $scope.offices=resp.data;
@@ -72,6 +73,17 @@ function UserController ($scope ,$http,$rootScope,$filter) {
                 console.error(JSON.stringify(err));
             });
     }
+    
+    //////////////////////////////////////////
+    
+    $http.get(host+"/api/office?token="+token).success(function(resp){
+        $scope.rooms=resp.data;
+    }).error(function(err){
+        console.error(JSON.stringify(err));
+    });
+    
+    
+    //////////////////////////////////////////
    
     $scope.degOfis=function(){
       $http.get(host+"/api/desk/get_by_office/"+$scope.office.selected._id+"?token="+token).success(function(resp){
@@ -81,6 +93,17 @@ function UserController ($scope ,$http,$rootScope,$filter) {
         });
     
     }
+    
+    //////////////////////////////////////////
+    
+    $http.get(host+"/api/desk?token="+token).success(function(resp){
+        $scope.masalar=resp.data;
+    }).error(function(err){
+        console.error(JSON.stringify(err));
+    });
+    
+    
+    //////////////////////////////////////////
     
     $http.get(host+"/api/task?token="+token).success(function(resp){
         $scope.tasks=resp.data;
@@ -115,9 +138,8 @@ function UserController ($scope ,$http,$rootScope,$filter) {
                     console.log("status : "+JSON.stringify(resp));
                     return;
                 }
-                console.log(JSON.stringify(resp.data));
                 $scope.IsEdit=false;
-                $scope.accounts[$scope.listIndex]=resp.data;
+                $scope.accounts[$scope.listIndex]=resp.data[0];
                 initialize();
             }).error(function(err){
                 console.log(JSON.stringify(err));
@@ -128,6 +150,7 @@ function UserController ($scope ,$http,$rootScope,$filter) {
                     console.log("status : "+JSON.stringify(resp));
                     return;
                 }
+                console.log(resp,undefined,4);
                 $scope.accounts.push(resp.data);
                  initialize();
             }).error(function(err){
@@ -162,11 +185,23 @@ function UserController ($scope ,$http,$rootScope,$filter) {
             updated_by:updatedBy
         }
         $("#img").attr("src",$scope.accounts[index].profile_picture);
-        $scope.office={selected:$filter('getById')($scope.offices, $scope.accounts[index].room_id._id)}
-        $scope.floor={selected:$filter('getById')($scope.floors, $scope.accounts[index].floor_id._id)}
-        $scope.desk={selected:$filter('getById')($scope.desks, $scope.accounts[index].desk_id._id)}
-        $scope.role={selected:$filter('getById')($scope.roles, $scope.accounts[index].role_id._id)}
-        $scope.task={selected:$filter('getById')($scope.tasks, $scope.accounts[index].task_id._id)}
+        if($scope.accounts[index].room_id){
+            $scope.office={selected:$filter('getById')($scope.rooms, $scope.accounts[index].room_id._id)}
+        }
+        if($scope.accounts[index].floor_id){
+            $scope.floor={selected:$filter('getById')($scope.floors, $scope.accounts[index].floor_id._id)}
+        }
+        if($scope.accounts[index].desk_id){
+            $scope.desk={selected:$filter('getById')($scope.masalar, $scope.accounts[index].desk_id._id)}
+        }
+        if($scope.accounts[index].role_id){
+            $scope.role={selected:$filter('getById')($scope.roles, $scope.accounts[index].role_id._id)}
+        }
+        if($scope.accounts[index].task_id){
+            $scope.task={selected:$filter('getById')($scope.tasks, $scope.accounts[index].task_id._id)}
+        }
+        
         //console.log(JSON.stringify( $scope.accounts[index].task_id));
+        console.log(JSON.stringify($scope.accounts[index]));
     }
 }

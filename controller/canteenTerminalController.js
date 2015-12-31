@@ -1,5 +1,8 @@
 mavikentApp.controller("GetOrderCtrl",function($scope,$rootScope,$http,$interval){
    $scope.obj={};
+   $scope.siparis=true;
+   $scope.urunEkle=false;
+    
    $interval(function(){
        $http.post(host+"/api/order/group_by_account_id?token="+$rootScope.mkb.token,{floor_no : $rootScope.mkb.current_user.floor_id.name, order_status : "wait"}).success(function(resp){
        //console.log(JSON.stringify(resp,undefined,4))
@@ -15,7 +18,6 @@ mavikentApp.controller("GetOrderCtrl",function($scope,$rootScope,$http,$interval
             console.log("data bulunamadı.");
             return;
         }
-        console.log(JSON.stringify(resp));
         $scope.obj.orders=resp.data;
         $scope.obj._id=$scope.obj.orders[0].account_id._id;
     }).error(function(err){
@@ -91,5 +93,132 @@ mavikentApp.controller("GetOrderCtrl",function($scope,$rootScope,$http,$interval
      }).error(function(err){
          console.log(JSON.stringify(err))
      })
+    }
+    
+    //urun ekle
+    
+    var token=$rootScope.mkb.token;
+    $scope.IsEdit=false;
+    $scope.listIndex;
+    $scope.editId;
+    $scope.listOrder=[];
+    
+    
+    $("#myForm").attr("action",host+"/api/upload?token="+token);
+    
+    $("#myForm").ajaxForm(function(resp){
+       console.log(resp); 
+        if(resp.state==true){
+            $("#img").attr("src",host+"/media/original/"+resp.mediaList.mediaList.name);
+            
+        }else{
+            alert("hata");
+        }
+    });
+    $scope.resimSec=function(e){
+        e.preventDefault();
+        $("#resim").click();
+    }
+    $("#resim").change(function(){
+        $("#myForm").submit();
+    })
+    
+    
+    function initiliaze(){
+        $("#img").attr("src","http://placehold.it/400x400");
+        $scope.objUrun={
+            name:"",
+            canteen_id :"",
+            product_order:"",
+            price:"",
+            picture:"",
+            updated_by:$rootScope.mkb.current_user.name
+        };
+    }
+    
+    initiliaze();
+    
+    $http.get(host+"/api/canteen/get_by_floor/"+$rootScope.mkb.current_user.floor_id._id+"?token="+token).success(function(resp){
+             $scope.objUrun.canteen_id=resp.data[0]._id;
+       
+    }).error(function(err){
+        console.error(JSON.stringify(err));
+    });
+    
+    $http.get(host+"/api/product?token="+token).success(function(resp){
+         
+        $scope.listOrder=resp.data;
+        
+    }).error(function(err){
+        console.error(JSON.stringify(err));
+    });
+    
+    //add function
+    $scope.save=function(){
+        $scope.objUrun.picture=$("#img").attr("src");
+        if($scope.IsEdit){
+            $http.put(host+"/api/product?token="+token,$scope.objUrun).success(function(resp){
+                if(!resp.status){
+                    console.error("state is false "+resp.code);
+                    return;
+                }
+                $scope.IsEdit=false;
+                console.log(JSON.stringify(resp.data));
+                $scope.listOrder[$scope.listIndex]=resp.data;
+                initiliaze();
+            }).error(function(err){
+                console.error(JSON.stringify(err));
+            });
+            
+        }else{
+            $http.post(host+"/api/product?token="+token,$scope.objUrun).success(function(resp){
+              if(!resp.status){
+                    console.error("state is false "+JSON.stringify(resp));
+                    return;
+              }
+              $scope.listOrder.push(resp.data);
+              initiliaze();  
+            }).error(function(err){
+                console.error(JSON.stringify(err));
+            });
+        }
+        
+    }
+    
+    
+    
+    $scope.delete=function(id,index){
+        console.log(id);
+        $http.delete(host+"/api/product/"+id+"?token="+token).success(function(resp){
+            $scope.listOrder.splice(index,1);
+        }).error(function(err){
+            console.error(JSON.stringify(err));
+        });
+    }
+    
+    //edit function
+    
+    $scope.edit=function(id,index){
+        console.log(id);
+        $("#img").attr("src",$scope.listOrder[index].picture);
+        $scope.IsEdit=true;
+        $scope.listIndex=index;
+        $scope.editId=id;
+        $scope.objUrun.name=$scope.listOrder[index].name;
+        $scope.objUrun.canteen_id=$scope.listOrder[index].canteen_id;
+        $scope.objUrun.product_order=$scope.listOrder[index].product_order;
+        $scope.objUrun.price=$scope.listOrder[index].price;
+        $scope.objUrun.updated_by=$rootScope.mkb.current_user.name;
+        $scope.objUrun._id=id;
+       
+    }
+    
+    $scope.siparisler=function(){
+        $scope.siparis=true;
+        $scope.urunEkle=false;
+    }
+    $scope.urunEkleme=function(){
+        $scope.siparis=false;
+        $scope.urunEkle=true;
     }
 });

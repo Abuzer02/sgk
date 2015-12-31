@@ -6,9 +6,8 @@
     <nav class="main-nav">
         <ul>
             <!-- inser more links here -->
-            <li><a class="cd-signin">Anasayfa</a></li>
-            <li><a class="cd-signin">Ürün Ekle</a></li>
-            <li><a class="cd-signup">Ürün Listesi</a></li>
+            <li><a href="javascript:void(0)" class="cd-signup" ng-click="siparisler()">Siparişler</a></li>
+            <li><a href="javascript:void(0)" class="cd-signin" ng-click="urunEkleme()">Ürün Ekle</a></li>
         </ul>
     </nav>
 </header>
@@ -16,7 +15,7 @@
 <div class="row" style="padding-top: 50px">
     <div class="col-md-8 col-md-offset-2">
         <!--Ürün Ekle-->
-        <div class="row" style="display:none">
+        <div class="row" ng-hide="siparis">
             <div class="col-sm-12">
                 <div class="card-box">
                     <h4 class="m-t-0 header-title"><b>Ürün Tanımı</b></h4>
@@ -26,41 +25,27 @@
                         <div class="col-md-9">
                             <form class="form-horizontal" role="form" name="form">
                                 <div class="form-group">
-                                    <label class="col-md-2 control-label">Kantin</label>
-                                    <div class="col-md-10">
-                                        <ui-select class="form-control" ng-model="canteen.selected" theme="select2" ng-disabled="disabled">
-                                            <ui-select-match  placeholder="Kantin seçiniz">{{$select.selected.name}}</ui-select-match>
-                                            <ui-select-choices repeat="canteen in canteens | propsFilter: {name: $select.search}">
-                                              <div ng-bind-html="canteen.name | highlight: $select.search"></div>
-                                              <small>
-                                                kat adı: {{canteen.name}}
-                                              </small>
-                                            </ui-select-choices>
-                                        </ui-select>
-                                    </div>
-                                </div>
-                                <div class="form-group">
                                     <label class="col-md-2 control-label">Ürün Adı</label>
                                     <div class="col-md-10">
-                                       <input type="text"  ng-model="obj.name" placeholder="ürün adi giriniz" class="form-control">
+                                       <input type="text"  ng-model="objUrun.name" placeholder="ürün adi giriniz" class="form-control">
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="col-md-2 control-label">Ürün Fiyatı</label>
                                     <div class="col-md-10">
-                                        <input type="text" class="form-control" placeholder="ürün fiyatı giriniz..." ng-model="obj.price">
+                                        <input type="text" class="form-control" placeholder="ürün fiyatı giriniz..." ng-model="objUrun.price">
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="col-md-2 control-label">Sıra</label>
                                     <div class="col-md-10">
-                                        <input type="number" class="form-control" placeholder="gösterimdeki sırayı giriniz..." ng-model="obj.product_order">
+                                        <input type="number" class="form-control" placeholder="gösterimdeki sırayı giriniz..." ng-model="objUrun.product_order">
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="col-md-2 control-label">Ekleyen</label>
                                     <div class="col-md-10">
-                                        <input type="text" class="form-control" readonly="" ng-model="obj.updated_by">
+                                        <input type="text" class="form-control" readonly="" ng-model="objUrun.updated_by">
                                     </div>
                                 </div>
                             </form>
@@ -94,7 +79,7 @@
         </div>
 
         <!--Gelen ilk ürün (ana ekran)--->
-        <div class="text-center" style="display:">
+        <div class="text-center"  ng-hide="urunEkle" >
             <div class="row">
                 <div class="jumbotron" style="background-color: #343642; border-radius: 12px">
                     <div class="row">
@@ -196,7 +181,7 @@
         </div>
         
         <!--Ürün Listeleme sayfası-->
-        <div class="row" style="display:none">
+        <div class="row"  ng-hide="siparis" >
             <div class="col-sm-12">
                 <div class="card-box">
                     <h4 class="m-t-0 header-title"><b>Ürün Tanımı Listele</b></h4>
@@ -207,7 +192,6 @@
                         <table id="mainTable" class="table">
                             <thead style="background-color:#36404a">
                                 <tr >
-                                    <th style="color:#000;" >Kantin</th>
                                     <th style="color:#000;" >ürün adi</th>
                                     <th style="color:#000;" >ürün fiyatı</th>
                                     <th style="color:#000;" >sıra</th>
@@ -216,8 +200,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr ng-repeat="product in list track by $index">
-                                    <td ng-bind="product.canteen_id.name" style="font-style:italic; font-weight:800; text-transform:uppercase;"></td>
+                                <tr ng-repeat="product in listOrder track by $index">
                                     <td ng-bind="product.name"></td>
                                     <td ng-bind="product.price"></td>
                                     <td ng-bind="product.product_order"></td>

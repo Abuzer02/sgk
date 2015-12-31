@@ -14,8 +14,8 @@ mavikentApp.controller("OrderCtrl",function($scope,$rootScope,$http,$interval){
     }
     
     $interval(function(){
-        $http.post(host+"/api/order/search?token="+$scope.token,{limit : 6, account_id:$rootScope.mkb.current_user._id}).success(function(resp){
-        
+        $http.post(host+"/api/order/search?token="+$scope.token,{account_id:$rootScope.mkb.current_user._id}).success(function(resp){
+        console.log();
         $scope.siparisler=resp.data
         var results = totalHesapla()
         $scope.gecmis_siparis_toplami = results.gecmis
