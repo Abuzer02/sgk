@@ -48,7 +48,7 @@ mavikentApp.controller("OfficeCtrl",function($scope,$state,$http,$localStorage,$
         if($scope.IsEdit){
             $http.put(host+"/api/office/?token="+token,$scope.obj).success(function(resp){
                 if(!resp.status){
-                    console.error("state is false "+resp.code);
+                    console.error("state is false "+JSON.stringify(resp));
                     return;
                 }
                 //console.log(JSON.stringify(resp.data));
@@ -69,7 +69,7 @@ mavikentApp.controller("OfficeCtrl",function($scope,$state,$http,$localStorage,$
             //console.log(JSON.stringify($scope.obj));
             $http.post(host+"/api/office?token="+token,$scope.obj).success(function(resp){
               if(!resp.status){
-                    console.error("state is false "+resp.code);
+                    console.error("state is false "+JSON.stringify(resp));
                     return;
               }
               $scope.list.push(resp.data);

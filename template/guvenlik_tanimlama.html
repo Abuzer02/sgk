@@ -31,7 +31,7 @@
                                     <ui-select-choices repeat="user in users | propsFilter: {name: $select.search}">
                                       <div ng-bind-html="user.name | highlight: $select.search"></div>
                                       <small>
-                                        Kullanıcı: {{user.role_name}}
+                                        Görev: {{user.task_id.name}}
                                       </small>
                                     </ui-select-choices>
                                 </ui-select>

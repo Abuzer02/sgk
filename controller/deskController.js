@@ -7,17 +7,20 @@ mavikentApp.controller("DeskCtrl",function($scope,$state,$http,$localStorage,$ro
     $scope.list=[];
     $scope.offices=[];
     $scope.floors=[];
-    $scope.office={selected : ""};
-    $scope.floor={selected : ""};
     
-    $scope.obj={
-        name:"",
-        floor_id:"",
-        room_id:"",
-        desk_order:"",
-        updated_by:$rootScope.mkb.current_user.name
-    };
-    
+    function initialize(){
+        $scope.office={selected : ""};
+        $scope.floor={selected : ""};
+
+        $scope.obj={
+            name:"",
+            floor_id:"",
+            room_id:"",
+            desk_order:"",
+            updated_by:$rootScope.mkb.current_user.name
+        };   
+    }
+    initialize();
     //list all office
     $http.get(host+"/api/floor?token="+token).success(function(resp){
         if(resp.status==true){
@@ -73,17 +76,10 @@ mavikentApp.controller("DeskCtrl",function($scope,$state,$http,$localStorage,$ro
                     console.error("state is false "+JSON.stringify(resp));
                     return;
                 }
-                console.log("here 2");
                 console.log(JSON.stringify(resp.data));
                 $scope.IsEdit=false;
                 $scope.list[$scope.listIndex]=resp.data;
-                $scope.obj={
-                    name:"",
-                    room_id:"",
-                    desk_order:"",
-                    updated_by:$rootScope.mkb.current_user.name
-              };
-                $scope.office={selected : ""};
+                initialize();
             }).error(function(err){
                 console.error(JSON.stringify(err));
             });
@@ -95,15 +91,8 @@ mavikentApp.controller("DeskCtrl",function($scope,$state,$http,$localStorage,$ro
                     console.error("state is false "+JSON.stringify(resp));
                     return;
               }
-              $scope.list.push(resp.data);
-              $scope.obj={
-                name:"",
-                room_id:"",
-                desk_order:"",
-                updated_by:$rootScope.mkb.current_user.name
-              };
-                $scope.office={selected : ""};
-              //console.log(JSON.stringify(resp));  
+              $scope.list.push(resp.data);  
+              initialize();
             }).error(function(err){
                 console.error(JSON.stringify(err));
             });
@@ -116,7 +105,6 @@ mavikentApp.controller("DeskCtrl",function($scope,$state,$http,$localStorage,$ro
     $scope.delete=function(id,index){
         $http.delete(host+"/api/desk/"+id+"?token="+token).success(function(resp){
             $scope.list.splice(index,1);
-            //console.log(JSON.stringify(resp));
         }).error(function(err){
             console.error(JSON.stringify(err));
         });
@@ -134,6 +122,6 @@ mavikentApp.controller("DeskCtrl",function($scope,$state,$http,$localStorage,$ro
         $scope.obj.updated_by=$rootScope.mkb.current_user.name;
         $scope.obj._id=id;
         $scope.office={selected:$filter('getById')($scope.offices, $scope.obj.room_id._id)}
-       // console.log(JSON.stringify($scope.office));
+        $scope.floor={selected:$filter('getById')($scope.floors, $scope.obj.floor_id._id)}
     }
 });

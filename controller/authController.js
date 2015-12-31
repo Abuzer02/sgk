@@ -23,7 +23,7 @@ function AuthController ($scope,$auth, $state, $rootScope, $localStorage) {
          }
           $rootScope.mkb.token = response.data.token
           $rootScope.mkb.current_user = response.data.data
-            if($rootScope.mkb.current_user.role_id["name"]=="Admin"){
+            if($rootScope.mkb.current_user.role_id["name"]=="Admin" || $rootScope.mkb.current_user.role_id["name"]=="Süper Admin"){
                 $state.go('menu.dashboard', {});
             }else{
                 $state.go('menu2.anasayfa',{});
