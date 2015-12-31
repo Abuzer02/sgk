@@ -6,7 +6,7 @@
                <div class="col-md-10 col-md-offset-1">
                   <div class="col-md-3" ng-if="$index < products.length">
                      <div class="info-card">
-                        <img style="width: 100%" ng-src="{{products[$index].picture}}" />
+                        <img style="width: 100%; height:250px;" ng-src="{{products[$index].picture}}" />
                         <div class="info-card-details animate">
                            <div class="info-card-header">
                               <h1 ng-bind="products[$index].name"> </h1>
@@ -48,7 +48,7 @@
                   </div>
                   <div class="col-md-3" ng-if="$index+1 < products.length">
                      <div class="info-card">
-                        <img style="width: 100%" ng-src="{{products[$index+1].picture}}" />
+                        <img style="width: 100%; height:250px;" ng-src="{{products[$index+1].picture}}" />
                         <div class="info-card-details animate">
                            <div class="info-card-header">
                               <h1 ng-bind="products[$index+1].name"></h1>
@@ -90,7 +90,7 @@
                   </div>
                   <div class="col-md-3" ng-if="$index+2 < products.length">
                      <div class="info-card">
-                        <img style="width: 100%" src="{{products[$index+2].picture}}"/>
+                        <img style="width: 100%; height:250px;" src="{{products[$index+2].picture}}"/>
                         <div class="info-card-details animate">
                            <div class="info-card-header">
                               <h1 ng-bind="products[$index+2].name"></h1>
@@ -132,7 +132,7 @@
                   </div>
                   <div class="col-md-3" ng-if="$index+3 < products.length">
                      <div class="info-card">
-                        <img style="width: 100%" src="{{products[$index+3].picture}}" />
+                        <img style="width: 100%; height:250px;" src="{{products[$index+3].picture}}" />
                         <div class="info-card-details animate">
                            <div class="info-card-header">
                               <h1 ng-bind="products[$index+3].name"></h1>
@@ -178,11 +178,10 @@
       </div>
       <div class="msg-box isDown">
                         <div class="msg-box-top">
-                            <div class="titlebar clearfix">
+                            <div class=" clearfix">
                                 <div class="top-lfloat">
-                                    <div class="usr-status isMobile"></div>
                                     <div class="usr-name">
-                                      <strong>Sipariş Listesi</strong>
+                                      <strong style="font-family:'Roboto'; font-weight:800; color:#fff">Sipariş Listesi</strong>
                                     </div>
                                 </div>
                             <div class="open-chat-target open-close-chat"></div>
@@ -197,7 +196,7 @@
                       <!--  -->
                         <div class="chat-container">
                             <div class="chat-data">
-                                  <ul class="nav nav-tabs" role="tablist" style="background-color:#ddd">
+                                  <ul class="nav nav-tabs" role="tablist" style="background-color:#e7e7e7">
                                     <li role="presentation" class="active"><a data-target="#seen" aria-controls="home" role="tab" data-toggle="tab">Güncel <span class="not_seen" style="display : inline-block"></span></a></li>
                                     <li role="presentation"><a data-target="#not_seen" aria-controls="profile" role="tab" data-toggle="tab">Geçmiş <span class="a_seen" style="display : inline-block"></span></a>
                                     
@@ -214,10 +213,10 @@
                                               <th colspan="4"></th>
                                             </tr>
                                             <tr>
-                                              <th>Adet</th>
-                                              <th>İsim</th>
-                                              <th>Fiyat</th>
-                                              <th style="width:100px">İşlem</th>
+                                              <th style="color:#6c6c6c !important">Adet</th>
+                                              <th style="color:#6c6c6c !important">İsim</th>
+                                              <th style="color:#6c6c6c !important">Fiyat</th>
+                                              <th style="width:100px; color:#6c6c6c !important">İşlem</th>
                                             </tr>
                                           </thead>
                                           <tbody>

@@ -192,14 +192,14 @@ Navigation
   position: relative;
   height: 100vh;
   width: 100%;
-  background: #83b0b9;
+  background: #52bccf;
   overflow: hidden;
 }
 .cd-section.services header {
-  background-color: #d35657;
+  background-color: #f5f5f5;
 }
 .cd-section.projects header {
-  background-color: #f5f5f5;
+  background-color: #d25555;
 }
 .cd-section.contact header {
   background-color: #e4b162;
