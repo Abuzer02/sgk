@@ -1,4 +1,4 @@
-mavikentApp.controller('menuController', MenuController)
+mavikentApp.controller('menu1Controller', MenuController)
 
 function MenuController ($scope,$state,$http ,$rootScope,$localStorage) {
    $scope.logout = function(){
@@ -12,4 +12,7 @@ function MenuController ($scope,$state,$http ,$rootScope,$localStorage) {
           console.log(JSON.stringify(err));
       })
   }
+   $scope.git=function(url){
+       $state.go(url);
+   }
 }

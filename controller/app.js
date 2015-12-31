@@ -16,13 +16,48 @@ mavikentApp.run(function($rootScope, $location,$state, $http,$localStorage) {
     }
     }
    
+    $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams) {
+        
+        if(!$localStorage["user"] && !$localStorage["token"]){
+             $location.path('/login');
+             
+        }
+        /*
+        console.log("to : ",toState.name)
+        console.log("from : ",fromState.name)
+        */
+        if(fromState.name.indexOf("menu2") > -1 && toState.name.indexOf("menu1") > -1){
+           // console.log("İzinsiz")
+            return event.preventDefault()   
+        }
+        if(fromState.name.indexOf("menu1") > -1 && toState.name.indexOf("menu2") > -1){
+           // console.log("İzinsiz")
+            return event.preventDefault()   
+        }
+        if(fromState.name.indexOf("kantin") > -1 && (toState.name.indexOf("menu1") > -1 || toState.name.indexOf("menu2") > -1 || toState.name.indexOf("guvenlik") > -1 || toState.name.indexOf("servis") > -1) ){
+           // console.log("İzinsiz")
+            return event.preventDefault()   
+        }
+        if(fromState.name.indexOf("guvenlik") > -1 && (toState.name.indexOf("menu1") > -1 || toState.name.indexOf("menu2") > -1 || toState.name.indexOf("kantin") > -1 || toState.name.indexOf("servis") > -1) ){
+            //console.log("İzinsiz")
+            return event.preventDefault()   
+        }
+        if(fromState.name.indexOf("servis") > -1 && (toState.name.indexOf("menu1") > -1 || toState.name.indexOf("menu2") > -1 || toState.name.indexOf("guvenlik") > -1 || toState.name.indexOf("kantin") > -1) ){
+           // console.log("İzinsiz")
+            return event.preventDefault()   
+        }
+        
+    });
+    
     $rootScope.$on('$locationChangeStart', function(event, toState, toParams, fromState, fromParams) {
         
         if(!$localStorage["user"] && !$localStorage["token"]){
              $location.path('/login');
              
         }
+        
     });
+    
     if($rootScope.mkb.current_user && $rootScope.mkb.navigation_url ){
          $state.go($rootScope.mkb.navigation_url);
 
@@ -81,78 +116,78 @@ mavikentApp.config(function ($stateProvider, $urlRouterProvider, $authProvider){
       templateUrl: 'template/servis_cagir.html',
       controller:"OdaciCtrl"
   })
-  .state('menu', {
+  .state('menu1', {
       url : '/',
       abstract : true,
-      templateUrl: 'template/menu.html',
-      controller:'menuController'
+      templateUrl: 'template/menu1.html',
+      controller:'menu1Controller'
   })
-  .state('menu.dashboard', {
+  .state('menu1.dashboard', {
       url : 'dashboard',
       templateUrl: 'template/dashboard.html',
       controller: 'dashController as dash'
   })
-  .state('menu.rol', {
+  .state('menu1.rol', {
       url : 'rol',
       templateUrl: 'template/rol.html',
       controller:"RoleCtrl"
   })
-  .state('menu.kullanici_tanimlama', {
+  .state('menu1.kullanici_tanimlama', {
       url : 'kullanici_tanimlama',
       templateUrl: 'template/kullanici_tanimlama.html',
       controller: 'userController as user'
   })
-  .state('menu.gorev', {
+  .state('menu1.gorev', {
       url : 'gorev',
       templateUrl: 'template/gorev.html',
       controller:"TaskCtrl"
   })
-  .state('menu.kat_tanimlama', {
+  .state('menu1.kat_tanimlama', {
       url : 'kat_tanimlama',
       templateUrl: 'template/kat_tanimlama.html',
       controller:"FloorCtrl"
   })
-  .state('menu.urun_tanimlama', {
+  .state('menu1.urun_tanimlama', {
       url : 'urun_tanimlama',
       templateUrl: 'template/urun_tanimlama.html',
       controller:"ProductCtrl"
   })
-  .state('menu.guvenlik_tanimlama', {
+  .state('menu1.guvenlik_tanimlama', {
       url : 'guvenlik_tanimlama',
       templateUrl: 'template/guvenlik_tanimlama.html',
       controller : "SecurityCtrl"
   })
-  .state('menu.kantin_tanimi', {
+  .state('menu1.kantin_tanimi', {
       url : 'kantin_tanimi',
       templateUrl: 'template/kantin_tanimi.html',
       controller : "CanteenCtrl"
   })
-  .state('menu.odaci_tanimlama', {
+  .state('menu1.odaci_tanimlama', {
       url : 'odaci_tanimlama',
       templateUrl: 'template/odaci_tanimlama.html',
       controller: "CrewCtrl"
   })
-  .state('menu.ofis_tanimi', {
+  .state('menu1.ofis_tanimi', {
       url : 'ofis_tanimi',
       templateUrl: 'template/ofis_tanimi.html',
       controller:'OfficeCtrl'
   })
-  .state('menu.masa_tanimi', {
+  .state('menu1.masa_tanimi', {
       url : 'masa_tanimi',
       templateUrl: 'template/masa_tanimi.html',
       controller:'DeskCtrl'
   })
-  .state("menu.izinler",{
+  .state("menu1.izinler",{
       url:"izinler",
       templateUrl:"template/izinler.html",
       controller:"PermissionCtrl"
   })
-  .state("menu.yonlendirme",{
+  .state("menu1.yonlendirme",{
       url:"yonlendirme",
       templateUrl:"template/yonlendirme.html",
       controller: "NavigationCtrl"
   })
-  .state("menu.button",{
+  .state("menu1.button",{
       url:"button",
       templateUrl:"template/button.html",
       controller:"ButtonCtrl"
@@ -165,6 +200,7 @@ mavikentApp.config(function ($stateProvider, $urlRouterProvider, $authProvider){
           $rootScope.mkb = {
                 current_user : '',
                 authenticated : false,
+                navigation_url : "",
                 token : null
           }
           $window.location.reload()

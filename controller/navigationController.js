@@ -7,7 +7,7 @@ mavikentApp.controller("NavigationCtrl", function($scope, $state, $http, $localS
     $scope.list = [];
     $scope.tasks = [];
     $scope.roles = [];
-    $scope.pages = [{name : "Admin Paneli" , page_url : "menu.dashboard"},{name : "Genel Kullanıcı" , page_url : "menu2.anasayfa"},{name : "Çay Ocağı" , page_url : "kantin"},{name : "Oda Servisi" , page_url : "servis"},{name : "Güvenlik" , page_url : "guvenlik"}];
+    $scope.pages = [{name : "Admin Paneli" , page_url : "menu1.dashboard"},{name : "Genel Kullanıcı" , page_url : "menu2.anasayfa"},{name : "Çay Ocağı" , page_url : "kantin"},{name : "Oda Servisi" , page_url : "servis"},{name : "Güvenlik" , page_url : "guvenlik"}];
 
     function initialize() {
         $scope.role = {
