@@ -2,13 +2,14 @@ mavikentApp.controller('userController', UserController)
 function UserController ($scope ,$http,$rootScope,$filter) {
     var token=$rootScope.mkb.token;
     var updatedBy=$rootScope.mkb.current_user.name;
-    
+    $scope.pctr="";
     $("#myForm").attr("action",host+"/api/upload?token="+token);
     
     $("#myForm").ajaxForm(function(resp){
        console.log(resp); 
         if(resp.state==true){
             $("#img").attr("src",host+"/media/original/"+resp.mediaList.mediaList.name);
+            $scope.pctr=resp.mediaList.mediaList.name;
             
         }else{
             alert("hata");
@@ -126,7 +127,7 @@ function UserController ($scope ,$http,$rootScope,$filter) {
     });
     
     $scope.save=function(){
-        $scope.obj.profile_picture=$("#img").attr("src");
+        $scope.obj.profile_picture=$scope.pctr;
         $scope.obj.room_id = $scope.office.selected._id
         $scope.obj.floor_id = $scope.floor.selected._id
         $scope.obj.desk_id = $scope.desk.selected._id
@@ -184,7 +185,7 @@ function UserController ($scope ,$http,$rootScope,$filter) {
             phone_number:$scope.accounts[index].phone_number,
             updated_by:updatedBy
         }
-        $("#img").attr("src",$scope.accounts[index].profile_picture);
+        $("#img").attr("src",host+"/media/original/"+$scope.accounts[index].profile_picture);
         if($scope.accounts[index].room_id){
             $scope.office={selected:$filter('getById')($scope.rooms, $scope.accounts[index].room_id._id)}
         }

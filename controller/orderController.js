@@ -1,5 +1,5 @@
 mavikentApp.controller("OrderCtrl",function($scope,$rootScope,$http,$interval){
-    
+    $scope.host=host+"/media/original/";
     $scope.token=$rootScope.mkb.token;
     $scope.floor_id=$rootScope.mkb.current_user.floor_id._id;
     $scope.obj=[]
@@ -120,7 +120,7 @@ mavikentApp.controller("OrderCtrl",function($scope,$rootScope,$http,$interval){
     $('.open-close-chat').click( function(event){
       event.preventDefault();
       if ($('.msg-box').hasClass("isDown")){
-        $('.msg-box').animate({height:"300px"}, 200);
+        $('.msg-box').animate({height:"100%"}, 200);
         $('.msg-box').removeClass("isDown");
         $('.chat-input').fadeIn();
         $('.close').show();

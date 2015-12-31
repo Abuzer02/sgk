@@ -102,7 +102,7 @@ mavikentApp.controller("GetOrderCtrl",function($scope,$rootScope,$http,$interval
     $scope.listIndex;
     $scope.editId;
     $scope.listOrder=[];
-    
+    $scope.pctr="";
     
     $("#myForm").attr("action",host+"/api/upload?token="+token);
     
@@ -110,6 +110,7 @@ mavikentApp.controller("GetOrderCtrl",function($scope,$rootScope,$http,$interval
        console.log(resp); 
         if(resp.state==true){
             $("#img").attr("src",host+"/media/original/"+resp.mediaList.mediaList.name);
+            $scope.pctr=resp.mediaList.mediaList.name;
             
         }else{
             alert("hata");
@@ -155,7 +156,7 @@ mavikentApp.controller("GetOrderCtrl",function($scope,$rootScope,$http,$interval
     
     //add function
     $scope.save=function(){
-        $scope.objUrun.picture=$("#img").attr("src");
+        $scope.objUrun.picture=$scope.pctr;
         if($scope.IsEdit){
             $http.put(host+"/api/product?token="+token,$scope.objUrun).success(function(resp){
                 if(!resp.status){
@@ -200,7 +201,7 @@ mavikentApp.controller("GetOrderCtrl",function($scope,$rootScope,$http,$interval
     
     $scope.edit=function(id,index){
         console.log(id);
-        $("#img").attr("src",$scope.listOrder[index].picture);
+        $("#img").attr("src",host+"/media/original/"+$scope.listOrder[index].picture);
         $scope.IsEdit=true;
         $scope.listIndex=index;
         $scope.editId=id;
