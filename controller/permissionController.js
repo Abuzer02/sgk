@@ -77,6 +77,7 @@ mavikentApp.controller("PermissionCtrl", function($scope, $rootScope, $http, $fi
     $scope.users = [];
     $scope.roles = [];
     $scope.izinliSayfalar = []
+    $scope.izinliSayfalar2 = []
     $scope.obj = [];
     $scope.list = []
     $scope.user = {
@@ -120,7 +121,7 @@ mavikentApp.controller("PermissionCtrl", function($scope, $rootScope, $http, $fi
     
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     $scope.userChange = function() {
-        $scope.izinliSayfalar = [];
+        $scope.list = [];
         for (var j = 0; j < $scope.sayfalar.length; j++) {
             $scope.sayfalar[j].disabled = false;
         }
@@ -137,12 +138,10 @@ mavikentApp.controller("PermissionCtrl", function($scope, $rootScope, $http, $fi
                     
                     arrList[i].name = element24.name;
                 }
-                $scope.list = arrList;
-            
-            $scope.izinliSayfalar = resp.data;
-            for (var i = 0; i < $scope.izinliSayfalar.length; i++) {
+            $scope.list = arrList;
+            for (var i = 0; i < $scope.list.length; i++) {
                 for (var j = 0; j < $scope.sayfalar.length; j++) {
-                    if ($scope.izinliSayfalar[i].service_url == $scope.sayfalar[j].url) {
+                    if ($scope.list[i].service_url == $scope.sayfalar[j].url) {
                         $scope.sayfalar[j].disabled = true;
                     }
                 }
@@ -154,7 +153,7 @@ mavikentApp.controller("PermissionCtrl", function($scope, $rootScope, $http, $fi
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     
     $scope.roleChange = function() {
-        $scope.izinliSayfalar = []
+        $scope.list = []
         for (var j = 0; j < $scope.sayfalar.length; j++) {
             $scope.sayfalar[j].disabled = false;
         }
@@ -165,27 +164,16 @@ mavikentApp.controller("PermissionCtrl", function($scope, $rootScope, $http, $fi
                 console.log("error : ", JSON.stringify(resp));
                 return;
             }
-            $http.post(host+"/api/permission/search?token="+$rootScope.mkb.token,{permission_id : $scope.role.selected._id}).success(function(respRole){
-                if (respRole.status == false) {
-                console.log("error : ", JSON.stringify(respRole));
-                return;
-            }
-               var arrList = respRole.data;
-                var element24 = $filter('getById')($scope.roles, $scope.role.selected._id);
-                for (var i = 0; i < arrList.length; i++) {
+               var arrList = resp.data;
+               var element23 = $filter('getById')($scope.roles, $scope.role.selected._id);
+               for (var i = 0; i < arrList.length; i++) {
                     
-                    arrList[i].name = element24.name;
+                    arrList[i].name = element23.name;
                 }
-
-
-                $scope.list = arrList;
-            }).error(function(errUser){
-                console.error(JSON.stringify(errUser));
-            })
-            $scope.izinliSayfalar = resp.data;
-            for (var i = 0; i < $scope.izinliSayfalar.length; i++) {
+            $scope.list = arrList;
+            for (var i = 0; i < $scope.list.length; i++) {
                 for (var j = 0; j < $scope.sayfalar.length; j++) {
-                    if ($scope.izinliSayfalar[i].service_url == $scope.sayfalar[j].url) {
+                    if ($scope.list[i].service_url == $scope.sayfalar[j].url) {
                         $scope.sayfalar[j].disabled = true;
                     }
                 }
@@ -198,11 +186,11 @@ mavikentApp.controller("PermissionCtrl", function($scope, $rootScope, $http, $fi
     
     $scope.selectAllIzinsiz = function() {
         if ($scope.selectedAllIzinsiz == true) {
-            $("#ulIzinsiz li [style = 'display : none']").attr("class", "list-group-item");
+            $("#ulIzinsiz li:visible").attr("class", "list-group-item");
             $scope.selectedAllIzinsiz = false
             $scope.obj = [];
         } else {
-            $("#ulIzinsiz li [style = 'display : block']").attr("class", "list-group-item active");
+            $("#ulIzinsiz li:visible").attr("class", "list-group-item active");
             $scope.selectedAllIzinsiz = true
             for (var i = 0; i < $scope.sayfalar.length; i++) {
                 if($scope.sayfalar[i].disabled==false){
@@ -220,10 +208,10 @@ mavikentApp.controller("PermissionCtrl", function($scope, $rootScope, $http, $fi
 
     $scope.selectAllIzinli = function() {
         if ($scope.selectedAllIzinli == true) {
-            $("#ulIzinli li").attr("class", "list-group-item");
+            $("#ulIzinli li:visible").attr("class", "list-group-item");
             $scope.selectedAllIzinli = false
         } else {
-            $("#ulIzinli li").attr("class", "list-group-item active");
+            $("#ulIzinli li:visible").attr("class", "list-group-item active");
             $scope.selectedAllIzinli = true
         }
     }
@@ -265,6 +253,7 @@ mavikentApp.controller("PermissionCtrl", function($scope, $rootScope, $http, $fi
             }
 
         }
+        
         for (var j = 0; j < $scope.sayfalar.length; j++) {
             $scope.sayfalar[j].disabled = false;
         }
@@ -273,18 +262,7 @@ mavikentApp.controller("PermissionCtrl", function($scope, $rootScope, $http, $fi
             if (resp.status == false) {
                 console.log("error : ", JSON.stringify(resp));
                 return;
-            }
-            for (var i = 0; i < resp.data.ops.length; i++) {
-                $scope.izinliSayfalar[0]=resp.data.ops[i];
-            }
-            for (var i = 0; i < $scope.sayfalar.length; i++) {
-                for (var j = 0; j < $scope.izinliSayfalar.length; j++) {
-                    if ($scope.izinliSayfalar[j].service_url == $scope.sayfalar[i].url) {
-                        $scope.sayfalar[i].disabled = true;
-                    }
-                }
-            }
-
+            }            
             var arrList = resp.data.ops;
             for (var i = 0; i < arrList.length; i++) {
                 var element23 = $filter('getById')($scope.roles, arrList[i].permission_id);
@@ -301,9 +279,16 @@ mavikentApp.controller("PermissionCtrl", function($scope, $rootScope, $http, $fi
                 $scope.list.push(arrList[i]);
             }
 
-
+            
+            for (var i = 0; i < $scope.sayfalar.length; i++) {
+                for (var j = 0; j < $scope.list.length; j++) {
+                    if ($scope.list[j].service_url == $scope.sayfalar[i].url) {
+                        $scope.sayfalar[i].disabled = true;
+                    }
+                }
+            }
+            
             $scope.obj = [];
-            $("#ulIzinsiz li").attr("class", "list-group-item");
             $scope.editCheck = true;
             $scope.saveCheck = true;
             $scope.readCheck = true;
@@ -321,19 +306,13 @@ mavikentApp.controller("PermissionCtrl", function($scope, $rootScope, $http, $fi
                 console.log("error : ", JSON.stringify(resp));
                 return;
             }
-            $scope.list.splice(index, 1);
-            for (var i = 0; i < $scope.izinliSayfalar.length; i++) {
-                if ($scope.izinliSayfalar[i].service_url == item.service_url) {
-                    console.log("here  ", item);
-                    var el2 = {
-                        name: $scope.izinliSayfalar[i].service_label,
-                        url: $scope.izinliSayfalar[i].service_url,
-                        disabled: false
-                    }
-                    $scope.sayfalar.push(el2);
-                    $scope.izinliSayfalar.splice(i, 1);
-                }
+            var el2 = {
+                name: $scope.list[index].service_label,
+                url: $scope.list[index].service_url,
+                disabled: false
             }
+            $scope.sayfalar.push(el2);
+            $scope.list.splice(index, 1);
         }).error(function(err) {
             console.log(JSON.stringify(err));
         })
