@@ -30,17 +30,21 @@ mavikentApp.controller("SecurityCtrl", function($scope, $state, $http, $localSto
     $http.get(host + "/api/account?token=" + token).success(function(resp) {
         if (resp.status == false) {
             console.log("error : ", JSON.stringify(resp));
+            stateControl(resp.code,resp.data);
             return;
         }
         $scope.users = resp.data;
 
     }).error(function(err) {
         console.error(JSON.stringify(err));
+        sweetAlert("Oops...", "Bir hata oluştu", "error");
     });
 
     $http.get(host + "/api/floor?token=" + token).success(function(resp) {
         if (resp.status == false) {
             console.log("error : ", JSON.stringify(resp));
+            stateControl(resp.code,resp.data);
+            
             return;
         }
 
@@ -48,11 +52,13 @@ mavikentApp.controller("SecurityCtrl", function($scope, $state, $http, $localSto
 
     }).error(function(err) {
         console.error(JSON.stringify(err));
+        sweetAlert("Oops...", "Bir hata oluştu", "error");
     });
 
     $http.get(host + "/api/security?token=" + token).success(function(resp) {
         if (resp.status == false) {
             console.log("error : ", JSON.stringify(resp));
+            stateControl(resp.code,resp.data);
             return;
         }
 
@@ -60,6 +66,7 @@ mavikentApp.controller("SecurityCtrl", function($scope, $state, $http, $localSto
 
     }).error(function(err) {
         console.error(JSON.stringify(err));
+        sweetAlert("Oops...", "Bir hata oluştu", "error");
     });
 
     //add function
@@ -70,6 +77,7 @@ mavikentApp.controller("SecurityCtrl", function($scope, $state, $http, $localSto
             $http.put(host + "/api/security?token=" + token, $scope.obj).success(function(resp) {
                 if (resp.status == false) {
                     console.log("error : ", JSON.stringify(resp));
+                    stateControl(resp.code,resp.data);
                     return;
                 }
                 $scope.IsEdit = false;
@@ -78,20 +86,25 @@ mavikentApp.controller("SecurityCtrl", function($scope, $state, $http, $localSto
                 $scope.office = {
                     selected: ""
                 };
+                swal("Başarılı!", "Güncelleme Başarılı!", "success")
             }).error(function(err) {
                 console.error(JSON.stringify(err));
+                sweetAlert("Oops...", "Bir hata oluştu", "error");
             });
 
         } else {
             $http.post(host + "/api/security?token=" + token, $scope.obj).success(function(resp) {
                 if (resp.status == false) {
                     console.log("error : ", JSON.stringify(resp));
+                    stateControl(resp.code,resp.data);
                     return;
                 }
                 $scope.list.push(resp.data);
                 initiliaze();
+                swal("Başarılı!", "Ekleme Başarılı!", "success")
             }).error(function(err) {
                 console.error(JSON.stringify(err));
+                sweetAlert("Oops...", "Bir hata oluştu", "error");
             });
         }
 
@@ -100,14 +113,26 @@ mavikentApp.controller("SecurityCtrl", function($scope, $state, $http, $localSto
 
 
     $scope.delete = function(id, index) {
+        swal({  
+            title: "Emin misiniz?",   
+            text: "Bu öğeyi silmek istedğinizden emin misiniz?",   
+            type: "warning",  
+            showCancelButton: true,   
+            confirmButtonColor: "#DD6B55",   
+            confirmButtonText: "Evet",   
+            closeOnConfirm: false }, function(){
         $http.delete(host + "/api/security/" + id + "?token=" + token).success(function(resp) {
             if (resp.status == false) {
                 console.log("error : ", JSON.stringify(resp));
+                stateControl(resp.code,resp.data);
                 return;
             }
             $scope.list.splice(index, 1);
+            swal("Başarılı!", "Silme Başarılı!", "success")
         }).error(function(err) {
             console.error(JSON.stringify(err));
+            sweetAlert("Oops...", "Bir hata oluştu", "error");
+        });
         });
     }
 

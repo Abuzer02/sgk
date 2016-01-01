@@ -12,7 +12,44 @@ function MenuController ($scope,$state,$http ,$rootScope,$localStorage) {
           console.log(JSON.stringify(err));
       })
   }
-   $scope.git=function(url){
+   $scope.git=function(url, event){
+        $('#sidebar-menu a').removeClass('active')
+        angular.element(event.currentTarget).addClass('active')
        $state.go(url);
    }
+   $scope.menuState = true
+   $scope.menuToggle = function(){
+     if ($scope.menuState) {
+       $scope.menuState =false
+       $('#wrapper').addClass('enlarged')
+     }else{
+       $scope.menuState = true
+       $('#wrapper').removeClass('enlarged')
+     }
+   }
+   $('[data-toggle=tooltip]').tooltip()
+   
+   $scope.host = host
+
+$scope.isFullScreen = false
+  $scope.fullScreen = function() {
+    if(!$scope.isFullScreen){
+      var el = document.documentElement,
+        rfs = el.requestFullScreen
+        || el.webkitRequestFullScreen
+        || el.mozRequestFullScreen
+        ;
+      rfs.call(el);
+      $scope.isFullScreen = true
+    }else{
+      if(document.exitFullscreen) {
+        document.exitFullscreen();
+      } else if(document.mozCancelFullScreen) {
+        document.mozCancelFullScreen();
+      } else if(document.webkitExitFullscreen) {
+        document.webkitExitFullscreen();
+      }
+      $scope.isFullScreen = false
+    }
+  };
 }

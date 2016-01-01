@@ -13,7 +13,7 @@
         <div class="container">
             <div class="">
                 <div class="pull-left">
-                    <button class="button-menu-mobile open-left">
+                    <button class="button-menu-mobile open-left" ng-click="menuToggle()">
                         <i class="ion-navicon"></i>
                     </button>
                     <span class="clearfix"></span>
@@ -33,8 +33,13 @@
                         <ul class="dropdown-menu dropdown-menu-lg">
                         </ul>
                     </li>
+                    <li class="hidden-xs">
+                        <a href="" class="waves-effect waves-light" ng-click="fullScreen()">
+                            <i class="icon-size-fullscreen"></i>
+                        </a>
+                    </li>
                     <li class="dropdown " style="">
-                        <a style="padding-top:10px" href="" class="dropdown-toggle profile" data-toggle="dropdown" aria-expanded="true"><img src="assets/images/users/avatar-1.jpg" alt="user-img" class="img-circle"> </a>
+                        <a style="padding-top:10px" href="" class="dropdown-toggle profile" data-toggle="dropdown" aria-expanded="true"><img ng-src="{{host}}/media/original/{{$root.mkb.current_user.profile_picture}}" alt="user-img" class="img-circle"> </a>
                         <ul class="dropdown-menu">
                             <li><a href="javascript:void(0)"><i class="ti-settings m-r-5"></i> Ayarlar</a></li>
                             <li><a href="javascript:void(0)" ng-click="logout()"><i class="ti-power-off m-r-5"></i> Çıkış</a></li>
@@ -52,49 +57,49 @@
 <!-- ========== Left Sidebar Start ========== -->
 
 <div class="left side-menu">
-    <div class="sidebar-inner slimscrollleft">
+    <div class="sidebar-inner">
         <!--- Divider -->
         <div id="sidebar-menu">
             <ul>
                 <li class="has_sub">
-                    <a href="" ng-click="git('menu1.dashboard')" class="waves-effect"><i class="ti-home"></i> <span> Anasayfa </span> </a>
+                    <a href=""  ng-click="git('menu1.dashboard',$event)" class="waves-effect active" ><i class="ti-home"></i> <span> Anasayfa </span> </a>
                 </li>
                 <li class="has_sub">
-                    <a href="" ng-click='git("menu1.rol")' class="waves-effect"><i class="ti-clipboard"></i> <span> Rol Tanımlama </span> </a>
+                    <a href="" ng-click='git("menu1.rol",$event)' class="waves-effect"><i class="ti-clipboard"></i> <span> Rol Tanımlama </span> </a>
                 </li>
                 <li class="has_sub">
-                    <a href="" ng-click='git("menu1.gorev")' class="waves-effect"><i class="ti-archive"></i> <span>Görev Tanımlama </span> </a>
+                    <a href="" ng-click='git("menu1.gorev",$event)' class="waves-effect"><i class="ti-archive"></i> <span>Görev Tanımlama </span> </a>
                 </li>
                 <li class="has_sub">
-                    <a href="" ng-click='git("menu1.kat_tanimlama")' class="waves-effect"><i class="ti-layout-menu-v"></i> <span>Kat Tanımlama </span> </a>
+                    <a href="" ng-click='git("menu1.kat_tanimlama",$event)' class="waves-effect"><i class="ti-layout-menu-v"></i> <span>Kat Tanımlama </span> </a>
                 </li>
                  <li class="has_sub">
-                    <a href="" ng-click='git("menu1.ofis_tanimi")' class="waves-effect"><i class="ti-marker"></i> <span>Ofis Tanımlama </span> </a>
+                    <a href="" ng-click='git("menu1.ofis_tanimi",$event)' class="waves-effect"><i class="ti-marker"></i> <span>Ofis Tanımlama </span> </a>
                 </li>
                  <li class="has_sub">
-                    <a href="" ng-click='git("menu1.masa_tanimi")' class="waves-effect"><i class="ti-harddrives"></i> <span>Masa Tanımlama </span> </a>
+                    <a href="" ng-click='git("menu1.masa_tanimi",$event)' class="waves-effect"><i class="ti-harddrives"></i> <span>Masa Tanımlama </span> </a>
                 </li>
                 <li class="has_sub">
-                    <a href="" ng-click='git("menu1.kullanici_tanimlama")' class="waves-effect"><i class="ti-user"></i> <span> Kullanıcı Tanımlama </span> </a>
+                    <a href="" ng-click='git("menu1.kullanici_tanimlama",$event)' class="waves-effect"><i class="ti-user"></i> <span> Kullanıcı Tanımlama </span> </a>
                 </li>
                 <li class="has_sub">
-                    <a href="" ng-click='git("menu1.kantin_tanimi")' class="waves-effect"><i class="ti-money"></i> <span>Kantin Tanımlama </span> </a>
+                    <a href="" ng-click='git("menu1.kantin_tanimi",$event)' class="waves-effect"><i class="ti-money"></i> <span>Kantin Tanımlama </span> </a>
                 </li>
                 <li class="has_sub">
-                    <a href="" ng-click='git("menu1.guvenlik_tanimlama")' class="waves-effect"><i class="ti-alert"></i> <span>Güvenlik Tanımlama </span> </a>
+                    <a href="" ng-click='git("menu1.guvenlik_tanimlama",$event)' class="waves-effect"><i class="ti-alert"></i> <span>Güvenlik Tanımlama </span> </a>
                 </li>
                 <li class="has_sub">
-                    <a href="" ng-click='git("menu1.odaci_tanimlama")' class="waves-effect"><i class="ti-control-record"></i> <span>Odacı Ataması </span> </a>
+                    <a href="" ng-click='git("menu1.odaci_tanimlama",$event)' class="waves-effect"><i class="ti-control-record"></i> <span>Odacı Ataması </span> </a>
                 </li>
                 <li class="has_sub">
-                    <a href="" ng-click='git("menu1.button")' class="waves-effect"><i class="ti-signal"></i> <span>Button Ataması </span> </a>
+                    <a href="" ng-click='git("menu1.button",$event)' class="waves-effect"><i class="ti-signal"></i> <span>Button Ataması </span> </a>
                 </li>
                    <li class="has_sub">
-                    <a href="" ng-click='git("menu1.izinler")' class="waves-effect"><i class="ti-flag"></i> <span>İzinler </span> </a>
+                    <a href="" ng-click='git("menu1.izinler",$event)' class="waves-effect"><i class="ti-flag"></i> <span>İzinler </span> </a>
                 </li>
                   </li>
                    <li class="has_sub">
-                    <a href="" ng-click='git("menu1.yonlendirme")' class="waves-effect"><i class="ti-flag"></i> <span>Yönlendirme </span> </a>
+                    <a href="" ng-click='git("menu1.yonlendirme",$event)' class="waves-effect"><i class="ti-flag"></i> <span>Yönlendirme </span> </a>
                 </li>
             </ul>
             <div class="clearfix"></div>

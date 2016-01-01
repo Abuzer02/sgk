@@ -40,56 +40,68 @@ mavikentApp.controller("ButtonCtrl", function($scope, $state, $http, $localStora
     $http.get(host + "/api/account?token=" + token).success(function(resp) {
         if (resp.status == false) {
             console.log("error : ", JSON.stringify(resp));
+            stateControl(resp.code,resp.data);
             return;
         }
         $scope.users = resp.data;
 
     }).error(function(err) {
         console.error(JSON.stringify(err));
+        sweetAlert("Oops...", "Bir hata oluştu", "error");
     });
 
     $http.get(host + "/api/floor?token=" + token).success(function(resp) {
         if (resp.status == false) {
             console.log("error : ", JSON.stringify(resp));
+            stateControl(resp.code,resp.data);
+            
             return;
         }
         $scope.floors = resp.data;
 
     }).error(function(err) {
         console.error(JSON.stringify(err));
+        sweetAlert("Oops...", "Bir hata oluştu", "error");
     });
 
     $http.get(host + "/api/office?token=" + token).success(function(resp) {
         if (resp.status == false) {
             console.log("error : ", JSON.stringify(resp));
+            stateControl(resp.code,resp.data);
             return;
         }
         $scope.offices = resp.data;
 
     }).error(function(err) {
         console.error(JSON.stringify(err));
+        sweetAlert("Oops...", "Bir hata oluştu", "error");
     });
 
     $http.get(host + "/api/desk?token=" + token).success(function(resp) {
         if (resp.status == false) {
             console.log("error : ", JSON.stringify(resp));
+            stateControl(resp.code,resp.data);
             return;
         }
         $scope.desks = resp.data;
 
     }).error(function(err) {
         console.error(JSON.stringify(err));
+        sweetAlert("Oops...", "Bir hata oluştu", "error");
     });
 
     $http.get(host + "/api/button?token=" + token).success(function(resp) {
+        
         if (resp.status == false) {
             console.log("error : ", JSON.stringify(resp));
+            stateControl(resp.code,resp.data);
             return;
         }
         $scope.list = resp.data;
 
     }).error(function(err) {
         console.error(JSON.stringify(err));
+        sweetAlert("Oops...", "Bir hata oluştu", "error");
     });
 
     //add function
@@ -100,30 +112,38 @@ mavikentApp.controller("ButtonCtrl", function($scope, $state, $http, $localStora
         $scope.obj.account_id = $scope.user.selected._id;
         if ($scope.IsEdit) {
             $http.put(host + "/api/button?token=" + token, $scope.obj).success(function(resp) {
+                stateControl(resp.code);
                 if (resp.status == false) {
                     console.log("error : ", JSON.stringify(resp));
+                    stateControl(resp.code,resp.data);
                     return;
                 }
                 $scope.IsEdit = false;
                 $scope.list[$scope.listIndex] = resp.data;
+                swal("Başarılı!", "Güncelleme Başarılı!", "success")
                 initiliaze();
                 $scope.office = {
                     selected: ""
                 };
             }).error(function(err) {
                 console.error(JSON.stringify(err));
+                sweetAlert("Oops...", "Bir hata oluştu", "error");
             });
 
         } else {
             $http.post(host + "/api/button?token=" + token, $scope.obj).success(function(resp) {
+                stateControl(resp.code);
                 if (resp.status == false) {
                     console.log("error : ", JSON.stringify(resp));
+                    stateControl(resp.code,resp.data);
                     return;
                 }
                 $scope.list.push(resp.data);
+                swal("Başarılı!", "Ekleme Başarılı!", "success")
                 initiliaze();
             }).error(function(err) {
                 console.error(JSON.stringify(err));
+                sweetAlert("Oops...", "Bir hata oluştu", "error");
             });
         }
 
@@ -132,15 +152,30 @@ mavikentApp.controller("ButtonCtrl", function($scope, $state, $http, $localStora
 
 
     $scope.delete = function(id, index) {
-        $http.delete(host + "/api/button/" + id + "?token=" + token).success(function(resp) {
+        swal({  
+            title: "Emin misiniz?",   
+            text: "Bu öğeyi silmek istedğinizden emin misiniz?",   
+            type: "warning",  
+            showCancelButton: true,   
+            confirmButtonColor: "#DD6B55",   
+            confirmButtonText: "Evet",   
+            closeOnConfirm: false }, function(){
+            
+            $http.delete(host + "/api/button/" + id + "?token=" + token).success(function(resp) {
+                
             if (resp.status == false) {
                 console.log("error : ", JSON.stringify(resp));
+                stateControl(resp.code,resp.data);
                 return;
             }
             $scope.list.splice(index, 1);
+            swal("Başarılı!", "Öğe Başarılı ile Silindi!", "success")
         }).error(function(err) {
             console.error(JSON.stringify(err));
+            sweetAlert("Oops...", "Bir hata oluştu", "error");
         });
+        });
+        
     }
 
     //edit function

@@ -3,7 +3,7 @@ function UserController ($scope ,$http,$rootScope,$filter) {
     var token=$rootScope.mkb.token;
     var updatedBy=$rootScope.mkb.current_user.name;
     $scope.pctr="";
-    $("#myForm").attr("action",host+"/api/upload?token="+token);
+    $("#myForm").attr("action",host+"/upload?token="+token);
     
     $("#myForm").ajaxForm(function(resp){
        console.log(resp); 
@@ -12,7 +12,7 @@ function UserController ($scope ,$http,$rootScope,$filter) {
             $scope.pctr=resp.mediaList.mediaList.name;
             
         }else{
-            alert("hata");
+            sweetAlert("Oops...", "Bir hata oluştu", "error");
         }
     });
     $scope.resimSec=function(e){
@@ -63,11 +63,13 @@ function UserController ($scope ,$http,$rootScope,$filter) {
     $http.get(host+"/api/floor?token="+token).success(function(resp){
         if(resp.status==false){
             console.log(JSON.stringify(resp));
+            stateControl(resp.code,resp.data);
             return;
          }
         $scope.floors=resp.data;
     }).error(function(err){
         console.error(JSON.stringify(err));
+        sweetAlert("Oops...", "Bir hata oluştu", "error");
     });
     
     
@@ -75,11 +77,13 @@ function UserController ($scope ,$http,$rootScope,$filter) {
          $http.get(host+"/api/office/get_by_floor/"+$scope.floor.selected._id+"?token="+token).success(function(resp){
              if(resp.status==false){
                 console.log(JSON.stringify(resp));
+                 stateControl(resp.code,resp.data);
                 return;
              }
                 $scope.offices=resp.data;
             }).error(function(err){
                 console.error(JSON.stringify(err));
+             sweetAlert("Oops...", "Bir hata oluştu", "error");
             });
     }
     
@@ -88,11 +92,13 @@ function UserController ($scope ,$http,$rootScope,$filter) {
     $http.get(host+"/api/office?token="+token).success(function(resp){
         if(resp.status==false){
             console.log(JSON.stringify(resp));
+            stateControl(resp.code,resp.data);
             return;
          }
         $scope.rooms=resp.data;
     }).error(function(err){
         console.error(JSON.stringify(err));
+        sweetAlert("Oops...", "Bir hata oluştu", "error");
     });
     
     
@@ -100,9 +106,15 @@ function UserController ($scope ,$http,$rootScope,$filter) {
    
     $scope.degOfis=function(){
       $http.get(host+"/api/desk/get_by_office/"+$scope.office.selected._id+"?token="+token).success(function(resp){
+          if(resp.status==false){
+            console.log(JSON.stringify(resp));
+            stateControl(resp.code,resp.data);
+            return;
+         }
             $scope.desks=resp.data;
         }).error(function(err){
             console.error(JSON.stringify(err));
+          sweetAlert("Oops...", "Bir hata oluştu", "error");
         });
     
     }
@@ -110,9 +122,15 @@ function UserController ($scope ,$http,$rootScope,$filter) {
     //////////////////////////////////////////
     
     $http.get(host+"/api/desk?token="+token).success(function(resp){
+         if(resp.status==false){
+            console.log(JSON.stringify(resp));
+            stateControl(resp.code,resp.data);
+            return;
+         }
         $scope.masalar=resp.data;
     }).error(function(err){
         console.error(JSON.stringify(err));
+        sweetAlert("Oops...", "Bir hata oluştu", "error");
     });
     
     
@@ -121,33 +139,39 @@ function UserController ($scope ,$http,$rootScope,$filter) {
     $http.get(host+"/api/task?token="+token).success(function(resp){
         if(resp.status==false){
             console.log(JSON.stringify(resp));
+            stateControl(resp.code,resp.data);
             return;
          }
         $scope.tasks=resp.data;
     }).error(function(err){
         console.error(JSON.stringify(err));
+        sweetAlert("Oops...", "Bir hata oluştu", "error");
     });
     
     
     $http.get(host+"/api/role?token="+token).success(function(resp){
         if(resp.status==false){
             console.log(JSON.stringify(resp));
+            stateControl(resp.code,resp.data);
             return;
          }
         $scope.roles=resp.data;
     }).error(function(err){
         console.error(JSON.stringify(err));
+        sweetAlert("Oops...", "Bir hata oluştu", "error");
     });
     
     $http.get(host+"/api/account?token="+token).success(function(resp){
          if(resp.status==false){
             console.log(JSON.stringify(resp));
+             stateControl(resp.code,resp.data);
             return;
          }
         $scope.accounts=resp.data;
        // console.log(JSON.stringify(resp));
     }).error(function(err){
         console.error(JSON.stringify(err));
+        sweetAlert("Oops...", "Bir hata oluştu", "error");
     });
     
     $scope.save=function(){
@@ -161,38 +185,59 @@ function UserController ($scope ,$http,$rootScope,$filter) {
             $http.put(host+"/api/account?token="+token,$scope.obj).success(function(resp){
                 if(!resp.status){
                     console.log("status : "+JSON.stringify(resp));
+                    stateControl(resp.code,resp.data);
                     return;
                 }
                 $scope.IsEdit=false;
                 $scope.accounts[$scope.listIndex]=resp.data[0];
+                if($rootScope.mkb.current_user._id == resp.data[0]._id){
+                    $rootScope.mkb.current_user=resp.data[0];
+                }
                 initialize();
+                swal("Başarılı!", "Güncelleme Başarılı!", "success")
             }).error(function(err){
                 console.log(JSON.stringify(err));
+                sweetAlert("Oops...", "Bir hata oluştu", "error");
             }) 
         }else{
             $http.post(host+"/api/account?token="+token,$scope.obj).success(function(resp){
                 if(!resp.status){
                     console.log("status : "+JSON.stringify(resp));
+                    stateControl(resp.code,resp.data);
                     return;
                 }
                 console.log(resp,undefined,4);
                 $scope.accounts.push(resp.data);
                  initialize();
+                swal("Başarılı!", "Ekleme Başarılı!", "success")
             }).error(function(err){
                 console.log(JSON.stringify(err));
+                sweetAlert("Oops...", "Bir hata oluştu", "error");
             })   
         }
     }
     
     $scope.delete=function(id,index){
+         swal({  
+            title: "Emin misiniz?",   
+            text: "Bu öğeyi silmek istedğinizden emin misiniz?",   
+            type: "warning",  
+            showCancelButton: true,   
+            confirmButtonColor: "#DD6B55",   
+            confirmButtonText: "Evet",   
+            closeOnConfirm: false }, function(){
         $http.delete(host+"/api/account/"+id+"?token="+token).success(function(resp){
             if(!resp.status){
                 console.log("status : "+JSON.stringify(resp));
+                stateControl(resp.code,resp.data);
                 return;
             }
             $scope.accounts.splice(index,1);
+            swal("Başarılı!", "Silme Başarılı!", "success")
         }).error(function(err){
             console.log(JSON.stringify(err));
+            sweetAlert("Oops...", "Bir hata oluştu", "error");
+        })
         })
     }
     $scope.edit=function(id,index){

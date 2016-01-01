@@ -11,7 +11,9 @@ mavikentApp.controller("Menu2Ctrl",function($scope,$state,$rootScope){
         $("#"+data2).attr("class","");
         
         if($("#"+data).attr("class") != "selected") {
+            //console.log(data);
             $("#"+data).attr("class","selected")
+            //console.log(data);
             $state.go("menu2."+data)
             
         }

@@ -99,6 +99,7 @@ mavikentApp.controller("PermissionCtrl", function($scope, $rootScope, $http, $fi
     $http.get(host + "/api/account?token=" + $rootScope.mkb.token).success(function(resp) {
         if (resp.status == false) {
             console.log("error : ", JSON.stringify(resp));
+            stateControl(resp.code,resp.data);
             return;
         }
         $scope.users = resp.data;
@@ -106,17 +107,20 @@ mavikentApp.controller("PermissionCtrl", function($scope, $rootScope, $http, $fi
 
     }).error(function(err) {
         console.error(JSON.stringify(err));
+        sweetAlert("Oops...", "Bir hata oluştu", "error");
     });
 
     $http.get(host + "/api/role?token=" + $rootScope.mkb.token).success(function(resp) {
         if (resp.status == false) {
             console.log("error : ", JSON.stringify(resp));
+            stateControl(resp.code,resp.data);
             return;
         }
         $scope.roles = resp.data;
         $scope.role_loaded = true;
     }).error(function(err) {
         console.error(JSON.stringify(err));
+        sweetAlert("Oops...", "Bir hata oluştu", "error");
     });
     
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -130,6 +134,7 @@ mavikentApp.controller("PermissionCtrl", function($scope, $rootScope, $http, $fi
         }).success(function(resp) {
             if (resp.status == false) {
                 console.log("error : ", JSON.stringify(resp));
+                stateControl(resp.code,resp.data);
                 return;
             }
             var arrList = resp.data;
@@ -148,6 +153,7 @@ mavikentApp.controller("PermissionCtrl", function($scope, $rootScope, $http, $fi
             }
         }).error(function(err) {
             console.error(JSON.stringify(err));
+            sweetAlert("Oops...", "Bir hata oluştu", "error");
         })
     }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -162,6 +168,7 @@ mavikentApp.controller("PermissionCtrl", function($scope, $rootScope, $http, $fi
         }).success(function(resp) {
             if (resp.status == false) {
                 console.log("error : ", JSON.stringify(resp));
+                stateControl(resp.code,resp.data);
                 return;
             }
                var arrList = resp.data;
@@ -180,6 +187,7 @@ mavikentApp.controller("PermissionCtrl", function($scope, $rootScope, $http, $fi
             }
         }).error(function(err) {
             console.error(JSON.stringify(err));
+            sweetAlert("Oops...", "Bir hata oluştu", "error");
         })
     }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -261,6 +269,7 @@ mavikentApp.controller("PermissionCtrl", function($scope, $rootScope, $http, $fi
         $http.post(host + "/api/permission?token=" + $rootScope.mkb.token, $scope.obj).success(function(resp) {
             if (resp.status == false) {
                 console.log("error : ", JSON.stringify(resp));
+                stateControl(resp.code,resp.data);
                 return;
             }            
             var arrList = resp.data.ops;
@@ -293,17 +302,28 @@ mavikentApp.controller("PermissionCtrl", function($scope, $rootScope, $http, $fi
             $scope.saveCheck = true;
             $scope.readCheck = true;
             $scope.deleteCheck = true;
+            swal("Başarılı!", "Ekleme Başarılı!", "success")
         }).error(function(err) {
             console.error(JSON.stringify(err));
+            sweetAlert("Oops...", "Bir hata oluştu", "error");
         })
 
 
     }
 
     $scope.deleteItem = function(index, item) {
+        swal({  
+            title: "Emin misiniz?",   
+            text: "Bu öğeyi silmek istedğinizden emin misiniz?",   
+            type: "warning",  
+            showCancelButton: true,   
+            confirmButtonColor: "#DD6B55",   
+            confirmButtonText: "Evet",   
+            closeOnConfirm: false }, function(){
         $http.delete(host + "/api/permission/" + item._id + "?token=" + $rootScope.mkb.token).success(function(resp) {
             if (resp.status == false) {
                 console.log("error : ", JSON.stringify(resp));
+                stateControl(resp.code,resp.data);
                 return;
             }
             var el2 = {
@@ -313,8 +333,11 @@ mavikentApp.controller("PermissionCtrl", function($scope, $rootScope, $http, $fi
             }
             $scope.sayfalar.push(el2);
             $scope.list.splice(index, 1);
+            swal("Başarılı!", "Silme Başarılı!", "success")
         }).error(function(err) {
             console.log(JSON.stringify(err));
+            sweetAlert("Oops...", "Bir hata oluştu", "error");
+        })
         })
     }
 

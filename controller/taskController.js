@@ -15,6 +15,7 @@ mavikentApp.controller("TaskCtrl", function($scope, $state, $http, $localStorage
     $http.get(host + "/api/task?token=" + token).success(function(resp) {
         if (resp.status == false) {
             console.log("error : ", JSON.stringify(resp));
+            stateControl(resp.code,resp.data);
             return;
         }
         $scope.list = resp.data;
@@ -22,6 +23,7 @@ mavikentApp.controller("TaskCtrl", function($scope, $state, $http, $localStorage
 
     }).error(function(err) {
         console.error(JSON.stringify(err));
+        sweetAlert("Oops...", "Bir hata oluştu", "error");
     });
 
     //add function
@@ -30,6 +32,7 @@ mavikentApp.controller("TaskCtrl", function($scope, $state, $http, $localStorage
             $http.put(host + "/api/task/?token=" + token, $scope.obj).success(function(resp) {
                 if (resp.status == false) {
                     console.log("error : ", JSON.stringify(resp));
+                    stateControl(resp.code,resp.data);
                     return;
                 }
                 $scope.IsEdit = false;
@@ -40,14 +43,17 @@ mavikentApp.controller("TaskCtrl", function($scope, $state, $http, $localStorage
                     task_order: "",
                     updated_by: $rootScope.mkb.current_user.name
                 };
+                swal("Başarılı!", "Güncelleme Başarılı!", "success")
             }).error(function(err) {
                 console.error(JSON.stringify(err));
+                sweetAlert("Oops...", "Bir hata oluştu", "error");
             });
 
         } else {
             $http.post(host + "/api/task?token=" + token, $scope.obj).success(function(resp) {
                 if (resp.status == false) {
                     console.log("error : ", JSON.stringify(resp));
+                    stateControl(resp.code,resp.data);
                     return;
                 }
                 $scope.list.push(resp.data);
@@ -56,9 +62,11 @@ mavikentApp.controller("TaskCtrl", function($scope, $state, $http, $localStorage
                     task_order: "",
                     updated_by: $rootScope.mkb.current_user.name
                 };
-                // console.log(JSON.stringify(resp));  
+                // console.log(JSON.stringify(resp)); 
+                swal("Başarılı!", "Ekleme Başarılı!", "success")
             }).error(function(err) {
                 console.error(JSON.stringify(err));
+                sweetAlert("Oops...", "Bir hata oluştu", "error");
             });
         }
 
@@ -67,15 +75,27 @@ mavikentApp.controller("TaskCtrl", function($scope, $state, $http, $localStorage
     //delete function
 
     $scope.delete = function(id, index) {
+        swal({  
+            title: "Emin misiniz?",   
+            text: "Bu öğeyi silmek istedğinizden emin misiniz?",   
+            type: "warning",  
+            showCancelButton: true,   
+            confirmButtonColor: "#DD6B55",   
+            confirmButtonText: "Evet",   
+            closeOnConfirm: false }, function(){
         $http.delete(host + "/api/task/" + id + "?token=" + token).success(function(resp) {
             if (resp.status == false) {
                 console.log("error : ", JSON.stringify(resp));
+                stateControl(resp.code,resp.data);
                 return;
             }
             $scope.list.splice(index, 1);
             console.log(JSON.stringify(resp));
+            swal("Başarılı!", "Silme Başarılı!", "success")
         }).error(function(err) {
             console.error(JSON.stringify(err));
+            sweetAlert("Oops...", "Bir hata oluştu", "error");
+        });
         });
     }
 

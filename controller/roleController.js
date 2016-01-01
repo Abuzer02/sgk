@@ -15,12 +15,14 @@ mavikentApp.controller("RoleCtrl", function($scope, $state, $http, $localStorage
     $http.get(host + "/api/role?token=" + token).success(function(resp) {
         if (resp.status == false) {
             console.log("error : ", JSON.stringify(resp));
+            sweetAlert("Oops...", "Bu sayfaya erişim izniniz yoktur", "error");
             return;
         }
         $scope.list = resp.data;
-
+        
     }).error(function(err) {
         console.error(JSON.stringify(err));
+        sweetAlert("Oops...", "Bir hata oluştu", "error");
     });
 
     //add function
@@ -35,6 +37,7 @@ mavikentApp.controller("RoleCtrl", function($scope, $state, $http, $localStorage
                 $scope.IsEdit = false;
                 //console.log(resp);
                 $scope.list[$scope.listIndex] = resp.data;
+                swal("Başarılı!", "Güncelleme Başarılı!", "success")
                 $scope.obj = {
                     name: "",
                     role_order: "",
@@ -42,15 +45,18 @@ mavikentApp.controller("RoleCtrl", function($scope, $state, $http, $localStorage
                 };
             }).error(function(err) {
                 console.error(JSON.stringify(err));
+                sweetAlert("Oops...", "Bir hata oluştu", "error");
             });
 
         } else {
             $http.post(host + "/api/role?token=" + token, $scope.obj).success(function(resp) {
                 if (resp.status == false) {
                     console.log("error : ", JSON.stringify(resp));
+                    sweetAlert("Oops...", "Bu sayfaya erişim izniniz yoktur", "error");
                     return;
                 }
                 $scope.list.push(resp.data);
+                swal("Başarılı!", "Ekleme Başarılı!", "success")
                 $scope.obj = {
                     name: "",
                     role_order: "",
@@ -59,6 +65,7 @@ mavikentApp.controller("RoleCtrl", function($scope, $state, $http, $localStorage
                 // console.log(JSON.stringify(resp));  
             }).error(function(err) {
                 console.error(JSON.stringify(err));
+                sweetAlert("Oops...", "Bir hata oluştu", "error");
             });
         }
 
@@ -67,16 +74,30 @@ mavikentApp.controller("RoleCtrl", function($scope, $state, $http, $localStorage
     //delete function
 
     $scope.delete = function(id, index) {
-        $http.delete(host + "/api/role/" + id + "?token=" + token).success(function(resp) {
+        swal({  
+            title: "Emin misiniz?",   
+            text: "Bu öğeyi silmek istedğinizden emin misiniz?",   
+            type: "warning",  
+            showCancelButton: true,   
+            confirmButtonColor: "#DD6B55",   
+            confirmButtonText: "Evet",   
+            closeOnConfirm: false }, function(){
+            $http.delete(host + "/api/role/" + id + "?token=" + token).success(function(resp) {
             if (resp.status == false) {
                 console.log("error : ", JSON.stringify(resp));
+                sweetAlert("Oops...", "Bu sayfaya erişim izniniz yoktur", "error");
                 return;
             }
             $scope.list.splice(index, 1);
-            console.log(JSON.stringify(resp));
+            swal("Silindi!", "Başarı ile silindi.", "success");
         }).error(function(err) {
             console.error(JSON.stringify(err));
+                sweetAlert("Oops...", "Bir hata oluştu", "error");
         });
+        
+        });
+        
+           
     }
 
     //edit function

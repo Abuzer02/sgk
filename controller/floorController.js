@@ -15,6 +15,7 @@ mavikentApp.controller("FloorCtrl",function($scope,$state,$http,$localStorage,$r
     $http.get(host+"/api/floor?token="+token).success(function(resp){
         if (resp.status == false) {
                 console.log("error : ", JSON.stringify(resp));
+                stateControl(resp.code,resp.data);
                 return;
             }
              $scope.list=resp.data;
@@ -22,6 +23,7 @@ mavikentApp.controller("FloorCtrl",function($scope,$state,$http,$localStorage,$r
        
     }).error(function(err){
         console.error(JSON.stringify(err));
+        sweetAlert("Oops...", "Bir hata oluştu", "error");
     });
     
     //add function
@@ -30,11 +32,13 @@ mavikentApp.controller("FloorCtrl",function($scope,$state,$http,$localStorage,$r
             $http.put(host+"/api/floor/?token="+token,$scope.obj).success(function(resp){
                 if (resp.status == false) {
                 console.log("error : ", JSON.stringify(resp));
+                stateControl(resp.code,resp.data);
                 return;
             }
                 $scope.IsEdit=false;
                 //console.log(resp);
                 $scope.list[$scope.listIndex]=resp.data;
+                swal("Başarılı!", "Güncelleme Başarılı!", "success")
                 $scope.obj={
                     name:"",
                     floor_order:"",
@@ -42,15 +46,18 @@ mavikentApp.controller("FloorCtrl",function($scope,$state,$http,$localStorage,$r
                 };
             }).error(function(err){
                 console.error(JSON.stringify(err));
+                sweetAlert("Oops...", "Bir hata oluştu", "error");
             });
             
         }else{
             $http.post(host+"/api/floor?token="+token,$scope.obj).success(function(resp){
                 if (resp.status == false) {
                 console.log("error : ", JSON.stringify(resp));
+                stateControl(resp.code,resp.data);
                 return;
             }
               $scope.list.push(resp.data);
+              swal("Başarılı!", "Ekleme Başarılı!", "success")
               $scope.obj={
                 name:"",
                 floor_order:"",
@@ -59,6 +66,7 @@ mavikentApp.controller("FloorCtrl",function($scope,$state,$http,$localStorage,$r
              // console.log(JSON.stringify(resp));  
             }).error(function(err){
                 console.error(JSON.stringify(err));
+                sweetAlert("Oops...", "Bir hata oluştu", "error");
             });
         }
         
@@ -67,15 +75,27 @@ mavikentApp.controller("FloorCtrl",function($scope,$state,$http,$localStorage,$r
     //delete function
     
     $scope.delete=function(id,index){
+         swal({  
+            title: "Emin misiniz?",   
+            text: "Bu öğeyi silmek istedğinizden emin misiniz?",   
+            type: "warning",  
+            showCancelButton: true,   
+            confirmButtonColor: "#DD6B55",   
+            confirmButtonText: "Evet",   
+            closeOnConfirm: false }, function(){
         $http.delete(host+"/api/floor/"+id+"?token="+token).success(function(resp){
             if (resp.status == false) {
                 console.log("error : ", JSON.stringify(resp));
+                stateControl(resp.code,resp.data);
                 return;
             }
             $scope.list.splice(index,1);
+            swal("Başarılı!", "Silme Başarılı!", "success")
             console.log(JSON.stringify(resp));
         }).error(function(err){
             console.error(JSON.stringify(err));
+            sweetAlert("Oops...", "Bir hata oluştu", "error");
+        });
         });
     }
     

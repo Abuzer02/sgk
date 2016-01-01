@@ -11,7 +11,7 @@
                         <div class="form-group">
                             <label class="col-md-2 control-label">Kat Seçiniz</label>
                             <div class="col-md-10">
-                                <ui-select class="form-control" ng-model="floor.selected" theme="select2" ng-disabled="disabled" ng-change="degKat()000">
+                                <ui-select class="form-control" ng-model="floor.selected" theme="select2" ng-disabled="disabled">
                                     <ui-select-match placeholder="Kat seçiniz">{{$select.selected.name}}</ui-select-match>
                                     <ui-select-choices repeat="floor in floors | propsFilter: {name: $select.search}">
                                       <div ng-bind-html="floor.name | highlight: $select.search"></div>

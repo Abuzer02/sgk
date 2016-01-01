@@ -1,6 +1,6 @@
 var mavikentApp = angular.module('mavikentApp', ['ui.router','satellizer', 'ngStorage','ngSanitize', 'ui.select',"angular.filter"])
 
-mavikentApp.run(function($rootScope, $location,$state, $http,$localStorage) {
+mavikentApp.run(function($rootScope, $location,$state, $http,$localStorage,$window) {
     $rootScope.mkb = {
         current_user : '',
         authenticated : false,
@@ -19,42 +19,40 @@ mavikentApp.run(function($rootScope, $location,$state, $http,$localStorage) {
     $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams) {
         
         if(!$localStorage["user"] && !$localStorage["token"]){
-             $location.path('/login');
-             
+            $location.path('/login');
         }
-        /*
-        console.log("to : ",toState.name)
-        console.log("from : ",fromState.name)
-        */
-        if(fromState.name.indexOf("menu2") > -1 && toState.name.indexOf("menu1") > -1){
-           // console.log("İzinsiz")
-            return event.preventDefault()   
+       // console.log(fromState.name);
+       // console.log(toState.name);
+      //  console.log(!(fromState.name.indexOf("menu1")>-1 && toState.name.indexOf("menu1")>-1));
+        if(toState.name == "login"){
+            
         }
-        if(fromState.name.indexOf("menu1") > -1 && toState.name.indexOf("menu2") > -1){
-           // console.log("İzinsiz")
-            return event.preventDefault()   
+        else if(fromState.name !="login" && toState.name != "logout"){
+            
+            if(fromState.name.indexOf("menu1")>-1){
+                if(!(toState.name.indexOf("menu1")>-1)){
+                  //  console.log("ds");
+                    event.preventDefault();
+                }
+                
+            }
+            if(fromState.name.indexOf("menu2")>-1){
+                if(!(toState.name.indexOf("menu2")>-1)){
+                    event.preventDefault();
+                }
+            }
+            if(fromState.name.indexOf("kantin")>-1 || fromState.name.indexOf("odaci")>-1 || fromState.name.indexOf("guvenlik")>-1){
+                event.preventDefault();
+            }
         }
-        if(fromState.name.indexOf("kantin") > -1 && (toState.name.indexOf("menu1") > -1 || toState.name.indexOf("menu2") > -1 || toState.name.indexOf("guvenlik") > -1 || toState.name.indexOf("servis") > -1) ){
-           // console.log("İzinsiz")
-            return event.preventDefault()   
-        }
-        if(fromState.name.indexOf("guvenlik") > -1 && (toState.name.indexOf("menu1") > -1 || toState.name.indexOf("menu2") > -1 || toState.name.indexOf("kantin") > -1 || toState.name.indexOf("servis") > -1) ){
-            //console.log("İzinsiz")
-            return event.preventDefault()   
-        }
-        if(fromState.name.indexOf("servis") > -1 && (toState.name.indexOf("menu1") > -1 || toState.name.indexOf("menu2") > -1 || toState.name.indexOf("guvenlik") > -1 || toState.name.indexOf("kantin") > -1) ){
-           // console.log("İzinsiz")
-            return event.preventDefault()   
-        }
-        
     });
     
     $rootScope.$on('$locationChangeStart', function(event, toState, toParams, fromState, fromParams) {
-        
         if(!$localStorage["user"] && !$localStorage["token"]){
              $location.path('/login');
              
         }
+       
         
     });
     
@@ -86,8 +84,8 @@ mavikentApp.config(function ($stateProvider, $urlRouterProvider, $authProvider){
       templateUrl:"template/guvenlik_terminal.html",
       controller:"SecturityTerminalCtrl"
   })
-  .state("servis",{
-      url:"/servis",
+  .state("odaci",{
+      url:"/odaci",
       templateUrl:"template/odaci_terminal.html",
       controller:"RoomServiceCtrl"
   })
@@ -147,11 +145,6 @@ mavikentApp.config(function ($stateProvider, $urlRouterProvider, $authProvider){
       templateUrl: 'template/kat_tanimlama.html',
       controller:"FloorCtrl"
   })
-  .state('menu1.urun_tanimlama', {
-      url : 'urun_tanimlama',
-      templateUrl: 'template/urun_tanimlama.html',
-      controller:"ProductCtrl"
-  })
   .state('menu1.guvenlik_tanimlama', {
       url : 'guvenlik_tanimlama',
       templateUrl: 'template/guvenlik_tanimlama.html',
@@ -208,7 +201,35 @@ mavikentApp.config(function ($stateProvider, $urlRouterProvider, $authProvider){
   })
 })
 
-function stateControl(code){
+function stateControl(code,data){
+    if(code==200){
+        return {message:"Giriş başarılı",color:"#00FFEF"};
+    }else if(code==404){
+            if(data && data.code && data.code==11000){
+                return sweetAlert("Oops...", "Benzer Bir Öğe Mevcut!! lütfen Aynı olmaması gereken alanlara dikkat ediniz  ", "error");
+            }
+        return sweetAlert("Oops...", "Sayfa getirilemedi ", "error");
+    }else if(code==407){
+        return sweetAlert("Oops...", "Kullanıcı eşleştirilemedi ", "error")
+    }else if(code==401){
+        return sweetAlert("Oops...", "Kullanıcı sifresi hatalı", "error");
+    }else if(code==201){
+        return {message:"Kullanıcı bilgileri doğrulandı",color:"#00FFEF"}
+    }else if(code==405){
+        return sweetAlert("Oops...", "Token hatası", "error");
+    }else if(code==406){
+        return sweetAlert("Oops...", "Veritabanı hatası", "error");
+    }else if(code==402){
+        return sweetAlert("Oops...", "Bu kullanıcı zaten mevcut", "error");
+    }else if(code==408){
+        return sweetAlert("Oops...", "Bu İşleme Erişim izniniz yok", "error");
+    }else if(code==409){
+        return sweetAlert("Oops...", "Bu Sayfaya Erişim izniniz yok", "error");
+    }
+    
+}
+
+function statePageControl(code){
     if(code==200){
         return {message:"Giriş başarılı",color:"#00FFEF"}
     }else if(code==404){
@@ -225,6 +246,10 @@ function stateControl(code){
         return {message:"Veritabanı hatası",color:"#FF0000"}
     }else if(code==402){
         return {message:"Bu kullanıcı zaten mevcut",color:"#FF0000"}
+    }else if(code==408){
+        return {message:"Bu İşleme Erişim izniniz yok",color:"#FF0000"}
+    }else if(code==409){
+        return {message:"Bu Sayfaya Erişim izniniz yok",color:"#FF0000"}
     }
     
 }

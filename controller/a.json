@@ -19,3 +19,19 @@
    "profile_picture":"/images/default_profile_picture.png",
    "username":"yusufHasbek"
 }
+
+ swal("Başarılı!", "Ekleme Başarılı!", "success")
+sweetAlert("Oops...", "Bir hata oluştu", "error");
+sweetAlert("Oops...", "Bu sayfaya erişim izniniz yoktur", "error");
+
+ swal({  
+            title: "Emin misiniz?",   
+            text: "Bu öğeyi silmek istedğinizden emin misiniz?",   
+            type: "warning",  
+            showCancelButton: true,   
+            confirmButtonColor: "#DD6B55",   
+            confirmButtonText: "Evet",   
+            closeOnConfirm: false }, function(){
+        
+        });
+        

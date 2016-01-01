@@ -7,7 +7,7 @@ mavikentApp.controller("NavigationCtrl", function($scope, $state, $http, $localS
     $scope.list = [];
     $scope.tasks = [];
     $scope.roles = [];
-    $scope.pages = [{name : "Admin Paneli" , page_url : "menu1.dashboard"},{name : "Genel Kullanıcı" , page_url : "menu2.anasayfa"},{name : "Çay Ocağı" , page_url : "kantin"},{name : "Oda Servisi" , page_url : "servis"},{name : "Güvenlik" , page_url : "guvenlik"}];
+    $scope.pages = [{name : "Admin Paneli" , page_url :"menu1.dashboard"},{name : "Genel Kullanıcı" , page_url : "menu2.anasayfa"},{name : "Çay Ocağı" , page_url : "kantin"},{name : "Oda Servisi" , page_url : "odaci"},{name : "Güvenlik" , page_url : "guvenlik"}];
 
     function initialize() {
         $scope.role = {
@@ -32,17 +32,20 @@ mavikentApp.controller("NavigationCtrl", function($scope, $state, $http, $localS
     $http.get(host + "/api/role?token=" + token).success(function(resp) {
         if (resp.status == false) {
             console.log("error : ", JSON.stringify(resp));
+            stateControl(resp.code,resp.data);
             return;
         }
         $scope.roles = resp.data;
 
     }).error(function(err) {
         console.error(JSON.stringify(err));
+        sweetAlert("Oops...", "Bir hata oluştu", "error");
     });
 
     $http.get(host + "/api/task?token=" + token).success(function(resp) {
         if (resp.status == false) {
             console.log("error : ", JSON.stringify(resp));
+            stateControl(resp.code,resp.data);
             return;
         }
         $scope.tasks = resp.data;
@@ -50,11 +53,13 @@ mavikentApp.controller("NavigationCtrl", function($scope, $state, $http, $localS
 
     }).error(function(err) {
         console.error(JSON.stringify(err));
+        sweetAlert("Oops...", "Bir hata oluştu", "error");
     });
     
     $http.get(host + "/api/navigation?token=" + token).success(function(resp) {
         if (resp.status == false) {
             console.log("error : ", JSON.stringify(resp));
+            stateControl(resp.code,resp.data);
             return;
         }
         for(var i=0;i<$scope.pages.length;i++){
@@ -69,6 +74,7 @@ mavikentApp.controller("NavigationCtrl", function($scope, $state, $http, $localS
 
     }).error(function(err) {
         console.error(JSON.stringify(err));
+        sweetAlert("Oops...", "Bir hata oluştu", "error");
     });
 
     
@@ -82,6 +88,7 @@ mavikentApp.controller("NavigationCtrl", function($scope, $state, $http, $localS
             $http.put(host + "/api/navigation?token=" + token, $scope.obj).success(function(resp) {
                 if (resp.status == false) {
                     console.log("error : ", JSON.stringify(resp));
+                    stateControl(resp.code,resp.data);
                     return;
                 }
                 for(var i=0;i<$scope.pages.length;i++){
@@ -91,9 +98,11 @@ mavikentApp.controller("NavigationCtrl", function($scope, $state, $http, $localS
                 }
                 $scope.IsEdit = false;
                 $scope.list[$scope.listIndex] = resp.data;
+                swal("Başarılı!", "Güncelleme Başarılı!", "success")
                 initialize();
             }).error(function(err) {
                 console.error(JSON.stringify(err));
+                sweetAlert("Oops...", "Bir hata oluştu", "error");
             });
 
         } else {
@@ -101,6 +110,7 @@ mavikentApp.controller("NavigationCtrl", function($scope, $state, $http, $localS
             $http.post(host + "/api/navigation?token=" + token, $scope.obj).success(function(resp) {
                 if (resp.status == false) {
                     console.log("error : ", JSON.stringify(resp));
+                    stateControl(resp.code,resp.data);
                     return;
                 }
                 for(var i=0;i<$scope.pages.length;i++){
@@ -109,10 +119,11 @@ mavikentApp.controller("NavigationCtrl", function($scope, $state, $http, $localS
                     }
                 }
                 $scope.list.push(resp.data);
-                console.log(resp.data);
+                swal("Başarılı!", "Ekleme Başarılı!", "success")
                 initialize();
             }).error(function(err) {
                 console.error(JSON.stringify(err));
+                sweetAlert("Oops...", "Bir hata oluştu", "error");
             });
         }
 
@@ -121,14 +132,26 @@ mavikentApp.controller("NavigationCtrl", function($scope, $state, $http, $localS
     //delete function
 
     $scope.delete = function(id, index) {
+          swal({  
+            title: "Emin misiniz?",   
+            text: "Bu öğeyi silmek istedğinizden emin misiniz?",   
+            type: "warning",  
+            showCancelButton: true,   
+            confirmButtonColor: "#DD6B55",   
+            confirmButtonText: "Evet",   
+            closeOnConfirm: false }, function(){
         $http.delete(host + "/api/navigation/" + id + "?token=" + token).success(function(resp) {
             if (resp.status == false) {
                 console.log("error : ", JSON.stringify(resp));
+                stateControl(resp.code,resp.data);
                 return;
             }
             $scope.list.splice(index, 1);
+            swal("Başarılı!", "Silme Başarılı!", "success")
         }).error(function(err) {
             console.error(JSON.stringify(err));
+            sweetAlert("Oops...", "Bir hata oluştu", "error");
+        });
         });
     }
 

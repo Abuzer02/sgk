@@ -4,10 +4,12 @@
     </a></div>
 
     <nav class="main-nav">
-        <ul>
+         <ul>
             <!-- inser more links here -->
             <li><a href="javascript:void(0)" class="cd-signup" ng-click="siparisler()">Siparişler</a></li>
             <li><a href="javascript:void(0)" class="cd-signin" ng-click="urunEkleme()">Ürün Ekle</a></li>
+            <li><a  href="javascript:void(0)" class="cd-signin profile" ng-click="cikis()"><img ng-src="{{host}}/media/original/{{$root.mkb.current_user.profile_picture}}" alt="user-img" class="img-circle">Çıkış </a></li>
+            
         </ul>
     </nav>
 </header>
@@ -33,7 +35,7 @@
                                 <div class="form-group">
                                     <label class="col-md-2 control-label">Ürün Fiyatı</label>
                                     <div class="col-md-10">
-                                        <input type="text" class="form-control" placeholder="ürün fiyatı giriniz..." ng-model="objUrun.price">
+                                        <input type="number" class="form-control" placeholder="ürün fiyatı giriniz..." ng-model="objUrun.price">
                                     </div>
                                 </div>
                                 <div class="form-group">

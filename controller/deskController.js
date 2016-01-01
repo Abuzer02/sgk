@@ -29,18 +29,21 @@ mavikentApp.controller("DeskCtrl", function($scope, $state, $http, $localStorage
     $http.get(host + "/api/floor?token=" + token).success(function(resp) {
         if (resp.status == false) {
             console.log("error : ", JSON.stringify(resp));
+            stateControl(resp.code,resp.data);
             return;
         }
         $scope.floors = resp.data;
 
     }).error(function(err) {
         console.error(JSON.stringify(err));
+        sweetAlert("Oops...", "Bir hata oluştu", "error");
     });
     
     ////////////////////////////
     $http.get(host + "/api/office?token=" + token).success(function(resp) {
                 if (resp.status == false) {
                     console.log("error : ", JSON.stringify(resp));
+                    stateControl(resp.code,resp.data);
                     return;
                 }
                 $scope.offices = resp.data;
@@ -48,6 +51,7 @@ mavikentApp.controller("DeskCtrl", function($scope, $state, $http, $localStorage
 
             }).error(function(err) {
                 console.error(JSON.stringify(err));
+        sweetAlert("Oops...", "Bir hata oluştu", "error");
             });
     ////////////////////////////
     
@@ -57,6 +61,7 @@ mavikentApp.controller("DeskCtrl", function($scope, $state, $http, $localStorage
             $http.get(host + "/api/office/get_by_floor/" + $scope.floor.selected._id + "?token=" + token).success(function(resp) {
                 if (resp.status == false) {
                     console.log("error : ", JSON.stringify(resp));
+                    stateControl(resp.code,resp.data);
                     return;
                 }
                 $scope.offices = resp.data;
@@ -64,6 +69,7 @@ mavikentApp.controller("DeskCtrl", function($scope, $state, $http, $localStorage
 
             }).error(function(err) {
                 console.error(JSON.stringify(err));
+                sweetAlert("Oops...", "Bir hata oluştu", "error");
             });
 
         }
@@ -72,6 +78,7 @@ mavikentApp.controller("DeskCtrl", function($scope, $state, $http, $localStorage
     $http.get(host + "/api/desk?token=" + token).success(function(resp) {
         if (resp.status == false) {
             console.log("error : ", JSON.stringify(resp));
+            stateControl(resp.code,resp.data);
             return;
         }
         $scope.list = resp.data;
@@ -79,6 +86,7 @@ mavikentApp.controller("DeskCtrl", function($scope, $state, $http, $localStorage
 
     }).error(function(err) {
         console.error(JSON.stringify(err));
+        sweetAlert("Oops...", "Bir hata oluştu", "error");
     });
 
     //add function
@@ -92,14 +100,17 @@ mavikentApp.controller("DeskCtrl", function($scope, $state, $http, $localStorage
             $http.put(host + "/api/desk?token=" + token, $scope.obj).success(function(resp) {
                 if (resp.status == false) {
                     console.log("error : ", JSON.stringify(resp));
+                    stateControl(resp.code,resp.data);
                     return;
                 }
                 console.log(JSON.stringify(resp.data));
                 $scope.IsEdit = false;
                 $scope.list[$scope.listIndex] = resp.data;
+                swal("Başarılı!", "Güncelleme Başarılı!", "success")
                 initialize();
             }).error(function(err) {
                 console.error(JSON.stringify(err));
+                sweetAlert("Oops...", "Bir hata oluştu", "error");
             });
 
         } else {
@@ -107,12 +118,15 @@ mavikentApp.controller("DeskCtrl", function($scope, $state, $http, $localStorage
             $http.post(host + "/api/desk?token=" + token, $scope.obj).success(function(resp) {
                 if (resp.status == false) {
                     console.log("error : ", JSON.stringify(resp));
+                    stateControl(resp.code,resp.data);
                     return;
                 }
                 $scope.list.push(resp.data);
+                swal("Başarılı!", "Ekleme Başarılı!", "success")
                 initialize();
             }).error(function(err) {
                 console.error(JSON.stringify(err));
+                sweetAlert("Oops...", "Bir hata oluştu", "error");
             });
         }
 
@@ -121,14 +135,26 @@ mavikentApp.controller("DeskCtrl", function($scope, $state, $http, $localStorage
     //delete function
 
     $scope.delete = function(id, index) {
+         swal({  
+            title: "Emin misiniz?",   
+            text: "Bu öğeyi silmek istedğinizden emin misiniz?",   
+            type: "warning",  
+            showCancelButton: true,   
+            confirmButtonColor: "#DD6B55",   
+            confirmButtonText: "Evet",   
+            closeOnConfirm: false }, function(){
         $http.delete(host + "/api/desk/" + id + "?token=" + token).success(function(resp) {
             if (resp.status == false) {
                 console.log("error : ", JSON.stringify(resp));
+                stateControl(resp.code,resp.data);
                 return;
             }
             $scope.list.splice(index, 1);
+            swal("Başarılı!", "Silme Başarılı!", "success")
         }).error(function(err) {
             console.error(JSON.stringify(err));
+            sweetAlert("Oops...", "Bir hata oluştu", "error");
+        });
         });
     }
 

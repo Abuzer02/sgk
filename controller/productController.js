@@ -45,6 +45,11 @@ mavikentApp.controller("ProductCtrl",function($scope,$state,$http,$localStorage,
     initiliaze();
     
     $http.get(host+"/api/canteen?token="+token).success(function(resp){
+        if (resp.status == false) {
+                console.log("error : ", JSON.stringify(resp));
+                stateControl(resp.code,resp.data);
+                return;
+            }
              $scope.canteens=resp.data;
        
     }).error(function(err){
@@ -52,7 +57,11 @@ mavikentApp.controller("ProductCtrl",function($scope,$state,$http,$localStorage,
     });
     
     $http.get(host+"/api/product?token="+token).success(function(resp){
-         
+         if (resp.status == false) {
+                console.log("error : ", JSON.stringify(resp));
+                stateControl(resp.code,resp.data);
+                return;
+            }
         $scope.list=resp.data;
         
     }).error(function(err){
@@ -67,6 +76,7 @@ mavikentApp.controller("ProductCtrl",function($scope,$state,$http,$localStorage,
             $http.put(host+"/api/product?token="+token,$scope.obj).success(function(resp){
                 if(!resp.status){
                     console.error("state is false "+resp.code);
+                    stateControl(resp.code,resp.data);
                     return;
                 }
                 $scope.IsEdit=false;
@@ -82,6 +92,7 @@ mavikentApp.controller("ProductCtrl",function($scope,$state,$http,$localStorage,
             $http.post(host+"/api/product?token="+token,$scope.obj).success(function(resp){
               if(!resp.status){
                     console.error("state is false "+JSON.stringify(resp));
+                    stateControl(resp.code,resp.data);
                     return;
               }
               $scope.list.push(resp.data);
@@ -97,6 +108,11 @@ mavikentApp.controller("ProductCtrl",function($scope,$state,$http,$localStorage,
     
     $scope.delete=function(id,index){
         $http.delete(host+"/api/product/"+id+"?token="+token).success(function(resp){
+            if(!resp.status){
+                    console.error("state is false "+JSON.stringify(resp));
+                    stateControl(resp.code,resp.data);
+                    return;
+              }
             $scope.list.splice(index,1);
         }).error(function(err){
             console.error(JSON.stringify(err));
