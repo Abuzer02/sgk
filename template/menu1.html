@@ -53,54 +53,53 @@
 <!-- ========== Left Sidebar Start ========== -->
 
 <div class="left side-menu">
-    <div class="sidebar-inner">
-        <!--- Divider -->
-        <div id="sidebar-menu">
-            <ul>
-                <li class="has_sub">
-                    <a href=""  ng-click="git('menu1.dashboard',$event)" class="waves-effect active" ><i class="ti-home"></i> <span> Anasayfa </span> </a>
-                </li>
-                <li class="has_sub">
-                    <a href="" ng-click='git("menu1.rol",$event)' class="waves-effect"><i class="ti-clipboard"></i> <span> Rol Tanımlama </span> </a>
-                </li>
-                <li class="has_sub">
-                    <a href="" ng-click='git("menu1.gorev",$event)' class="waves-effect"><i class="ti-archive"></i> <span>Görev Tanımlama </span> </a>
-                </li>
-                <li class="has_sub">
-                    <a href="" ng-click='git("menu1.kat_tanimlama",$event)' class="waves-effect"><i class="ti-layout-menu-v"></i> <span>Kat Tanımlama </span> </a>
-                </li>
-                 <li class="has_sub">
-                    <a href="" ng-click='git("menu1.ofis_tanimi",$event)' class="waves-effect"><i class="ti-marker"></i> <span>Ofis Tanımlama </span> </a>
-                </li>
-                 <li class="has_sub">
-                    <a href="" ng-click='git("menu1.masa_tanimi",$event)' class="waves-effect"><i class="ti-harddrives"></i> <span>Masa Tanımlama </span> </a>
-                </li>
-                <li class="has_sub">
-                    <a href="" ng-click='git("menu1.kullanici_tanimlama",$event)' class="waves-effect"><i class="ti-user"></i> <span> Kullanıcı Tanımlama </span> </a>
-                </li>
-                <li class="has_sub">
-                    <a href="" ng-click='git("menu1.kantin_tanimi",$event)' class="waves-effect"><i class="ti-money"></i> <span>Kantin Tanımlama </span> </a>
-                </li>
-                <li class="has_sub">
-                    <a href="" ng-click='git("menu1.guvenlik_tanimlama",$event)' class="waves-effect"><i class="ti-alert"></i> <span>Güvenlik Tanımlama </span> </a>
-                </li>
-                <li class="has_sub">
-                    <a href="" ng-click='git("menu1.odaci_tanimlama",$event)' class="waves-effect"><i class="ti-control-record"></i> <span>Odacı Ataması </span> </a>
-                </li>
-                <li class="has_sub">
-                    <a href="" ng-click='git("menu1.button",$event)' class="waves-effect"><i class="ti-signal"></i> <span>Button Ataması </span> </a>
-                </li>
-                   <li class="has_sub">
-                    <a href="" ng-click='git("menu1.izinler",$event)' class="waves-effect"><i class="ti-flag"></i> <span>İzinler </span> </a>
-                </li>
+    <div class="slimScrollDiv">
+      <div class="sidebar-inner">
+          <!--- Divider -->
+          <div id="sidebar-menu">
+              <ul>
+                  <li class="has_sub">
+                      <a href=""  ng-click="git('menu1.dashboard',$event)" class="waves-effect active " ><i class="ti-home"></i> <span> Anasayfa </span> </a>
                   </li>
-                   <li class="has_sub">
-                    <a href="" ng-click='git("menu1.yonlendirme",$event)' class="waves-effect"><i class="ti-link"></i> <span>Yönlendirme </span> </a>
-                </li>
-            </ul>
-            <div class="clearfix"></div>
-        </div>
-        <div class="clearfix"></div>
+                  <li class="has_sub">
+                      <a href="" class="waves-effect"><i class="ti-user"></i> <span class="label label-primary pull-right">3</span><span>Kullanicilar </span> </a>
+                      <ul class="list-unstyled">
+                         <li><a href="" ng-click='git("menu1.rol",$event)'>Rol Tanımlama</a></li>
+                         <li><a href="" ng-click='git("menu1.gorev",$event)'>Görev Tanımlama</a></li>
+                         <li><a href="" ng-click='git("menu1.kullanici_tanimlama",$event)'>Kullanıcı Tanımlama</a></li>
+                      </ul>
+                  </li>
+                  <li class="has_sub">
+                      <a href="" class="waves-effect"><i class="ti-layout-accordion-merged"></i> <span class="label label-pink pull-right">3</span> <span>Yerlesim </span> </a>
+                      <ul class="list-unstyled">
+                         <li><a href="" ng-click='git("menu1.kat_tanimlama",$event)'>Kat Tanımlama</a></li>
+                         <li><a href="" ng-click='git("menu1.ofis_tanimi",$event)'>Ofis Tanımlama</a></li>
+                         <li><a href="" ng-click='git("menu1.masa_tanimi",$event)'>Masa Tanımlama</a></li>
+                      </ul>
+                  </li>
+                  <li class="has_sub">
+                      <a href="" class="waves-effect"><i class="ti-desktop"></i> <span class="label label-success pull-right">3</span> <span>Terminal </span> </a>
+                      <ul class="list-unstyled">
+                         <li><a href="" ng-click='git("menu1.kantin_tanimi",$event)'>Kantin Tanımlama</a></li>
+                         <li><a href="" ng-click='git("menu1.guvenlik_tanimlama",$event)'>Güvenlik Tanımlama</a></li>
+                         <li><a href="" ng-click='git("menu1.odaci_tanimlama",$event)'>Odacı Tanımlama</a></li>
+                      </ul>
+                  </li>
+                  <li class="has_sub">
+                      <a href="" ng-click='git("menu1.button",$event)' class="waves-effect"><i class="ti-signal"></i> <span>Button Tanımlama </span> </a>
+                  </li>
+                     <li class="has_sub">
+                      <a href="" ng-click='git("menu1.izinler",$event)' class="waves-effect"><i class="ti-flag"></i> <span>İzin Tanımlama </span> </a>
+                  </li>
+                    </li>
+                     <li class="has_sub">
+                      <a href="" ng-click='git("menu1.yonlendirme",$event)' class="waves-effect"><i class="ti-link"></i> <span>Sayfa Yönlendirme </span> </a>
+                  </li>
+              </ul>
+              <div class="clearfix"></div>
+          </div>
+          <div class="clearfix"></div>
+      </div>
     </div>
 </div>
 <!-- Left Sidebar End -->
