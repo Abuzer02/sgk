@@ -1,5 +1,5 @@
 var mavikentApp = angular.module('mavikentApp', ['ui.router', 'satellizer', 'ngStorage', 'ngSanitize', 'ui.select', "angular.filter"])
-mavikentApp.run(function($rootScope, $location, $state, $http, $localStorage, $window) {
+mavikentApp.run(function($rootScope, $location, $state, $http, $localStorage, $window, $interval) {
     $rootScope.mkb = {
         current_user: '',
         authenticated: false,
@@ -51,6 +51,20 @@ mavikentApp.run(function($rootScope, $location, $state, $http, $localStorage, $w
     if ($rootScope.mkb.current_user && $rootScope.mkb.navigation_url) {
         $state.go($rootScope.mkb.navigation_url);
     }
+
+    $rootScope.systemHour = new Date().getHours()
+    $rootScope.systemMinutes = new Date().getMinutes()
+    $rootScope.ayrac = ':'
+    $interval(function(){
+      if(parseFloat($rootScope.systemMinutes) < 10){
+        $rootScope.systemMinutes = '0' + new Date().getMinutes()
+      }
+      if($rootScope.ayrac == ':'){
+        $rootScope.ayrac = ' '
+      }else{
+        $rootScope.ayrac = ':'
+      }
+    },500)
 
 })
 

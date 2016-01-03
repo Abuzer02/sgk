@@ -4,7 +4,12 @@
     <!-- LOGO -->
     <div class="topbar-left">
         <div class="text-center">
-            <a href="#dashboard" class="logo"><i class="icon-clock icon-c-logo"></i><span>SGK</span></a>
+            <a href="#dashboard" class="logo">
+              <i class="icon-c-logo">
+                  {{systemHour}}{{ayrac}}{{systemMinutes}}
+              </i>
+              <span>SGK</span>
+            </a>
         </div>
     </div>
 
@@ -59,7 +64,7 @@
           <div id="sidebar-menu">
               <ul>
                   <li class="has_sub">
-                      <a href=""  ng-click="git('menu1.dashboard',$event)" class="waves-effect active " ><i class="ti-home"></i> <span> Anasayfa </span> </a>
+                      <a href=""  ng-click="git('menu1.dashboard',$event)" class="waves-effect " ><i class="ti-home"></i> <span> Anasayfa </span> </a>
                   </li>
                   <li class="has_sub">
                       <a href="" class="waves-effect"><i class="ti-user"></i> <span class="label label-primary pull-right">3</span><span>Kullanicilar </span> </a>

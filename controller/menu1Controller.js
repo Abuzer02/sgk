@@ -1,6 +1,6 @@
 mavikentApp.controller('menu1Controller', MenuController)
 
-function MenuController ($scope,$state,$http ,$rootScope,$localStorage) {
+function MenuController ($scope,$state,$http ,$rootScope,$localStorage , $interval) {
    $scope.logout = function(){
        $state.go("logout")
    }
@@ -13,8 +13,8 @@ function MenuController ($scope,$state,$http ,$rootScope,$localStorage) {
       })
   }
    $scope.git=function(url, event){
-      $('#sidebar-menu a').removeClass('active')
-      angular.element(event.currentTarget).addClass('active')
+      //$('#sidebar-menu a').removeClass('active')
+      //angular.element(event.currentTarget).addClass('active')
       var a = event.currentTarget
       //$("#wrapper").hasClass("enlarged") ? ($(a).css("overflow", "inherit").parent().css("overflow", "inherit"), $(a).siblings(".slimScrollBar").css("visibility", "hidden")) : ($(a).css("overflow", "hidden").parent().css("overflow", "hidden"), $(a).siblings(".slimScrollBar").css("visibility", "visible"))
       //console.log(url)
