@@ -13,9 +13,10 @@ function MenuController ($scope,$state,$http ,$rootScope,$localStorage) {
       })
   }
    $scope.git=function(url, event){
-        $('#sidebar-menu a').removeClass('active')
-        angular.element(event.currentTarget).addClass('active')
-       $state.go(url);
+      $('#sidebar-menu a').removeClass('active')
+      angular.element(event.currentTarget).addClass('active')
+      //console.log(url)
+      $state.go(url);
    }
    $scope.menuState = true
    $scope.menuToggle = function(){
@@ -28,7 +29,7 @@ function MenuController ($scope,$state,$http ,$rootScope,$localStorage) {
      }
    }
    $('[data-toggle=tooltip]').tooltip()
-   
+
    $scope.host = host
 
 $scope.isFullScreen = false
