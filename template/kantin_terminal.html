@@ -1,15 +1,19 @@
 <header role="banner">
-    <div id="cd-logo"><a>
-        <h2 style="font-size: 28px; color: #e1e1e1">Kantin Sipariş Ekranı</h2>
-    </a></div>
+    <div id="cd-logo">
+        <a>
+            <h2 style="font-size: 28px; color: #e1e1e1">Kantin Sipariş Ekranı</h2>
+        </a>
+    </div>
 
     <nav class="main-nav">
-         <ul>
+        <ul>
             <!-- inser more links here -->
             <li><a href="javascript:void(0)" class="cd-signup" ng-click="siparisler()">Siparişler</a></li>
             <li><a href="javascript:void(0)" class="cd-signin" ng-click="urunEkleme()">Ürün Ekle</a></li>
-            <li><a  href="javascript:void(0)" class="cd-signin profile" ng-click="cikis()"><img ng-src="{{host}}/media/original/{{$root.mkb.current_user.profile_picture}}" alt="user-img" class="img-circle">Çıkış </a></li>
-            
+            <li>
+                <a href="javascript:void(0)" class="cd-signin profile" ng-click="cikis()"><img ng-src="{{host}}/media/original/{{$root.mkb.current_user.profile_picture}}" alt="user-img" class="img-circle">Çıkış </a>
+            </li>
+
         </ul>
     </nav>
 </header>
@@ -29,16 +33,21 @@
                                 <div class="form-group">
                                     <label class="col-md-2 control-label">Ürün Adı</label>
                                     <div class="col-md-10">
-                                       <input type="text"  ng-model="objUrun.name" placeholder="ürün adi giriniz" class="form-control">
+                                        <input type="text" ng-model="objUrun.name" placeholder="ürün adi giriniz" class="form-control">
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="col-md-2 control-label">Ürün Fiyatı</label>
                                     <div class="col-md-10">
-                                        <input type="number" class="form-control" placeholder="ürün fiyatı giriniz..." ng-model="objUrun.price">
+                                        <input type="text" class="form-control" placeholder="ürün fiyatı giriniz..." ng-model="objUrun.price">
                                     </div>
                                 </div>
                                 <div class="form-group">
+                                    <label class="col-md-2 control-label">Özellikler</label>
+                                    <div class="col-md-10">
+                                      <tags-input ng-model="spec_arr"></tags-input>
+                                    </div>
+                                </div><div class="form-group">
                                     <label class="col-md-2 control-label">Sıra</label>
                                     <div class="col-md-10">
                                         <input type="number" class="form-control" placeholder="gösterimdeki sırayı giriniz..." ng-model="objUrun.product_order">
@@ -55,7 +64,7 @@
                         <div class="col-md-3">
                             <form class="form-horizontal" role="form" method="post" id="myForm" enctype="multipart/form-data">
                                 <div class="form-group">
-                                    <img  id="img" src="http://placehold.it/400x400" alt="" class="img-responsive">
+                                    <img id="img" src="http://placehold.it/400x400" alt="" class="img-responsive">
                                 </div>
                                 <div class="form-group">
                                     <div class="col-md-12">
@@ -79,111 +88,8 @@
                 </div>
             </div>
         </div>
-
-        <!--Gelen ilk ürün (ana ekran)--->
-        <div class="text-center"  ng-hide="urunEkle" >
-            <div class="row">
-                <div class="jumbotron" style="background-color: #343642; border-radius: 12px">
-                    <div class="row">
-                        <h2 class="text-center" ng-bind="obj.orders[0].account_id.name" style="font-size: 32px; color: #e1e1e1;"></h2>
-                    </div>
-                    <br>
-                    <div class="row">
-                        <div class="col-md-8 col-md-offset-2">
-                            <div class="col-md-6">
-                                <h2 class="pull-right" ng-bind="obj.orders[0].room_no" style="font-size: 24px; color: #e1e1e1; text-transform: uppercase"></h2>
-                            </div>
-                            <div class="col-md-6">
-                                <h2 class="pull-left" ng-bind="obj.orders[0].desk_no" style="font-size: 24px; color: #e1e1e1; text-transform: uppercase"></h2>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-
-
-            <br>
-            <div class="row">
-                <div class="col-md-12">
-                    <table class="table table-bordered" style="background-color: white">
-                        <thead>
-                            <tr>
-                                <th style="width:50px;" class="text-center">#</th>
-                                <th class="text-center">Ürün</th>
-                                <th class="text-center">Adet</th>
-                                <th class="text-center">Toplam Fiyat</th>
-                                <th style="width:100px;" class="text-center">Düzenle</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr ng-repeat="item in obj.orders track by $index">
-                                <td class="text-center" ng-bind="$index +1"></td>
-                                <td style="font-style:italic; font-weight:800; text-transform:uppercase;" class="text-center" ng-bind="item.product_name"></td>
-
-                                <td class="text-center" style="font-weight:800; ">
-                                    <div ng-hide="viewField">{{item.piece}}</div>
-                                    <div ng-show="modifyField">
-                                        <input type="text" ng-model="item.piece" /></div>
-                                </td>
-                                <td class="text-center" style="font-weight:800; ">{{item.total_price}} &#x20BA;</td>
-                                <td class="text-center">
-                                    <button class="btn btn-info btn-sm" ng-hide="viewField" ng-click="modify(item,$index)">Düzenle</button>
-                                    <button class="btn btn-success btn-sm" ng-show="modifyField" ng-click="update(item,$index)">Tamam</button>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-            <div class="row" style="padding: 0;">
-                <div class="col-md-4">
-                    <button class="btn btn-block btn-success" ng-click="onayla()">Onayla <i class="glyphicon glyphicon-ok"></i></button>
-                </div>
-                <div class="col-md-4">
-                    <button class="btn btn-block btn-danger" ng-click="iptal()">İptal <i class="glyphicon glyphicon-trash"></i></button>
-                </div>
-                <div class="col-md-4">
-                    <button class="btn btn-block btn-warning" ng-click="ertele()">Ertele <i class="glyphicon glyphicon-time"></i></button>
-                </div>
-            </div>
-            <br>
-            <hr>
-            <div class="row">
-                <div class="col-md-12">
-                    <h2 style="font-size: 24px">Bekleyen Diğer Siparişler</h2>
-                </div>
-            </div>
-            <br>
-            <div class="row">
-                <div class="col-md-12">
-                    <table class="table table-bordered" style="background-color: white">
-                        <thead>
-                            <th style="width:50px">#</th>
-                            <th class="text-center">Ofis No</th>
-                            <th class="text-center">Masa No</th>
-                            <th class="text-center">İsim</th>
-                            <th class="text-center">İşlem</th>
-                        </thead>
-                        <tbody>
-                            <tr ng-repeat="item in list track by $index">
-                                <td class="text-center" ng-bind="$index+1"></td>
-                                <td class="text-center" ng-bind="item.orders[0].room_no"></td>
-                                <td class="text-center" ng-bind="item.orders[0].desk_no"></td>
-                                <td class="text-center" ng-bind="item.orders[0].account_id.name"></td>
-                                <td class="text-center" style="width:100px;">
-                                    <button class="btn btn-success" ng-click="goster(item)" ng-disabled="obj._id">Göster</button>
-                                </td>
-
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-        
         <!--Ürün Listeleme sayfası-->
-        <div class="row"  ng-hide="siparis" >
+        <div class="row" ng-hide="siparis">
             <div class="col-sm-12">
                 <div class="card-box">
                     <h4 class="m-t-0 header-title"><b>Ürün Tanımı Listele</b></h4>
@@ -193,10 +99,10 @@
                     <div class="table-responsive">
                         <table id="mainTable" class="table">
                             <thead style="background-color:#36404a">
-                                <tr >
-                                    <th style="color:#000;" >ürün adi</th>
-                                    <th style="color:#000;" >ürün fiyatı</th>
-                                    <th style="color:#000;" >sıra</th>
+                                <tr>
+                                    <th style="color:#000;">ürün adi</th>
+                                    <th style="color:#000;">ürün fiyatı</th>
+                                    <th style="color:#000;">sıra</th>
                                     <th style="color:#000;">ekleyen</th>
                                     <th style="width:90px; color:#000;">İşlem</th>
                                 </tr>
@@ -221,10 +127,30 @@
     </div>
 </div>
 
+<!--Gelen ilk ürün (ana ekran)--->
+<div class="row" ng-hide="urunEkle" ng-repeat="item in list track by $index">
+    <div class="col-md-12">
+        <div class="card-box m-b-10">
+            <div class="table-box opport-box">
+                <div class="table-detail" style="width:200px"><img style="width : 200px;height : 200px;" ng-src="{{host}}/media/original/{{item.product.picture}}" alt="img" class="img-responsive img-circle"></div>
+                <div class="table-detail" style="width:150px">
+                    <div class="member-info">
+                        <h4 class="m-t-0"><b ng-bind="item.account_id.name"></b></h4>
+                        <p class="text-dark m-b-5"><b>Oda  : </b> <span class="text-muted" ng-bind="item.room_no"></span></p>
+                        <p class="text-dark m-b-0"><b>Masa : </b> <span class="text-muted" ng-bind="item.desk_no"></span></p>
+                    </div>
+                </div>
+                <div class="table-detail lable-detail" style="width:50px"><span class="label label-purple" ng-bind="item.product_spec"></span></div>
+                <div class="table-detail lable-detail" style="width:50px"><span class="label label-purple">{{item.product.name}} x {{item.piece}}</span></div>
+                <div class="table-detail lable-detail" style="width:50px"><span class="label label-purple" ng-bind="item.total_price"></span></div>
+                <div class="table-detail" style="width:340px">
+                    <a href="" style="width:170px;height:100px" class="btn btn-sm btn-success waves-effect waves-light" ng-click="onayla($index)">Onayla</a>
+                    <a href="" style="width:170px;height:100px" class="btn btn-sm btn-danger waves-effect waves-light" ng-click="iptal($index)">Iptal Et</a>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 
-
-
-       
-
+</div>

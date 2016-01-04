@@ -68,9 +68,9 @@ mavikentApp.controller("OrderCtrl", function($scope, $rootScope, $http, $interva
                 desk_no: $rootScope.mkb.current_user.desk_id.name,
                 account_id: $rootScope.mkb.current_user._id,
                 canteen_id: $scope.products[i].canteen_id._id,
-                product_name: $scope.products[i].name,
+                product: $scope.products[i]._id,
+                product_spec:"",
                 piece: 1,
-                unit_price: 0,
                 total_price: 0,
                 order_date: ""
             });
@@ -81,10 +81,13 @@ mavikentApp.controller("OrderCtrl", function($scope, $rootScope, $http, $interva
         console.error(JSON.stringify(err));
          sweetAlert("Oops...", "Bir hata oluştu", "error");
     });
+    $scope.specClick=function(index,item){
+        $scope.obj[index].product_spec=item;
+        console.log($scope.obj[index].product_spec);
+    }
 
     $scope.save = function(index) {
         $scope.obj[index].total_price = $scope.products[index].price * $scope.obj[index].piece;
-        $scope.obj[index].unit_price = $scope.products[index].price
         $http.post(host + "/api/order?token=" + $scope.token, $scope.obj[index]).success(function(resp) {
             if (resp.status == false) {
                 console.log("error : ", JSON.stringify(resp));
@@ -100,9 +103,9 @@ mavikentApp.controller("OrderCtrl", function($scope, $rootScope, $http, $interva
                 desk_no: $rootScope.mkb.current_user.desk_id.name,
                 account_id: $rootScope.mkb.current_user._id,
                 canteen_id: $scope.products[index].canteen_id._id,
-                product_name: $scope.products[index].name,
+                product: $scope.products[index]._id,
+                product_spec:"",
                 piece: 1,
-                unit_price: 0,
                 total_price: 0,
                 order_date: ""
             }

@@ -1,4 +1,4 @@
-var mavikentApp = angular.module('mavikentApp', ['ui.router', 'satellizer', 'ngStorage', 'ngSanitize', 'ui.select', "angular.filter"])
+var mavikentApp = angular.module('mavikentApp', ['ui.router', 'satellizer', 'ngStorage', 'ngSanitize', 'ui.select', "angular.filter","ngTagsInput"])
 mavikentApp.run(function($rootScope, $location, $state, $http, $localStorage, $window, $interval) {
     $rootScope.mkb = {
         current_user: '',
