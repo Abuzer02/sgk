@@ -501,7 +501,7 @@ header[role=banner]::after {
 }
 @media only screen and (min-width: 768px) {
   header[role=banner] {
-    height: 80px;
+    height: 76px;
   }
   header[role=banner] #cd-logo {
     margin: 20px 0 0 5%;

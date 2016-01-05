@@ -1,287 +1,290 @@
-<section class="cd-section services visible">
-   <header>
-      <div class="cd-title">
-         <div class="row" ng-repeat="product in products" ng-if="$index % 4 === 0">
-            <div class="col-md-12">
-               <div class="col-md-10 col-md-offset-1">
-                  <div class="col-md-3" ng-if="$index < products.length">
-                     <div class="info-card">
-                        <img style="width: 100%; height:250px;" ng-src="{{host}}{{products[$index].picture}}" />
-                        <div class="info-card-details animate">
-                           <div class="info-card-header">
-                              <h1 ng-bind="products[$index].name"> </h1>
-                           </div>
-                           <div class="info-card-detail">
-                              <div class="row">
-                                 <div class="form-group">
-                                   <div class="btn-group m-b-20">
-                                       <button type="button" class="btn btn-white waves-effect" ng-repeat="spec in products[$index].product_specs" ng-bind="spec" ng-click="specClick($parent.$index,spec)"></button>
-                                   </div>
-                                    <div class="col-md-4" style="margin-top:5px">
-                                       <label for="" style="color:#000;">Adet </label>
-                                    </div>
-                                    <div class="col-md-8">
-                                       <div class="input-group spinner">
-                                          <input type="text" class="form-control"  style="border-radius:0;" ng-model="obj[$index].piece">
-                                          <div class="input-group-btn-vertical">
-                                             <button class="btn btn-primary" type="button" style="border-radius:0" ng-click="up($index)"><i class="fa fa-caret-up"></i></button>
-                                             <button class="btn btn-primary" type="button" style="border-radius:0" ng-click="down($index)" ng-disabled="obj[$index].piece<1"><i class="fa fa-caret-down"></i></button>
-                                          </div>
-                                       </div>
-                                    </div>
-                                 </div>
-                              </div>
-                              <br>
-                              <div class="row">
-                                <div class="col-md-6">
-                                    <span style="color:#000">Fiyatı : <span style="color:#000" ng-bind="products[$index].price"> </span><span style="color:#000"> tl</span></span>
-                                </div>
-                                 <div class="col-md-6">
-                                    <span style="color:#000">toplam : <span style="color:#000" ng-bind="products[$index].price*obj[$index].piece"> </span><span style="color:#000"> tl</span></span>
-                                </div>
-                              </div>
-                              <br>
-                              <div class="row" style="padding:0; margin:0">
-                                 <button class="btn btn-info" style="border-radius:0" ng-click="save($index)">Sipariş ver</button>
-                              </div>
-                              <br>
-                           </div>
-                        </div>
-                     </div>
-                  </div>
-                  <div class="col-md-3" ng-if="$index+1 < products.length">
-                     <div class="info-card">
-                        <img style="width: 100%; height:250px;" ng-src="{{host}}{{products[$index+1].picture}}" />
-                        <div class="info-card-details animate">
-                           <div class="info-card-header">
-                              <h1 ng-bind="products[$index+1].name"></h1>
-                           </div>
-                           <div class="info-card-detail">
-                              <div class="row">
-                                 <div class="form-group">
-                                    <div class="col-md-4" style="margin-top:5px">
-                                       <label for="" style="color:#000;">Adet </label>
-                                    </div>
-                                    <div class="btn-group m-b-20">
-                                       <button type="button" class="btn btn-white waves-effect" ng-repeat="spec in products[$index+1].product_specs" ng-bind="spec"></button>
-                                   </div>
-                                    <div class="col-md-8">
-                                       <div class="input-group spinner">
-                                          <input type="text" class="form-control" style="border-radius:0;" ng-model="obj[$index+1].piece">
-                                          <div class="input-group-btn-vertical">
-                                             <button class="btn btn-primary" type="button" style="border-radius:0" ng-click="up($index+1)"><i class="fa fa-caret-up"></i></button>
-                                             <button class="btn btn-primary" type="button" style="border-radius:0" ng-click="down($index+1)" ng-disabled="obj[$index+1].piece<1"><i class="fa fa-caret-down"></i></button>
-                                          </div>
-                                       </div>
-                                    </div>
-                                 </div>
-                              </div>
-                              <br>
-                              <div class="row">
-                                 <div class="col-md-6">
-                                    <span style="color:#000">Fiyatı : <span style="color:#000" ng-bind="products[$index+1].price"> </span><span style="color:#000"> tl</span></span>
-                                </div>
-                                 <div class="col-md-6">
-                                    <span style="color:#000">toplam : <span style="color:#000" ng-bind="products[$index+1].price*obj[$index+1].piece"> </span><span style="color:#000"> tl</span></span>
-                                </div>
-                              </div>
-                              <br>
-                              <div class="row" style="padding:0; margin:0">
-                                 <button class="btn btn-info" style="border-radius:0" ng-click="save($index+1)">Sipariş ver</button>
-                              </div>
-                              <br>
-                           </div>
-                        </div>
-                     </div>
-                  </div>
-                  <div class="col-md-3" ng-if="$index+2 < products.length">
-                     <div class="info-card">
-                        <img style="width: 100%; height:250px;" ng-src="{{host}}{{products[$index+2].picture}}"/>
-                        <div class="info-card-details animate">
-                           <div class="info-card-header">
-                              <h1 ng-bind="products[$index+2].name"></h1>
-                           </div>
-                           <div class="info-card-detail">
-                              <div class="row">
-                                 <div class="form-group">
-                                    <div class="col-md-4" style="margin-top:5px">
-                                       <label for="" style="color:#000;">Adet </label>
-                                    </div>
-                                    <div class="btn-group m-b-20">
-                                       <button type="button" class="btn btn-white waves-effect" ng-repeat="spec in products[$index+2].product_specs" ng-bind="spec"></button>
-                                   </div>
-                                    <div class="col-md-8">
-                                       <div class="input-group spinner">
-                                          <input type="text" class="form-control"  style="border-radius:0;" ng-model="obj[$index+2].piece">
-                                          <div class="input-group-btn-vertical">
-                                             <button class="btn btn-primary" type="button" style="border-radius:0" ng-click="up($index+2)" ><i class="fa fa-caret-up"></i></button>
-                                             <button class="btn btn-primary" type="button" style="border-radius:0" ng-click="down($index+2)" ng-disabled="obj[$index+2].piece<1"><i class="fa fa-caret-down"></i></button>
-                                          </div>
-                                       </div>
-                                    </div>
-                                 </div>
-                              </div>
-                              <br>
-                              <div class="row">
-                                 <div class="col-md-6">
-                                    <span style="color:#000">Fiyatı : <span style="color:#000" ng-bind="products[$index+2].price"> </span><span style="color:#000"> tl</span></span>
-                                </div>
-                                 <div class="col-md-6">
-                                    <span style="color:#000">toplam : <span style="color:#000" ng-bind="products[$index+2].price*obj[$index+2].piece"> </span><span style="color:#000"> tl</span></span>
-                                </div>
-                              </div>
-                              <br>
-                              <div class="row" style="padding:0; margin:0">
-                                 <button class="btn btn-info" style="border-radius:0" ng-click="save($index+2)">Sipariş ver</button>
-                              </div>
-                              <br>
-                           </div>
-                        </div>
-                     </div>
-                  </div>
-                  <div class="col-md-3" ng-if="$index+3 < products.length">
-                     <div class="info-card">
-                        <img style="width: 100%; height:250px;" ng-src="{{host}}{{products[$index+3].picture}}" />
-                        <div class="info-card-details animate">
-                           <div class="info-card-header">
-                              <h1 ng-bind="products[$index+3].name"></h1>
-                           </div>
-                           <div class="info-card-detail">
-                              <div class="row">
-                                 <div class="form-group">
-                                    <div class="col-md-4" style="margin-top:5px">
-                                       <label for="" style="color:#000;">Adet </label>
-                                    </div>
-                                    <div class="btn-group m-b-20">
-                                       <button type="button" class="btn btn-white waves-effect" ng-repeat="spec in products[$index+3].product_specs" ng-bind="spec" ></button>
-                                   </div>
-                                    <div class="col-md-8">
-                                       <div class="input-group spinner">
-                                          <input type="text" class="form-control" style="border-radius:0;" ng-model="obj[$index+3].piece">
-                                          <div class="input-group-btn-vertical">
-                                             <button class="btn btn-primary" type="button" style="border-radius:0" ng-click="up($index+3)"><i class="fa fa-caret-up"></i></button>
-                                             <button class="btn btn-primary" type="button" style="border-radius:0" ng-click="down($index+3)" ng-disabled="obj[$index+3].piece<1"><i class="fa fa-caret-down"></i></button>
-                                          </div>
-                                       </div>
-                                    </div>
-                                 </div>
-                              </div>
-                              <br>
-                              <div class="row">
-                                 <div class="col-md-6">
-                                    <span style="color:#000">Fiyatı : <span style="color:#000" ng-bind="products[$index+3].price"> </span><span style="color:#000"> tl</span></span>
-                                </div>
-                                 <div class="col-md-6">
-                                    <span style="color:#000">toplam : <span style="color:#000" ng-bind="products[$index+3].price*obj[$index+3].piece"> </span><span style="color:#000"> tl</span></span>
-                                </div>
-                              </div>
-                              <br>
-                              <div class="row" style="padding:0; margin:0">
-                                 <button class="btn btn-info" style="border-radius:0" ng-click="save($index+3)">Sipariş ver</button>
-                              </div>
-                              <br>
-                           </div>
-                        </div>
-                     </div>
-                  </div>
-               </div>
+<header role="banner">
+    <div id="cd-logo">
+        <div class="form-inline">
+            <div class="form-gruop">
+                <a ><img style="margin-top:-4px" ng-src="{{host}}/{{$root.mkb.current_user.profile_picture}}" style="width:" class="img-circle thumb-md"> </a>
             </div>
-         </div>
-      </div>
-      <div class="msg-box isDown">
-                        <div class="msg-box-top">
-                            <div class=" clearfix">
-                                <div class="top-lfloat">
-                                    <div class="usr-name">
-                                      <strong style="font-family:'Roboto'; font-weight:800; color:#fff">Sipariş Listesi</strong>
+        </div>
+        
+    </div>
+
+    <nav class="main-nav">
+        <ul>
+            
+            <li><a href="javascript:void(0)" class="cd-signin" ng-click="cikis()">Çıkış</a></li>
+
+        </ul>
+    </nav>
+</header>
+<section class="visible">
+    <br>
+    <div class="row">
+        <div class="col-sm-8">
+            <div class="">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="col-md-12">
+                            <div class="input-group">
+                                <textarea class="form-control custom-control" placeholder="odacı cağır" rows="2" style="resize:none; font-size:24px"></textarea> <span class="input-group-addon btn btn-primary">&nbsp;&nbsp;&nbsp;&nbsp; Gönder &nbsp;&nbsp;&nbsp;&nbsp;</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <div class="row" ng-repeat="product in products" ng-if="$index % 3 === 0">
+                    <div class="col-md-12">
+                        <div class="">
+                            <div class="col-md-4" ng-if="$index < products.length">
+                                <div class="info-card">
+                                    <img style="width: 100%; height: 350px;" ng-src="{{host}}{{products[$index].picture}}" />
+                                    <div class="info-card-details animate">
+                                        <div class="info-card-header">
+                                            <h1 ng-bind="products[$index].name"></h1>
+                                        </div>
+                                        <div class="info-card-detail">
+                                            <div class="row">
+                                               <div class="form-group">
+                                                   <div class="btn-group m-b-20">
+                                                        <button type="button" class="btn btn-white waves-effect" ng-repeat="spec in products[$index].product_specs" ng-bind="spec" ng-click="specClick($parent.$index,spec)"></button>
+                                                    </div>
+                                               </div>
+                                                <div class="form-group">
+                                                    
+                                                    <div class="col-md-4" style="margin-top: 5px">
+                                                        <label for="" style="color: #000;">Adet </label>
+                                                    </div>
+                                                    <div class="col-md-8">
+                                                        <div class="input-group spinner">
+                                                            <input type="text" class="form-control" style="border-radius: 0;" ng-model="obj[$index].piece">
+                                                            <div class="input-group-btn-vertical">
+                                                                <button class="btn btn-primary" type="button" style="border-radius: 0" ng-click="up($index)"><i class="fa fa-caret-up"></i></button>
+                                                                <button class="btn btn-primary" type="button" style="border-radius: 0" ng-click="down($index)" ng-disabled="obj[$index].piece<1"><i class="fa fa-caret-down"></i></button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <br>
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <span style="color: #000">Fiyatı : <span style="color: #000" ng-bind="products[$index].price"></span><span style="color: #000">tl</span></span>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <span style="color: #000">toplam : <span style="color: #000" ng-bind="products[$index].price*obj[$index].piece"></span><span style="color: #000">tl</span></span>
+                                                </div>
+                                            </div>
+                                            <br>
+                                            <div class="row" style="padding: 0; margin: 0">
+                                                <button class="btn btn-info" style="border-radius: 0" ng-click="save($index)">Sipariş ver</button>
+                                            </div>
+                                            <br>
+                                        </div>
                                     </div>
                                 </div>
-                            <div class="open-chat-target open-close-chat"></div>
-                                <div class="top-rfloat">
-                                    <div class="r-icon-set close open-close-chat"></div>
-                                    <div class="r-icon-set options"></div>
-                                    <div class="r-icon-set videoChat"></div>
-                                    <div class="r-icon-set addChat"><a href="#"></a></div>
+                            </div>
+                            <div class="col-md-4" ng-if="$index+1 < products.length">
+                                <div class="info-card">
+                                    <img style="width: 100%; height: 350px;" ng-src="{{host}}{{products[$index+1].picture}}" />
+                                    <div class="info-card-details animate">
+                                        <div class="info-card-header">
+                                            <h1 ng-bind="products[$index+1].name"></h1>
+                                        </div>
+                                        <div class="info-card-detail">
+                                            <div class="row">
+                                                <div class="form-group">
+                                                    <div class="col-md-4" style="margin-top: 5px">
+                                                        <label for="" style="color: #000;">Adet </label>
+                                                    </div>
+                                                    <div class="btn-group m-b-20">
+                                                        <button type="button" class="btn btn-white waves-effect" ng-repeat="spec in products[$index+1].product_specs" ng-bind="spec"></button>
+                                                    </div>
+                                                    <div class="col-md-8">
+                                                        <div class="input-group spinner">
+                                                            <input type="text" class="form-control" style="border-radius: 0;" ng-model="obj[$index+1].piece">
+                                                            <div class="input-group-btn-vertical">
+                                                                <button class="btn btn-primary" type="button" style="border-radius: 0" ng-click="up($index+1)"><i class="fa fa-caret-up"></i></button>
+                                                                <button class="btn btn-primary" type="button" style="border-radius: 0" ng-click="down($index+1)" ng-disabled="obj[$index+1].piece<1"><i class="fa fa-caret-down"></i></button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <br>
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <span style="color: #000">Fiyatı : <span style="color: #000" ng-bind="products[$index+1].price"></span><span style="color: #000">tl</span></span>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <span style="color: #000">toplam : <span style="color: #000" ng-bind="products[$index+1].price*obj[$index+1].piece"></span><span style="color: #000">tl</span></span>
+                                                </div>
+                                            </div>
+                                            <br>
+                                            <div class="row" style="padding: 0; margin: 0">
+                                                <button class="btn btn-info" style="border-radius: 0" ng-click="save($index+1)">Sipariş ver</button>
+                                            </div>
+                                            <br>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4" ng-if="$index+2 < products.length">
+                                <div class="info-card">
+                                    <img style="width: 100%; height: 350px;" ng-src="{{host}}{{products[$index+2].picture}}" />
+                                    <div class="info-card-details animate">
+                                        <div class="info-card-header">
+                                            <h1 ng-bind="products[$index+2].name"></h1>
+                                        </div>
+                                        <div class="info-card-detail">
+                                            <div class="row">
+                                                <div class="form-group">
+                                                    <div class="btn-group m-b-20">
+                                                        <button type="button" class="btn btn-white waves-effect" ng-repeat="spec in products[$index+2].product_specs" ng-bind="spec"></button>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <div class="col-md-4" style="margin-top: 5px">
+                                                        <label for="" style="color: #000;">Adet </label>
+                                                    </div>
+                                                    
+                                                    <div class="col-md-8">
+                                                        <div class="input-group spinner">
+                                                            <input type="text" class="form-control" style="border-radius: 0;" ng-model="obj[$index+2].piece">
+                                                            <div class="input-group-btn-vertical">
+                                                                <button class="btn btn-primary" type="button" style="border-radius: 0" ng-click="up($index+2)"><i class="fa fa-caret-up"></i></button>
+                                                                <button class="btn btn-primary" type="button" style="border-radius: 0" ng-click="down($index+2)" ng-disabled="obj[$index+2].piece<1"><i class="fa fa-caret-down"></i></button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <br>
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <span style="color: #000">Fiyatı : <span style="color: #000" ng-bind="products[$index+2].price"></span><span style="color: #000">tl</span></span>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <span style="color: #000">toplam : <span style="color: #000" ng-bind="products[$index+2].price*obj[$index+2].piece"></span><span style="color: #000">tl</span></span>
+                                                </div>
+                                            </div>
+                                            <br>
+                                            <div class="row" style="padding: 0; margin: 0">
+                                                <button class="btn btn-info" style="border-radius: 0" ng-click="save($index+2)">Sipariş ver</button>
+                                            </div>
+                                            <br>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                      <!--  -->
-                        <div class="chat-container">
-                            <div class="chat-data">
-                                  <ul class="nav nav-tabs" role="tablist" style="background-color:#e7e7e7">
-                                    <li role="presentation" class="active"><a data-target="#seen" aria-controls="home" role="tab" data-toggle="tab">Güncel <span class="not_seen" style="display : inline-block"></span></a></li>
-                                    <li role="presentation"><a data-target="#not_seen" aria-controls="profile" role="tab" data-toggle="tab">Geçmiş <span class="a_seen" style="display : inline-block"></span></a>
-                                    
-                                    
-                                    </li>
-                                  </ul>
-
-                                  <!-- Tab panes -->
-                                  <div class="tab-content" style="padding:0">
-                                    <div role="tabpanel" class="tab-pane active" id="seen">
-                                        <table>
-                                          <thead>
-                                            <tr>
-                                              <th colspan="5"></th>
-                                            </tr>
-                                            <tr>
-                                              <th style="color:#6c6c6c !important">Adet</th>
-                                              <th style="color:#6c6c6c !important">İsim</th>
-                                              <th style="color:#6c6c6c !important">Fiyat</th>
-                                              <th style="color:#6c6c6c !important">Durum</th>
-                                              <th style="width:100px; color:#6c6c6c !important">İşlem</th>
-                                            </tr>
-                                          </thead>
-                                          <tbody>
-                                            <tr ng-repeat="item in siparisler track by $index" ng-if="item.isActive=='false'">
-                                              <td ng-bind="item.piece"></td>
-                                              <td ng-bind="item.product.name"></td>
-                                              <td>{{item.total_price}} &#x20BA; </td>
-                                              <td><span class="label label-danger" ng-if="item.order_status == 'reject'">İptal</span>
-                                              <span class="label label-warning" ng-if="item.order_status == 'wait'">Bekliyor</span></td>
-                                              <td>
-                                                  <button class="btn btn-sm btn-default" ng-click="delete($index,item._id)"><i class="glyphicon glyphicon-trash"></i></button>
-                                              </td>
-                                            </tr>
-                                            <tr>
-                                                <td colspan="4">Toplam</td>
-                                                <td> {{guncel_siparis_toplami}} &#x20BA;</td>
-                                            </tr>
-                                          </tbody>
-                                        </table>
-                                    </div>
-                                    <div role="tabpanel" class="tab-pane" id="not_seen">
-                                        <table>
-                                          <thead>
-                                            <tr>
-                                              <th colspan="4"></th>
-                                            </tr>
-                                            <tr>
-                                              <th>Adet</th>
-                                              <th>İsim</th>
-                                              <th>Fiyat</th>
-                                              <th>Durum</th>
-                                            </tr>
-                                          </thead>
-                                          <tbody>
-                                            <tr ng-repeat="item in siparisler track by $index" ng-if="item.isActive=='true'">
-                                              <td ng-bind="item.piece"></td>
-                                              <td ng-bind="item.product.name"></td>
-                                              <td>{{item.total_price}} &#x20BA; </td>
-                                              <td><span class="label label-success" ng-if="item.order_status == 'accept'">Alındı</span></td>
-                                            </tr>
-                                            <tr>
-                                                <td colspan="3">Toplam</td>
-                                                <td> {{gecmis_siparis_toplami}} &#x20BA;</td>
-                                            </tr>
-                                          </tbody>
-                                        </table>
-                                    </div>
-                                  </div>
-                                        
-                              </div><!-- /.chat-data -->
-                          </div><!-- /.chat-container -->
-                      <!--  -->
+                    </div>
                 </div>
-   </header>
+            </div>
+        </div>
+        <div>
+            <div class="msg-box" style="height:92%; display: inline-block">
+                <div class="chat-container">
+                    <div class="chat-data">
+                        <ul class="nav nav-tabs" role="tablist" style="background-color: #e7e7e7">
+                            <li role="presentation" class="active"><a data-target="#seen" aria-controls="home" role="tab" data-toggle="tab">Güncel <span class="not_seen" style="display: inline-block"></span></a></li>
+                            <li role="presentation"><a data-target="#not_seen" aria-controls="profile" role="tab" data-toggle="tab">Geçmiş <span class="a_seen" style="display: inline-block"></span></a>
+                            </li>
+                            <li style="background-color:blue" role="presentation"><a data-target="#liste" aria-controls="profile" role="tab" data-toggle="tab">Odacı İstek <span class="" style="display: inline-block"></span></a>
+                            </li>
+                        </ul>
+
+                        <!-- Tab panes -->
+                        <div class="tab-content" style="padding: 0">
+                            <div role="tabpanel" class="tab-pane active" id="seen">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th colspan="5"></th>
+                                        </tr>
+                                        <tr>
+                                            <th style="color: #6c6c6c !important">Adet</th>
+                                            <th style="color: #6c6c6c !important">İsim</th>
+                                            <th style="color: #6c6c6c !important">Fiyat</th>
+                                            <th style="color: #6c6c6c !important">Durum</th>
+                                            <th style="width: 100px; color: #6c6c6c !important">İşlem</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr ng-repeat="item in siparisler track by $index" ng-if="item.isActive=='false'">
+                                            <td ng-bind="item.piece"></td>
+                                            <td ng-bind="item.product.name"></td>
+                                            <td>{{item.total_price}} &#x20BA; </td>
+                                            <td><span class="label label-danger" ng-if="item.order_status == 'reject'">İptal</span>
+                                                <span class="label label-warning" ng-if="item.order_status == 'wait'">Bekliyor</span></td>
+                                            <td>
+                                                <button class="btn btn-sm btn-default" ng-click="delete($index,item._id)"><i class="glyphicon glyphicon-trash"></i></button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="4">Toplam</td>
+                                            <td>{{guncel_siparis_toplami}} &#x20BA;</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div role="tabpanel" class="tab-pane" id="not_seen">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th colspan="4"></th>
+                                        </tr>
+                                        <tr>
+                                            <th>Adet</th>
+                                            <th>İsim</th>
+                                            <th>Fiyat</th>
+                                            <th>Durum</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr ng-repeat="item in siparisler track by $index" ng-if="item.isActive=='true'">
+                                            <td ng-bind="item.piece"></td>
+                                            <td ng-bind="item.product.name"></td>
+                                            <td>{{item.total_price}} &#x20BA; </td>
+                                            <td><span class="label label-success" ng-if="item.order_status == 'accept'">Alındı</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="3">Toplam</td>
+                                            <td>{{gecmis_siparis_toplami}} &#x20BA;</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div role="tabpanel" class="tab-pane" id="liste">
+                                <table class="table" style="background-color:white">
+                                    <thead>
+                                      <tr>
+                                      <th>#</th>
+                                       <th>Açıklama</th>
+                                       <th>Tarih</th>
+                                       <th>Odacı</th>
+                                       <th>Durum</th>
+                                       </tr>
+                                   </thead>
+                                   <tbody>
+                                       <tr ng-repeat="item in odaciIstekler track by $index">
+                                           <td ng-bind="$index+1"></td>
+                                           <td ng-bind="item.description"></td>
+                                           <td ng-bind="item.service_date"></td>
+                                           <td ng-bind="item.crew_id.name"></td>
+                                           <td ng-show="item.isActive == true"><span class="a_seen"></span></td>
+                                           <td ng-show="item.isActive == false"><span class="not_seen"></span></td>
+                                       </tr>
+                                   </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                    </div>
+                    <!-- /.chat-data -->
+                </div>
+                <!-- /.chat-container -->
+                <!--  -->
+            </div>
+        </div>
+    </div>
+
 </section>

@@ -117,13 +117,13 @@ mavikentApp.controller("OrderCtrl", function($scope, $rootScope, $http, $interva
     }
 
     $scope.delete = function(index, id) {
-         swal({  
-            title: "Emin misiniz?",   
-            text: "Bu öğeyi silmek istedğinizden emin misiniz?",   
-            type: "warning",  
-            showCancelButton: true,   
-            confirmButtonColor: "#DD6B55",   
-            confirmButtonText: "Evet",   
+         swal({
+            title: "Emin misiniz?",
+            text: "Bu öğeyi silmek istedğinizden emin misiniz?",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#DD6B55",
+            confirmButtonText: "Evet",
             closeOnConfirm: false }, function(){
         $http.delete(host + "/api/order/" + id + "?token=" + $scope.token).success(function(resp) {
             if (resp.status == false) {
@@ -143,35 +143,4 @@ mavikentApp.controller("OrderCtrl", function($scope, $rootScope, $http, $interva
         });
 
     }
-
-
-
-
-    function scrollChat() {
-        var s = $('.chat-container').scrollTop();
-        var h = $('.chat-container').height();
-        //alert( "scrollTop: " + s + " " + "height: " + h)
-        $('.chat-container').scrollTop(h);
-    }
-    // jQuery Animation
-    $('.open-close-chat').click(function(event) {
-        event.preventDefault();
-        if ($('.msg-box').hasClass("isDown")) {
-            $('.msg-box').animate({
-                height: "100%"
-            }, 200);
-            $('.msg-box').removeClass("isDown");
-            $('.chat-input').fadeIn();
-            $('.close').show();
-            scrollChat();
-        } else {
-            $('.msg-box').animate({
-                height: "40px"
-            }, 200);
-            $('.msg-box').addClass("isDown");
-            $('.chat-input').hide();
-            $('.close').hide();
-        }
-        return false;
-    });
 })
