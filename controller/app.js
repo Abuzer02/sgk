@@ -65,6 +65,8 @@ mavikentApp.run(function($rootScope, $location, $state, $http, $localStorage, $w
         $rootScope.ayrac = ':'
       }
     },500)
+    
+    $rootScope.dateBeautify=dateBeautify;
 
 })
 
@@ -384,3 +386,12 @@ mavikentApp.directive("passwordVerify", function() {
         }
     };
 });
+function dateBeautify(dateString){
+  var tempDate = new Date(dateString)
+  var _dateBeautify = tempDate.getDay() + '/' +
+                      tempDate.getMonth() + '/' +
+                      tempDate.getFullYear() + ' - ' +
+                      tempDate.getHours() + ':' + tempDate.getMinutes()
+
+  return _dateBeautify
+}

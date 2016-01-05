@@ -27,7 +27,7 @@
                     <div class="col-md-12">
                         <div class="col-md-12">
                             <div class="input-group" ng-controller="OdaciCtrl">
-                                <textarea ng-model="obj.description" class="form-control custom-control" placeholder="odacı cağır" rows="2" style="resize: none; font-size: 24px"></textarea>
+                                <textarea ng-model="obj.description" class="form-control custom-control" placeholder="odacı cağır" rows="2" style="resize: none; font-size: 24px; text-align:center"></textarea>
                                 <span ng-click="save()" class="input-group-addon btn btn-primary">&nbsp;&nbsp;&nbsp;&nbsp; Gönder &nbsp;&nbsp;&nbsp;&nbsp;</span>
                             </div>
                         </div>
@@ -52,7 +52,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <hr>
+                                            <br>
                                             <div class="row">
                                                 <div class="text-center">
                                                     <div class="col-md-3">
@@ -108,7 +108,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <hr>
+                                            <br>
                                             <div class="row">
                                                 <div class="text-center">
                                                     <div class="col-md-3">
@@ -164,7 +164,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <hr>
+                                            <br>
                                             <div class="row">
                                                 <div class="text-center">
                                                     <div class="col-md-3">
@@ -211,7 +211,7 @@
             </div>
         </div>
         <div>
-            <div class="msg-box" style="height: 92%; display: inline-block">
+            <div class="msg-box" style="height: 100%; display: inline-block; top:76px;">
                 <div class="chat-container">
                     <div class="chat-data">
                         <ul class="nav nav-tabs" role="tablist" style="background-color: #e7e7e7">
@@ -223,7 +223,7 @@
                         </ul>
 
                         <!-- Tab panes -->
-                        <div class="tab-content" style="padding: 0">
+                        <div class="tab-content" style="padding: 0; height:300px; overflow:auto">
                             <div role="tabpanel" class="tab-pane active" id="seen">
                                 <table>
                                     <thead>
@@ -289,8 +289,7 @@
                                         <tr>
                                             <th>#</th>
                                             <th>Açıklama</th>
-                                            <th>Tarih</th>
-                                            <th>Odacı</th>
+                                            <th>Tarih-Saat</th>
                                             <th>Durum</th>
                                         </tr>
                                     </thead>
@@ -298,8 +297,7 @@
                                         <tr ng-repeat="item in odaciIstekler track by $index">
                                             <td ng-bind="$index+1"></td>
                                             <td ng-bind="item.description"></td>
-                                            <td ng-bind="item.service_date"></td>
-                                            <td ng-bind="item.crew_id.name"></td>
+                                            <td ng-bind="$root.dateBeautify(item.service_date)"></td>
                                             <td ng-show="item.isActive == true"><span class="a_seen"></span></td>
                                             <td ng-show="item.isActive == false"><span class="not_seen"></span></td>
                                         </tr>
@@ -307,8 +305,56 @@
                                 </table>
                             </div>
                         </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="text-center">
+                                    <span>Hızlı Sipariş</span>
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="col-md-12">
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" disabled placeholder="çay - demli - 1 adet">
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-default" type="button">Sipariş ver!</button>
+                                        </span>
 
-                    </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="col-md-12">
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" disabled placeholder="çay - demli - 1 adet">
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-default" type="button">Sipariş ver!</button>
+                                        </span>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="col-md-12">
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" disabled placeholder="çay - demli - 1 adet">
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-default" type="button">Sipariş ver!</button>
+                                        </span>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    
                     <!-- /.chat-data -->
                 </div>
                 <!-- /.chat-container -->
