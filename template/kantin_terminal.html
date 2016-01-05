@@ -10,9 +10,15 @@
             <!-- inser more links here -->
             <li><a href="javascript:void(0)" class="cd-signup" ng-click="siparisler()">Siparişler</a></li>
             <li><a href="javascript:void(0)" class="cd-signin" ng-click="urunEkleme()">Ürün Ekle</a></li>
-            <li>
-                <a href="javascript:void(0)" class="cd-signin profile" ng-click="cikis()"><img ng-src="{{host}}/media/original/{{$root.mkb.current_user.profile_picture}}" alt="user-img" class="img-circle">Çıkış </a>
+            
+            
+            <li style="display:none">
+                <a href="javascript:void(0)" class=" profile" ng-click="urunEkleme()">
+                    <img ng-src="{{host}}/media/original/{{$root.mkb.current_user.profile_picture}}" class="img-circle" >
+                </a>
             </li>
+            
+            <li><a href="javascript:void(0)" class="cd-signin" ng-click="cikis()">Çıkış</a></li>
 
         </ul>
     </nav>
@@ -130,24 +136,59 @@
 <!--Gelen ilk ürün (ana ekran)--->
 <div class="row" ng-hide="urunEkle" ng-repeat="item in list track by $index">
     <div class="col-md-12">
-        <div class="card-box m-b-10">
-            <div class="table-box opport-box">
-                <div class="table-detail" style="width:200px"><img style="width : 200px;height : 200px;" ng-src="{{host}}/media/original/{{item.product.picture}}" alt="img" class="img-responsive img-circle"></div>
-                <div class="table-detail" style="width:150px">
-                    <div class="member-info">
-                        <h4 class="m-t-0"><b ng-bind="item.account_id.name"></b></h4>
-                        <p class="text-dark m-b-5"><b>Oda  : </b> <span class="text-muted" ng-bind="item.room_no"></span></p>
-                        <p class="text-dark m-b-0"><b>Masa : </b> <span class="text-muted" ng-bind="item.desk_no"></span></p>
+        
+        <div class="col-md-12">
+            <div class="col-md-12">
+                <div class="panel panel-border panel-custom">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">YENİ SİPARİŞ</h3>
+                    </div>
+                    <div class="panel-body">
+                        <table class="table" style="display:table">
+                            <thead>
+                                <tr>
+                                    <th class="text-center">Ürün Resmi</th>
+                                    <th class="text-center">Kullanici Bilgileri</th>
+                                    <th class="text-center">Ürün x Miktar</th>
+                                    <th class="text-center">Özellik</th>
+                                    <th class="text-center">Fiyat</th>
+                                    <th class="text-center" colspan="2">İşlem</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td style="width:100px" class="text-center">
+                                        <img ng-src="{{host}}/media/original/{{item.product.picture}}" alt="cay" class="img-responsive img-thumbnail">
+                                    </td>
+                                    <td class="text-center">
+                                        <div class="member-info">
+                                            <h4 class="m-t-0"><b ng-bind="item.account_id.name" style="text-transform:uppercase; font-weight:bold;"></b></h4>
+                                            <h4 class="text-dark m-b-5" style=""><b>Oda  : </b> <span class="text-muted" ng-bind="item.room_no"></span></h4>
+                                            <h4 class="text-dark m-b-0" style=""><b>Masa : </b> <span class="text-muted" ng-bind="item.desk_no"></span></h4>
+                                        </div>
+                                    </td>
+                                    <td class="text-center">
+                                        <span style="font-size:16px" class="label label-default">{{item.product.name}} x {{item.piece}}</span>
+                                    </td>
+                                    <td class="text-center">
+                                        <span style="font-size:16px" class="label label-default" ng-bind="item.product_spec"></span>
+                                    </td>
+                                    <td class="text-center">
+                                        <span class="label label-default " style="font-size:16px;" ng-bind="item.total_price"></span>
+                                    </td>
+                                    <td class="text-center" style="width:100px">
+                                        <a href="" class="btn btn-block btn-success waves-effect waves-light btn-lg" ng-click="onayla($index)" style="height:100%"><i class="glyphicon glyphicon-ok"></i></a>
+
+                                    </td>
+                                    <td class="text-center" style="width:100px">
+                                        <a href="" class="btn btn-block btn-danger waves-effect waves-light btn-lg" ng-click="iptal($index)" style="height:100%; "><i style=""class="glyphicon glyphicon-trash"></i></a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
-                <div class="table-detail lable-detail" style="width:50px"><span class="label label-purple" ng-bind="item.product_spec"></span></div>
-                <div class="table-detail lable-detail" style="width:50px"><span class="label label-purple">{{item.product.name}} x {{item.piece}}</span></div>
-                <div class="table-detail lable-detail" style="width:50px"><span class="label label-purple" ng-bind="item.total_price"></span></div>
-                <div class="table-detail" style="width:340px">
-                    <a href="" style="width:170px;height:100px" class="btn btn-sm btn-success waves-effect waves-light" ng-click="onayla($index)">Onayla</a>
-                    <a href="" style="width:170px;height:100px" class="btn btn-sm btn-danger waves-effect waves-light" ng-click="iptal($index)">Iptal Et</a>
-                </div>
-            </div>
+                    </div>
         </div>
     </div>
 </div>

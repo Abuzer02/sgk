@@ -465,9 +465,9 @@ table > thead > tr > th{
 /*************
 **kantin menu***/
 
-/* -------------------------------- 
+/* --------------------------------
 
-Main components 
+Main components
 
 -------------------------------- */
 header[role=banner] {
@@ -596,9 +596,9 @@ header[role=banner]::after {
   }
 }
 
-/* -------------------------------- 
+/* --------------------------------
 
-xsigin/signup popup 
+xsigin/signup popup
 
 -------------------------------- */
 .cd-user-modal {
@@ -914,4 +914,3 @@ xsigin/signup popup
 #cd-login.is-selected, #cd-signup.is-selected, #cd-reset-password.is-selected {
   display: block;
 }
-
