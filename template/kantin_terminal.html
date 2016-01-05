@@ -1,8 +1,12 @@
 <header role="banner">
     <div id="cd-logo">
-        <a>
-            <h2 style="font-size: 28px; color: #e1e1e1">Kantin Sipariş Ekranı</h2>
-        </a>
+      <div class="form-inline">
+          <div class="form-gruop">
+              <a>
+                  <img style="margin-top: -4px" ng-src="{{host}}/media/original/{{$root.mkb.current_user.profile_picture}}" style="width: " class="img-circle thumb-md">
+              </a>
+          </div>
+      </div>
     </div>
 
     <nav class="main-nav">
@@ -10,14 +14,14 @@
             <!-- inser more links here -->
             <li><a href="javascript:void(0)" class="cd-signup" ng-click="siparisler()">Siparişler</a></li>
             <li><a href="javascript:void(0)" class="cd-signin" ng-click="urunEkleme()">Ürün Ekle</a></li>
-            
-            
+
+
             <li style="display:none">
                 <a href="javascript:void(0)" class=" profile" ng-click="urunEkleme()">
                     <img ng-src="{{host}}/media/original/{{$root.mkb.current_user.profile_picture}}" class="img-circle" >
                 </a>
             </li>
-            
+
             <li><a href="javascript:void(0)" class="cd-signin" ng-click="cikis()">Çıkış</a></li>
 
         </ul>
@@ -136,22 +140,22 @@
 <!--Gelen ilk ürün (ana ekran)--->
 <div class="row" ng-hide="urunEkle" ng-repeat="item in list track by $index">
     <div class="col-md-12">
-        
+
         <div class="col-md-12">
             <div class="col-md-12">
                 <div class="panel panel-border panel-custom">
                     <div class="panel-heading">
-                        <h3 class="panel-title">YENİ SİPARİŞ</h3>
+                        <h3 class="panel-title">SİPARİŞ {{$index + 1}}</h3>
                     </div>
                     <div class="panel-body">
                         <table class="table" style="display:table">
                             <thead>
                                 <tr>
                                     <th class="text-center">Ürün Resmi</th>
-                                    <th class="text-center">Kullanici Bilgileri</th>
-                                    <th class="text-center">Ürün x Miktar</th>
-                                    <th class="text-center">Özellik</th>
-                                    <th class="text-center">Fiyat</th>
+                                    <th class="text-center" style="width:200px">Kullanici Bilgileri</th>
+                                    <th class="text-center" style="width:100px">Ürün x Miktar</th>
+                                    <th class="text-center" style="width:100px">Özellik</th>
+                                    <th class="text-center" style="width:50px">Fiyat</th>
                                     <th class="text-center" colspan="2">İşlem</th>
                                 </tr>
                             </thead>
@@ -160,28 +164,28 @@
                                     <td style="width:100px" class="text-center">
                                         <img ng-src="{{host}}/media/original/{{item.product.picture}}" alt="cay" class="img-responsive img-thumbnail">
                                     </td>
-                                    <td class="text-center">
+                                    <td class="text-center" style="padding-top:30px">
                                         <div class="member-info">
-                                            <h4 class="m-t-0"><b ng-bind="item.account_id.name" style="text-transform:uppercase; font-weight:bold;"></b></h4>
-                                            <h4 class="text-dark m-b-5" style=""><b>Oda  : </b> <span class="text-muted" ng-bind="item.room_no"></span></h4>
-                                            <h4 class="text-dark m-b-0" style=""><b>Masa : </b> <span class="text-muted" ng-bind="item.desk_no"></span></h4>
+                                            <h4 class="m-t-0"><b ng-bind="item.account_id.name" style="text-transform:uppercase; font-weight:bold;font-size:22px"></b></h4>
+                                            <h4 style="font-size:18px" class="text-dark m-b-5" style=""><b>Oda  : </b> <span class="text-muted" ng-bind="item.room_no"></span></h4>
+                                            <h4 style="font-size:18px" class="text-dark m-b-0" style=""><b>Masa : </b> <span class="text-muted" ng-bind="item.desk_no"></span></h4>
                                         </div>
                                     </td>
-                                    <td class="text-center">
-                                        <span style="font-size:16px" class="label label-default">{{item.product.name}} x {{item.piece}}</span>
+                                    <td class="text-center" style="padding-top:60px">
+                                        <span style="font-size:22px" class="label label-default">{{item.product.name}} x {{item.piece}}</span>
                                     </td>
-                                    <td class="text-center">
-                                        <span style="font-size:16px" class="label label-default" ng-bind="item.product_spec"></span>
+                                    <td class="text-center" style="padding-top:60px">
+                                        <span style="font-size:22px" class="label label-default" ng-bind="item.product_spec"></span>
                                     </td>
-                                    <td class="text-center">
-                                        <span class="label label-default " style="font-size:16px;" ng-bind="item.total_price"></span>
+                                    <td class="text-center" style="padding-top:60px">
+                                        <span class="label label-default " style="font-size:22px;" ng-bind="item.total_price"></span>
                                     </td>
                                     <td class="text-center" style="width:100px">
-                                        <a href="" class="btn btn-block btn-success waves-effect waves-light btn-lg" ng-click="onayla($index)" style="height:100%"><i class="glyphicon glyphicon-ok"></i></a>
+                                        <a href="" class="btn btn-block btn-success waves-effect waves-light btn-lg" ng-click="onayla($index)" style="height:100%"><i style="font-size:95px" class="glyphicon glyphicon-ok"></i></a>
 
                                     </td>
                                     <td class="text-center" style="width:100px">
-                                        <a href="" class="btn btn-block btn-danger waves-effect waves-light btn-lg" ng-click="iptal($index)" style="height:100%; "><i style=""class="glyphicon glyphicon-trash"></i></a>
+                                        <a href="" class="btn btn-block btn-danger waves-effect waves-light btn-lg" ng-click="iptal($index)" style="height:100%; "><i style="font-size:95px" class="glyphicon glyphicon-remove"></i></a>
                                     </td>
                                 </tr>
                             </tbody>
