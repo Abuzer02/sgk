@@ -85,7 +85,22 @@ mavikentApp.controller("OrderCtrl", function($scope, $rootScope, $http, $interva
         $scope.obj[index].product_spec=item;
         console.log($scope.obj[index].product_spec);
     }
-
+    $scope.hizliSiparis=[]
+    $scope.hizliSiparisVer=function(item){
+        $http.post(host + "/api/order?token=" + $scope.token, item).success(function(resp) {
+            if (resp.status == false) {
+                console.log("error : ", JSON.stringify(resp));
+                stateControl(resp.code,resp.data);
+                return;
+            }
+            $scope.siparisler.push(resp.data);
+            $scope.guncel_siparis_toplami += parseFloat(resp.data.total_price);
+            swal("Başarılı!", "Sipariş Başarılı eklendi!", "success")
+        }).error(function(err) {
+             console.error(JSON.stringify(err));
+             sweetAlert("Oops...", "Bir hata oluştu", "error");
+        });
+    }
     $scope.save = function(index) {
         $scope.obj[index].total_price = $scope.products[index].price * $scope.obj[index].piece;
         $http.post(host + "/api/order?token=" + $scope.token, $scope.obj[index]).success(function(resp) {
@@ -94,9 +109,33 @@ mavikentApp.controller("OrderCtrl", function($scope, $rootScope, $http, $interva
                 stateControl(resp.code,resp.data);
                 return;
             }
+             if($scope.hizliSiparis.length == 0){
+                    console.log("here 1");
+                    var data=resp.data;
+                    data.count=1;
+                    $scope.hizliSiparis.push(data);
+                    
+            }else{
+            for(var i=0;i<$scope.hizliSiparis.length;i++){
+                if(resp.data.product.name == $scope.hizliSiparis[i].product.name){
+                    console.log("here 2");
+                    $scope.hizliSiparis[i].count++;
+                    break;
+                }else{
+                    if(i == ($scope.hizliSiparis.length-1)){
+                        console.log("here 3");
+                        var data=resp.data;
+                        data.count=1;
+                        $scope.hizliSiparis.push(data);
+                        break;
+                    }
+                }
+              }
+            }
+           // console.log($scope.hizliSiparis);
             $scope.siparisler.push(resp.data);
             $scope.guncel_siparis_toplami += parseFloat(resp.data.total_price);
-            console.log(JSON.stringify(resp));
+            //console.log(JSON.stringify(resp));
             $scope.obj[index] = {
                 floor_no: $rootScope.mkb.current_user.floor_id.name,
                 room_no: $rootScope.mkb.current_user.room_id.name,

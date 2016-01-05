@@ -313,13 +313,13 @@
                             </div>
                         </div>
                         <br>
-                        <div class="row">
+                        <div class="row" ng-repeat="item in hizliSiparis track by $index" ng-if="item.count != undefined ">
                             <div class="col-md-12">
                                 <div class="col-md-12">
                                     <div class="input-group">
-                                        <input type="text" class="form-control" disabled placeholder="çay - demli - 1 adet">
+                                        <input type="text" class="form-control" disabled placeholder="çay - demli - 1 adet" value="{{item.product.name}}  {{item.product_spec}}  {{item.piece}} adet">
                                         <span class="input-group-btn">
-                                            <button class="btn btn-default" type="button">Sipariş ver!</button>
+                                            <button class="btn btn-default" type="button" ng-click="hizliSiparisVer(item)">Sipariş ver!</button>
                                         </span>
 
                                     </div>
@@ -327,33 +327,7 @@
                             </div>
                         </div>
                         <br>
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="col-md-12">
-                                    <div class="input-group">
-                                        <input type="text" class="form-control" disabled placeholder="çay - demli - 1 adet">
-                                        <span class="input-group-btn">
-                                            <button class="btn btn-default" type="button">Sipariş ver!</button>
-                                        </span>
-
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
                         <br>
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="col-md-12">
-                                    <div class="input-group">
-                                        <input type="text" class="form-control" disabled placeholder="çay - demli - 1 adet">
-                                        <span class="input-group-btn">
-                                            <button class="btn btn-default" type="button">Sipariş ver!</button>
-                                        </span>
-
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
                     
                     <!-- /.chat-data -->
                 </div>
