@@ -43,315 +43,25 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td class="text-center">1</td>
-                                    <td class="text-center">Çay</td>
-                                    <td class="text-center">Demli</td>
+
+                                <tr ng-repeat="item in productList track by $index">
+
+                                    <td class="text-center" ng-bind="$index+1"></td>
+                                    <td class="text-center" ng-bind="item.name"></td>
+                                    <td class="text-center" ng-bind="item.product_spec"></td>
                                     <td class="text-center" style="width:200px">
                                         <div class="input-group number-spinner">
                                             <span class="input-group-btn data-dwn">
-                                                <button class="btn btn-default btn-info" data-dir="dwn"><span class="glyphicon glyphicon-minus"></span></button>
+                                                <button class="btn btn-default btn-info" data-dir="dwn" ng-click="down($index)"><span class="glyphicon glyphicon-minus"></span></button>
                                             </span>
-                                            <input type="text" class="form-control text-center" value="1" min="-10" max="40">
+                                            <input type="text" class="form-control text-center" ng-model="item.piece" min="0" max="100">
                                             <span class="input-group-btn data-up">
-                                                <button class="btn btn-default btn-info" data-dir="up"><span class="glyphicon glyphicon-plus"></span></button>
+                                                <button class="btn btn-default btn-info" data-dir="up" ng-click="up($index)"><span class="glyphicon glyphicon-plus"></span></button>
                                             </span>
                                         </div>
                                     </td>
                                     <td style="width:150px;">
-                                        <button class="btn btn-block btn-warning">Favorilerime Ekle</button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="text-center">1</td>
-                                    <td class="text-center">Çay</td>
-                                    <td class="text-center">Açık</td>
-                                    <td class="text-center" style="width:200px">
-                                        <div class="input-group number-spinner">
-                                            <span class="input-group-btn data-dwn">
-                                                <button class="btn btn-default btn-info" data-dir="dwn"><span class="glyphicon glyphicon-minus"></span></button>
-                                            </span>
-                                            <input type="text" class="form-control text-center" value="1" min="-10" max="40">
-                                            <span class="input-group-btn data-up">
-                                                <button class="btn btn-default btn-info" data-dir="up"><span class="glyphicon glyphicon-plus"></span></button>
-                                            </span>
-                                        </div>
-                                    </td>
-                                    <td style="width:150px;">
-                                        <button class="btn btn-block btn-warning">Favorilerime Ekle</button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="text-center">1</td>
-                                    <td class="text-center">Çay</td>
-                                    <td class="text-center">Açık</td>
-                                    <td class="text-center" style="width:200px">
-                                        <div class="input-group number-spinner">
-                                            <span class="input-group-btn data-dwn">
-                                                <button class="btn btn-default btn-info" data-dir="dwn"><span class="glyphicon glyphicon-minus"></span></button>
-                                            </span>
-                                            <input type="text" class="form-control text-center" value="1" min="-10" max="40">
-                                            <span class="input-group-btn data-up">
-                                                <button class="btn btn-default btn-info" data-dir="up"><span class="glyphicon glyphicon-plus"></span></button>
-                                            </span>
-                                        </div>
-                                    </td>
-                                    <td style="width:150px;">
-                                        <button class="btn btn-block btn-warning">Favorilerime Ekle</button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="text-center">1</td>
-                                    <td class="text-center">Çay</td>
-                                    <td class="text-center">Açık</td>
-                                    <td class="text-center" style="width:200px">
-                                        <div class="input-group number-spinner">
-                                            <span class="input-group-btn data-dwn">
-                                                <button class="btn btn-default btn-info" data-dir="dwn"><span class="glyphicon glyphicon-minus"></span></button>
-                                            </span>
-                                            <input type="text" class="form-control text-center" value="1" min="-10" max="40">
-                                            <span class="input-group-btn data-up">
-                                                <button class="btn btn-default btn-info" data-dir="up"><span class="glyphicon glyphicon-plus"></span></button>
-                                            </span>
-                                        </div>
-                                    </td>
-                                    <td style="width:150px;">
-                                        <button class="btn btn-block btn-warning">Favorilerime Ekle</button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="text-center">1</td>
-                                    <td class="text-center">Çay</td>
-                                    <td class="text-center">Açık</td>
-                                    <td class="text-center" style="width:200px">
-                                        <div class="input-group number-spinner">
-                                            <span class="input-group-btn data-dwn">
-                                                <button class="btn btn-default btn-info" data-dir="dwn"><span class="glyphicon glyphicon-minus"></span></button>
-                                            </span>
-                                            <input type="text" class="form-control text-center" value="1" min="-10" max="40">
-                                            <span class="input-group-btn data-up">
-                                                <button class="btn btn-default btn-info" data-dir="up"><span class="glyphicon glyphicon-plus"></span></button>
-                                            </span>
-                                        </div>
-                                    </td>
-                                    <td style="width:150px;">
-                                        <button class="btn btn-block btn-warning">Favorilerime Ekle</button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="text-center">1</td>
-                                    <td class="text-center">Çay</td>
-                                    <td class="text-center">Açık</td>
-                                    <td class="text-center" style="width:200px">
-                                        <div class="input-group number-spinner">
-                                            <span class="input-group-btn data-dwn">
-                                                <button class="btn btn-default btn-info" data-dir="dwn"><span class="glyphicon glyphicon-minus"></span></button>
-                                            </span>
-                                            <input type="text" class="form-control text-center" value="1" min="-10" max="40">
-                                            <span class="input-group-btn data-up">
-                                                <button class="btn btn-default btn-info" data-dir="up"><span class="glyphicon glyphicon-plus"></span></button>
-                                            </span>
-                                        </div>
-                                    </td>
-                                    <td style="width:150px;">
-                                        <button class="btn btn-block btn-warning">Favorilerime Ekle</button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="text-center">1</td>
-                                    <td class="text-center">Çay</td>
-                                    <td class="text-center">Açık</td>
-                                    <td class="text-center" style="width:200px">
-                                        <div class="input-group number-spinner">
-                                            <span class="input-group-btn data-dwn">
-                                                <button class="btn btn-default btn-info" data-dir="dwn"><span class="glyphicon glyphicon-minus"></span></button>
-                                            </span>
-                                            <input type="text" class="form-control text-center" value="1" min="-10" max="40">
-                                            <span class="input-group-btn data-up">
-                                                <button class="btn btn-default btn-info" data-dir="up"><span class="glyphicon glyphicon-plus"></span></button>
-                                            </span>
-                                        </div>
-                                    </td>
-                                    <td style="width:150px;">
-                                        <button class="btn btn-block btn-warning">Favorilerime Ekle</button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="text-center">1</td>
-                                    <td class="text-center">Çay</td>
-                                    <td class="text-center">Açık</td>
-                                    <td class="text-center" style="width:200px">
-                                        <div class="input-group number-spinner">
-                                            <span class="input-group-btn data-dwn">
-                                                <button class="btn btn-default btn-info" data-dir="dwn"><span class="glyphicon glyphicon-minus"></span></button>
-                                            </span>
-                                            <input type="text" class="form-control text-center" value="1" min="-10" max="40">
-                                            <span class="input-group-btn data-up">
-                                                <button class="btn btn-default btn-info" data-dir="up"><span class="glyphicon glyphicon-plus"></span></button>
-                                            </span>
-                                        </div>
-                                    </td>
-                                    <td style="width:150px;">
-                                        <button class="btn btn-block btn-warning">Favorilerime Ekle</button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="text-center">1</td>
-                                    <td class="text-center">Çay</td>
-                                    <td class="text-center">Açık</td>
-                                    <td class="text-center" style="width:200px">
-                                        <div class="input-group number-spinner">
-                                            <span class="input-group-btn data-dwn">
-                                                <button class="btn btn-default btn-info" data-dir="dwn"><span class="glyphicon glyphicon-minus"></span></button>
-                                            </span>
-                                            <input type="text" class="form-control text-center" value="1" min="-10" max="40">
-                                            <span class="input-group-btn data-up">
-                                                <button class="btn btn-default btn-info" data-dir="up"><span class="glyphicon glyphicon-plus"></span></button>
-                                            </span>
-                                        </div>
-                                    </td>
-                                    <td style="width:150px;">
-                                        <button class="btn btn-block btn-warning">Favorilerime Ekle</button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="text-center">1</td>
-                                    <td class="text-center">Çay</td>
-                                    <td class="text-center">Açık</td>
-                                    <td class="text-center" style="width:200px">
-                                        <div class="input-group number-spinner">
-                                            <span class="input-group-btn data-dwn">
-                                                <button class="btn btn-default btn-info" data-dir="dwn"><span class="glyphicon glyphicon-minus"></span></button>
-                                            </span>
-                                            <input type="text" class="form-control text-center" value="1" min="-10" max="40">
-                                            <span class="input-group-btn data-up">
-                                                <button class="btn btn-default btn-info" data-dir="up"><span class="glyphicon glyphicon-plus"></span></button>
-                                            </span>
-                                        </div>
-                                    </td>
-                                    <td style="width:150px;">
-                                        <button class="btn btn-block btn-warning">Favorilerime Ekle</button>
-                                    </td>
-                                </tr>
-                                
-                                <tr>
-                                    <td class="text-center">1</td>
-                                    <td class="text-center">Çay</td>
-                                    <td class="text-center">Açık</td>
-                                    <td class="text-center" style="width:200px">
-                                        <div class="input-group number-spinner">
-                                            <span class="input-group-btn data-dwn">
-                                                <button class="btn btn-default btn-info" data-dir="dwn"><span class="glyphicon glyphicon-minus"></span></button>
-                                            </span>
-                                            <input type="text" class="form-control text-center" value="1" min="-10" max="40">
-                                            <span class="input-group-btn data-up">
-                                                <button class="btn btn-default btn-info" data-dir="up"><span class="glyphicon glyphicon-plus"></span></button>
-                                            </span>
-                                        </div>
-                                    </td>
-                                    <td style="width:150px;">
-                                        <button class="btn btn-block btn-warning">Favorilerime Ekle</button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="text-center">1</td>
-                                    <td class="text-center">Çay</td>
-                                    <td class="text-center">Açık</td>
-                                    <td class="text-center" style="width:200px">
-                                        <div class="input-group number-spinner">
-                                            <span class="input-group-btn data-dwn">
-                                                <button class="btn btn-default btn-info" data-dir="dwn"><span class="glyphicon glyphicon-minus"></span></button>
-                                            </span>
-                                            <input type="text" class="form-control text-center" value="1" min="-10" max="40">
-                                            <span class="input-group-btn data-up">
-                                                <button class="btn btn-default btn-info" data-dir="up"><span class="glyphicon glyphicon-plus"></span></button>
-                                            </span>
-                                        </div>
-                                    </td>
-                                    <td style="width:150px;">
-                                        <button class="btn btn-block btn-warning">Favorilerime Ekle</button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="text-center">1</td>
-                                    <td class="text-center">Çay</td>
-                                    <td class="text-center">Açık</td>
-                                    <td class="text-center" style="width:200px">
-                                        <div class="input-group number-spinner">
-                                            <span class="input-group-btn data-dwn">
-                                                <button class="btn btn-default btn-info" data-dir="dwn"><span class="glyphicon glyphicon-minus"></span></button>
-                                            </span>
-                                            <input type="text" class="form-control text-center" value="1" min="-10" max="40">
-                                            <span class="input-group-btn data-up">
-                                                <button class="btn btn-default btn-info" data-dir="up"><span class="glyphicon glyphicon-plus"></span></button>
-                                            </span>
-                                        </div>
-                                    </td>
-                                    <td style="width:150px;">
-                                        <button class="btn btn-block btn-warning">Favorilerime Ekle</button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="text-center">1</td>
-                                    <td class="text-center">Çay</td>
-                                    <td class="text-center">Açık</td>
-                                    <td class="text-center" style="width:200px">
-                                        <div class="input-group number-spinner">
-                                            <span class="input-group-btn data-dwn">
-                                                <button class="btn btn-default btn-info" data-dir="dwn"><span class="glyphicon glyphicon-minus"></span></button>
-                                            </span>
-                                            <input type="text" class="form-control text-center" value="1" min="-10" max="40">
-                                            <span class="input-group-btn data-up">
-                                                <button class="btn btn-default btn-info" data-dir="up"><span class="glyphicon glyphicon-plus"></span></button>
-                                            </span>
-                                        </div>
-                                    </td>
-                                    <td style="width:150px;">
-                                        <button class="btn btn-block btn-warning">Favorilerime Ekle</button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="text-center">1</td>
-                                    <td class="text-center">Çay</td>
-                                    <td class="text-center">Açık</td>
-                                    <td class="text-center" style="width:200px">
-                                        <div class="input-group number-spinner">
-                                            <span class="input-group-btn data-dwn">
-                                                <button class="btn btn-default btn-info" data-dir="dwn"><span class="glyphicon glyphicon-minus"></span></button>
-                                            </span>
-                                            <input type="text" class="form-control text-center" value="1" min="-10" max="40">
-                                            <span class="input-group-btn data-up">
-                                                <button class="btn btn-default btn-info" data-dir="up"><span class="glyphicon glyphicon-plus"></span></button>
-                                            </span>
-                                        </div>
-                                    </td>
-                                    <td style="width:150px;">
-                                        <button class="btn btn-block btn-warning">Favorilerime Ekle</button>
-                                    </td>
-                                </tr>
-                                
-                                <tr>
-                                    <td class="text-center">1</td>
-                                    <td class="text-center">Çay</td>
-                                    <td class="text-center">Açık</td>
-                                    <td class="text-center" style="width:200px">
-                                        <div class="input-group number-spinner">
-                                            <span class="input-group-btn data-dwn">
-                                                <button class="btn btn-default btn-info" data-dir="dwn"><span class="glyphicon glyphicon-minus"></span></button>
-                                            </span>
-                                            <input type="text" class="form-control text-center" value="1" min="-10" max="40">
-                                            <span class="input-group-btn data-up">
-                                                <button class="btn btn-default btn-info" data-dir="up"><span class="glyphicon glyphicon-plus"></span></button>
-                                            </span>
-                                        </div>
-                                    </td>
-                                    <td style="width:150px;">
-                                        <button class="btn btn-block btn-warning">Favorilerime Ekle</button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td colspan="5">
-                                        
+                                        <button class="btn btn-block btn-warning" ng-click="addFavorite($index)">Favorilerime Ekle</button>
                                     </td>
                                 </tr>
 
@@ -359,12 +69,12 @@
                         </table>
                         <div class="row" style="position:fixed;  bottom:15px;">
                             <div class="col-xs-12">
-                                <button style="height:80px;" class="btn btn-block btn-default">Siparişi Ver</button>
+                                <button style="height:80px;" class="btn btn-block btn-default" ng-click="save()">Siparişi Ver</button>
                             </div>
                         </div>
                     </div>
                 </div>
-                
+
             </div>
         </div>
         <div class="col-md-4 col-xs-12">
@@ -377,12 +87,12 @@
                             </div>
                         </div>
                         <div class="panel-body">
-                            <div class="row" >
-                                <div class="col-xs-4" >
-                                    <button class="btn btn-danger btn-block " style="height:100px">Biri Baksın</button>
+                            <div class="row">
+                                <div class="col-xs-4">
+                                    <button class="btn btn-success btn-block " style="height:100px">Biri Baksın</button>
                                 </div>
                                 <div class="col-xs-4">
-                                    <button class="btn btn-danger btn-block " style="height:100px">Fotokopi</button>
+                                    <button class="btn btn-warning btn-block " style="height:100px">Fotokopi</button>
                                 </div>
                                 <div class="col-xs-4">
                                     <button class="btn btn-danger btn-block" style="height:100px">Güvenlik</button>
@@ -406,63 +116,43 @@
                                                 <th class="text-center">Ürün </th>
                                                 <th class="text-center">Özellik </th>
                                                 <th class="text-center">Miktar </th>
-                                                <th></th>
+                                                <th style="width:100px"></th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr>
-                                                <td class="text-center">1</td>
-                                                <td class="text-center">Çay</td>
-                                                <td class="text-center">Demli</td>
+                                            <tr ng-repeat="item in favoriteList track by $index">
+                                                <td class="text-center" ng-bind="$index+1"></td>
+                                                <td class="text-center" ng-bind="item.name"></td>
+                                                <td class="text-center" ng-bind="item.product_spec"></td>
                                                 <td class="text-center" style="width:200px">
                                                     <div class="input-group number-spinner">
                                                         <span class="input-group-btn data-dwn">
-                                                            <button class="btn btn-default btn-info" data-dir="dwn"><span class="glyphicon glyphicon-minus"></span></button>
+                                                            <button class="btn btn-default btn-info" data-dir="dwn" ng-click="downFavorite($index)"><span class="glyphicon glyphicon-minus"></span></button>
                                                         </span>
-                                                        <input type="text" class="form-control text-center" value="1" min="-10" max="40">
+                                                        <input type="text" class="form-control text-center" ng-model="item.piece" min="-10" max="40">
                                                         <span class="input-group-btn data-up">
-                                                            <button class="btn btn-default btn-info" data-dir="up"><span class="glyphicon glyphicon-plus"></span></button>
+                                                            <button class="btn btn-default btn-info" data-dir="up" ng-click="upFavorite($index)"><span class="glyphicon glyphicon-plus"></span></button>
                                                         </span>
                                                     </div>
                                                 </td>
-                                                <td style="width:150px;">
-                                                    <button class="btn btn-block btn-danger">Favorilerimden Çıkar</button>
+                                                <td>
+                                                    <button class="btn btn-block btn-danger" ng-click="deleteFavorite($index)">Çıkar</button>
                                                 </td>
                                             </tr>
-                                            <tr>
-                                                <td class="text-center">1</td>
-                                                <td class="text-center">Çay</td>
-                                                <td class="text-center">Açık</td>
-                                                <td class="text-center" style="width:200px">
-                                                    <div class="input-group number-spinner">
-                                                        <span class="input-group-btn data-dwn">
-                                                            <button class="btn btn-default btn-info" data-dir="dwn"><span class="glyphicon glyphicon-minus"></span></button>
-                                                        </span>
-                                                        <input type="text" class="form-control text-center" value="1" min="-10" max="40">
-                                                        <span class="input-group-btn data-up">
-                                                            <button class="btn btn-default btn-info" data-dir="up"><span class="glyphicon glyphicon-plus"></span></button>
-                                                        </span>
-                                                    </div>
-                                                </td>
-                                                <td style="width:150px;">
-                                                    <button class="btn btn-block btn-danger">Favorilerimden Çıkar</button>
-                                                </td>
-                                            </tr>
-
                                         </tbody>
                                     </table>
                                 </div>
                             </div>
                             <div class="row" style="position:fixed;  bottom:15px;">
                                 <div class="col-xs-12">
-                                    <button style="height:80px;" class="btn btn-block btn-default">Siparişi Ver</button>
+                                    <button style="height:80px;" class="btn btn-block btn-default" ng-click="saveFromFavorite()">Siparişi Ver</button>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            
+
         </div>
     </div>
 </section>

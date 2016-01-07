@@ -1,12 +1,12 @@
 <header role="banner">
     <div id="cd-logo">
-      <div class="form-inline">
-          <div class="form-gruop">
-              <a>
-                  <img style="margin-top: -4px" ng-src="{{host}}/media/original/{{$root.mkb.current_user.profile_picture}}" style="width: " class="img-circle thumb-md">
-              </a>
-          </div>
-      </div>
+        <div class="form-inline">
+            <div class="form-gruop">
+                <a>
+                    <img style="margin-top: -4px" ng-src="{{host}}/media/original/{{$root.mkb.current_user.profile_picture}}" style="width: " class="img-circle thumb-md">
+                </a>
+            </div>
+        </div>
     </div>
 
     <nav class="main-nav">
@@ -18,7 +18,7 @@
 
             <li style="display:none">
                 <a href="javascript:void(0)" class=" profile" ng-click="urunEkleme()">
-                    <img ng-src="{{host}}/media/original/{{$root.mkb.current_user.profile_picture}}" class="img-circle" >
+                    <img ng-src="{{host}}/media/original/{{$root.mkb.current_user.profile_picture}}" class="img-circle">
                 </a>
             </li>
 
@@ -55,9 +55,10 @@
                                 <div class="form-group">
                                     <label class="col-md-2 control-label">Özellikler</label>
                                     <div class="col-md-10">
-                                      <tags-input ng-model="spec_arr"></tags-input>
+                                        <tags-input ng-model="spec_arr"></tags-input>
                                     </div>
-                                </div><div class="form-group">
+                                </div>
+                                <div class="form-group">
                                     <label class="col-md-2 control-label">Sıra</label>
                                     <div class="col-md-10">
                                         <input type="number" class="form-control" placeholder="gösterimdeki sırayı giriniz..." ng-model="objUrun.product_order">
@@ -141,70 +142,93 @@
 <div class="row" style="padding-top: 50px">
     <div class="col-md-10 col-md-offset-1">
         <!--Ürün Ekle-->
-        
+
 
         <!--Gelen ilk ürün (ana ekran)--->
-        <div class="text-center"  ng-hide="urunEkle" >
+        <div class="text-center" ng-hide="urunEkle">
             <div class="row">
                 <div class="jumbotron" style="background-color: #343642; border-radius: 12px">
                     <div class="row">
-                        <h2 class="text-center" ng-bind="obj.orders[0].account_id.name" style="font-size: 32px; color: #e1e1e1;"></h2>
+                        <h2 class="text-center" ng-bind="firstOrder.account_id.name" style="font-size: 32px; color: #e1e1e1;"></h2>
                     </div>
                     <br>
                     <div class="row">
                         <div class="col-md-8 col-md-offset-2">
                             <div class="col-md-6">
-                                <h2 class="pull-right" ng-bind="obj.orders[0].room_no" style="font-size: 24px; color: #e1e1e1; text-transform: uppercase"></h2>
+                                <h2 class="pull-right" ng-bind="firstOrder.room_no" style="font-size: 24px; color: #e1e1e1; text-transform: uppercase"></h2>
                             </div>
                             <div class="col-md-6">
-                                <h2 class="pull-left" ng-bind="obj.orders[0].desk_no" style="font-size: 24px; color: #e1e1e1; text-transform: uppercase"></h2>
+                                <h2 class="pull-left" ng-bind="firstOrder.desk_no" style="font-size: 24px; color: #e1e1e1; text-transform: uppercase"></h2>
                             </div>
                         </div>
 
                     </div>
                 </div>
             </div>
-
-
-            <br>
-            <div class="row" style="padding: 0;">
-                <div class="col-md-12">
-                    <button class="btn btn-block btn-success" ng-click="onayla()">Onayla <i class="glyphicon glyphicon-ok"></i></button>
-                </div>
-                </div>
-            </div>
-            <br>
-            <hr>
             <div class="row">
                 <div class="col-md-12">
-                    <h2 style="font-size: 24px" class="text-center">Bekleyen Diğer Siparişler</h2>
-                </div>
-            </div>
-            <br>
-            <div class="row">
-                <div class="col-md-12">
-                    <table class="table table-bordered" style="background-color: white">
+                    <table class="table table-striped" style="background-color: white">
                         <thead>
-                            <th style="width:50px">#</th>
-                            <th class="text-center">Ofis No</th>
-                            <th class="text-center">Masa No</th>
-                            <th class="text-center">İsim</th>
+                            <th style="width:20px; font-size:24px">#</th>
+                            <th style="font-size:24px;" class="text-center">Ürün Adı</th>
+                            <th style="font-size:24px;" class="text-center">Özelliği</th>
+                            <th style="font-size:24px;" class="text-center">Miktarı</th>
+                            <th style="font-size:24px;" class="text-center" style="width:1px;"></th>
                         </thead>
                         <tbody>
-                            <tr ng-repeat="item in list track by $index">
-                                <td class="text-center" ng-bind="$index+1"></td>
-                                <td class="text-center" ng-bind="item.orders[0].room_no"></td>
-                                <td class="text-center" ng-bind="item.orders[0].desk_no"></td>
-                                <td class="text-center" ng-bind="item.orders[0].account_id.name"></td>
+                            <tr ng-repeat="item in firstOrder.basket track by $index">
+                                <td style="font-size:24px;" class="text-center">#</td>
+                                <td style="font-size:24px;" class="text-center" ng-bind="item.name"></td>
+                                <td style="font-size:24px;" class="text-center" ng-bind="item.product_spec"></td>
+                                <td style="font-size:24px;" class="text-center" ng-bind="item.piece"></td>
+                                <td class="text-center"></td>
 
                             </tr>
                         </tbody>
                     </table>
                 </div>
             </div>
+
+            <br>
+            <div class="row" style="padding: 0;">
+                <div class="col-md-12">
+                    <button class="btn btn-lg btn-block btn-success" ng-click="onayla()">Onayla <i class="glyphicon glyphicon-ok"></i></button>
+                </div>
+            </div>
         </div>
-        
+        <br>
+        <hr>
+        <div class="row">
+            <div class="col-md-12">
+                <h2 style="font-size: 24px" class="text-center">Bekleyen Diğer Siparişler</h2>
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-md-12">
+                <table class="table table-striped" style="background-color: white">
+                    <thead>
+                        <th style="width:50px; font-size:22px;">#</th>
+                        <th class="text-center">Ofis No</th>
+                        <th style="font-size:24px;" class="text-center">Masa No</th>
+                        <th style="font-size:24px;" class="text-center">İsim</th>
+                        <th style="font-size:24px; width:1px;" class="text-center"></th>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="item in list track by $index">
+                            <td style="font-size:22px;" class="text-center" ng-bind="$index+1"></td>
+                            <td style="font-size:22px;" class="text-center" ng-bind="item.room_no"></td>
+                            <td style="font-size:22px;" class="text-center" ng-bind="item.desk_no"></td>
+                            <td style="font-size:22px;" class="text-center" ng-bind="item.account_id.name"></td>
+                            <td class="text-center"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
+
+</div>
 </div>
 
 </div>

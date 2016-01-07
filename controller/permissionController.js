@@ -1,4 +1,4 @@
-mavikentApp.controller("PermissionCtrl", function($scope, $rootScope, $http, $filter, $interval) {
+mavikentApp.controller("PermissionCtrl", function ($scope, $rootScope, $http, $filter, $interval) {
 
     $scope.sayfalar = [{
         name: "Rol Servisi",
@@ -48,15 +48,19 @@ mavikentApp.controller("PermissionCtrl", function($scope, $rootScope, $http, $fi
         name: "Sipariş Servisi",
         url: "order",
         disabled: false
-    },{
+    }, {
         name: "Oda Servisi",
         url: "service",
+        disabled: false
+    }, {
+        name: "Favori Siparişler Servisi",
+        url: "favorite",
         disabled: false
     }, {
         name: "Ürün Servisi",
         url: "product",
         disabled: false
-    },{
+    }, {
         name: "Acil Çağrı Servisi",
         url: "emergency",
         disabled: false
@@ -65,7 +69,7 @@ mavikentApp.controller("PermissionCtrl", function($scope, $rootScope, $http, $fi
         url: "navigation",
         disabled: false
     }];
-    
+
     $scope.account_loaded = false;
     $scope.role_loaded = false;
     $scope.saveCheck = true;
@@ -87,112 +91,112 @@ mavikentApp.controller("PermissionCtrl", function($scope, $rootScope, $http, $fi
         selected: ""
     };
     $scope.disabledPages = false;
-    $scope.clearUser = function($event) {
+    $scope.clearUser = function ($event) {
         $event.stopPropagation();
         $scope.user.selected = "";
     };
-    $scope.clearRole = function($event) {
+    $scope.clearRole = function ($event) {
         $event.stopPropagation();
         $scope.role.selected = "";
     };
 
-    $http.get(host + "/api/account?token=" + $rootScope.mkb.token).success(function(resp) {
+    $http.get(host + "/api/account?token=" + $rootScope.mkb.token).success(function (resp) {
         if (resp.status == false) {
             console.log("error : ", JSON.stringify(resp));
-            stateControl(resp.code,resp.data);
+            stateControl(resp.code, resp.data);
             return;
         }
         $scope.users = resp.data;
         $scope.account_loaded = true;
 
-    }).error(function(err) {
+    }).error(function (err) {
         console.error(JSON.stringify(err));
         sweetAlert("Oops...", "Bir hata oluştu", "error");
     });
 
-    $http.get(host + "/api/role?token=" + $rootScope.mkb.token).success(function(resp) {
+    $http.get(host + "/api/role?token=" + $rootScope.mkb.token).success(function (resp) {
         if (resp.status == false) {
             console.log("error : ", JSON.stringify(resp));
-            stateControl(resp.code,resp.data);
+            stateControl(resp.code, resp.data);
             return;
         }
         $scope.roles = resp.data;
         $scope.role_loaded = true;
-    }).error(function(err) {
+    }).error(function (err) {
         console.error(JSON.stringify(err));
         sweetAlert("Oops...", "Bir hata oluştu", "error");
     });
-    
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    $scope.userChange = function() {
-        $scope.list = [];
-        for (var j = 0; j < $scope.sayfalar.length; j++) {
-            $scope.sayfalar[j].disabled = false;
-        }
-        $http.post(host + "/api/permission/search?token=" + $rootScope.mkb.token, {
-            permission_id: $scope.user.selected._id
-        }).success(function(resp) {
-            if (resp.status == false) {
-                console.log("error : ", JSON.stringify(resp));
-                stateControl(resp.code,resp.data);
-                return;
+
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    $scope.userChange = function () {
+            $scope.list = [];
+            for (var j = 0; j < $scope.sayfalar.length; j++) {
+                $scope.sayfalar[j].disabled = false;
             }
-            var arrList = resp.data;
+            $http.post(host + "/api/permission/search?token=" + $rootScope.mkb.token, {
+                permission_id: $scope.user.selected._id
+            }).success(function (resp) {
+                if (resp.status == false) {
+                    console.log("error : ", JSON.stringify(resp));
+                    stateControl(resp.code, resp.data);
+                    return;
+                }
+                var arrList = resp.data;
                 var element24 = $filter('getById')($scope.users, $scope.user.selected._id);
                 for (var i = 0; i < arrList.length; i++) {
-                    
+
                     arrList[i].name = element24.name;
                 }
-            $scope.list = arrList;
-            for (var i = 0; i < $scope.list.length; i++) {
-                for (var j = 0; j < $scope.sayfalar.length; j++) {
-                    if ($scope.list[i].service_url == $scope.sayfalar[j].url) {
-                        $scope.sayfalar[j].disabled = true;
+                $scope.list = arrList;
+                for (var i = 0; i < $scope.list.length; i++) {
+                    for (var j = 0; j < $scope.sayfalar.length; j++) {
+                        if ($scope.list[i].service_url == $scope.sayfalar[j].url) {
+                            $scope.sayfalar[j].disabled = true;
+                        }
                     }
                 }
-            }
-        }).error(function(err) {
-            console.error(JSON.stringify(err));
-            sweetAlert("Oops...", "Bir hata oluştu", "error");
-        })
-    }
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    
-    $scope.roleChange = function() {
-        $scope.list = []
-        for (var j = 0; j < $scope.sayfalar.length; j++) {
-            $scope.sayfalar[j].disabled = false;
+            }).error(function (err) {
+                console.error(JSON.stringify(err));
+                sweetAlert("Oops...", "Bir hata oluştu", "error");
+            })
         }
-        $http.post(host + "/api/permission/search?token=" + $rootScope.mkb.token, {
-            permission_id: $scope.role.selected._id
-        }).success(function(resp) {
-            if (resp.status == false) {
-                console.log("error : ", JSON.stringify(resp));
-                stateControl(resp.code,resp.data);
-                return;
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    $scope.roleChange = function () {
+            $scope.list = []
+            for (var j = 0; j < $scope.sayfalar.length; j++) {
+                $scope.sayfalar[j].disabled = false;
             }
-               var arrList = resp.data;
-               var element23 = $filter('getById')($scope.roles, $scope.role.selected._id);
-               for (var i = 0; i < arrList.length; i++) {
-                    
+            $http.post(host + "/api/permission/search?token=" + $rootScope.mkb.token, {
+                permission_id: $scope.role.selected._id
+            }).success(function (resp) {
+                if (resp.status == false) {
+                    console.log("error : ", JSON.stringify(resp));
+                    stateControl(resp.code, resp.data);
+                    return;
+                }
+                var arrList = resp.data;
+                var element23 = $filter('getById')($scope.roles, $scope.role.selected._id);
+                for (var i = 0; i < arrList.length; i++) {
+
                     arrList[i].name = element23.name;
                 }
-            $scope.list = arrList;
-            for (var i = 0; i < $scope.list.length; i++) {
-                for (var j = 0; j < $scope.sayfalar.length; j++) {
-                    if ($scope.list[i].service_url == $scope.sayfalar[j].url) {
-                        $scope.sayfalar[j].disabled = true;
+                $scope.list = arrList;
+                for (var i = 0; i < $scope.list.length; i++) {
+                    for (var j = 0; j < $scope.sayfalar.length; j++) {
+                        if ($scope.list[i].service_url == $scope.sayfalar[j].url) {
+                            $scope.sayfalar[j].disabled = true;
+                        }
                     }
                 }
-            }
-        }).error(function(err) {
-            console.error(JSON.stringify(err));
-            sweetAlert("Oops...", "Bir hata oluştu", "error");
-        })
-    }
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    
-    $scope.selectAllIzinsiz = function() {
+            }).error(function (err) {
+                console.error(JSON.stringify(err));
+                sweetAlert("Oops...", "Bir hata oluştu", "error");
+            })
+        }
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    $scope.selectAllIzinsiz = function () {
         if ($scope.selectedAllIzinsiz == true) {
             $("#ulIzinsiz li:visible").attr("class", "list-group-item");
             $scope.selectedAllIzinsiz = false
@@ -201,20 +205,20 @@ mavikentApp.controller("PermissionCtrl", function($scope, $rootScope, $http, $fi
             $("#ulIzinsiz li:visible").attr("class", "list-group-item active");
             $scope.selectedAllIzinsiz = true
             for (var i = 0; i < $scope.sayfalar.length; i++) {
-                if($scope.sayfalar[i].disabled==false){
+                if ($scope.sayfalar[i].disabled == false) {
                     console.log($scope.sayfalar[i].disabled);
                     $scope.obj.push({
-                    service_label: $scope.sayfalar[i].name,
-                    service_url: $scope.sayfalar[i].url,
-                    disabled: $scope.sayfalar[i].disabled,
-                });
-              }
-                
+                        service_label: $scope.sayfalar[i].name,
+                        service_url: $scope.sayfalar[i].url,
+                        disabled: $scope.sayfalar[i].disabled,
+                    });
+                }
+
             }
         }
     }
 
-    $scope.selectAllIzinli = function() {
+    $scope.selectAllIzinli = function () {
         if ($scope.selectedAllIzinli == true) {
             $("#ulIzinli li:visible").attr("class", "list-group-item");
             $scope.selectedAllIzinli = false
@@ -224,13 +228,13 @@ mavikentApp.controller("PermissionCtrl", function($scope, $rootScope, $http, $fi
         }
     }
 
-    $scope.al = function(item, index) {
+    $scope.al = function (item, index) {
         var elem1 = {
             service_label: item.name,
             service_url: item.url,
             disabled: item.disabled
         }
-        var result = $scope.obj.filter(function(a) {
+        var result = $scope.obj.filter(function (a) {
             return a.service_url == item.url;
         });
         if (result.length != 0) {
@@ -244,7 +248,7 @@ mavikentApp.controller("PermissionCtrl", function($scope, $rootScope, $http, $fi
             $scope.obj.push(elem1);
         }
     }
-    $scope.saveAll = function() {
+    $scope.saveAll = function () {
         console.log($scope.obj);
         for (var i = 0; i < $scope.obj.length; i++) {
             $scope.obj[i].method_get = $scope.readCheck;
@@ -261,17 +265,17 @@ mavikentApp.controller("PermissionCtrl", function($scope, $rootScope, $http, $fi
             }
 
         }
-        
+
         for (var j = 0; j < $scope.sayfalar.length; j++) {
             $scope.sayfalar[j].disabled = false;
         }
         // console.log($scope.obj);
-        $http.post(host + "/api/permission?token=" + $rootScope.mkb.token, $scope.obj).success(function(resp) {
+        $http.post(host + "/api/permission?token=" + $rootScope.mkb.token, $scope.obj).success(function (resp) {
             if (resp.status == false) {
                 console.log("error : ", JSON.stringify(resp));
-                stateControl(resp.code,resp.data);
+                stateControl(resp.code, resp.data);
                 return;
-            }            
+            }
             var arrList = resp.data.ops;
             for (var i = 0; i < arrList.length; i++) {
                 var element23 = $filter('getById')($scope.roles, arrList[i].permission_id);
@@ -288,7 +292,7 @@ mavikentApp.controller("PermissionCtrl", function($scope, $rootScope, $http, $fi
                 $scope.list.push(arrList[i]);
             }
 
-            
+
             for (var i = 0; i < $scope.sayfalar.length; i++) {
                 for (var j = 0; j < $scope.list.length; j++) {
                     if ($scope.list[j].service_url == $scope.sayfalar[i].url) {
@@ -296,14 +300,14 @@ mavikentApp.controller("PermissionCtrl", function($scope, $rootScope, $http, $fi
                     }
                 }
             }
-            
+
             $scope.obj = [];
             $scope.editCheck = true;
             $scope.saveCheck = true;
             $scope.readCheck = true;
             $scope.deleteCheck = true;
             swal("Başarılı!", "Ekleme Başarılı!", "success")
-        }).error(function(err) {
+        }).error(function (err) {
             console.error(JSON.stringify(err));
             sweetAlert("Oops...", "Bir hata oluştu", "error");
         })
@@ -311,33 +315,34 @@ mavikentApp.controller("PermissionCtrl", function($scope, $rootScope, $http, $fi
 
     }
 
-    $scope.deleteItem = function(index, item) {
-        swal({  
-            title: "Emin misiniz?",   
-            text: "Bu öğeyi silmek istedğinizden emin misiniz?",   
-            type: "warning",  
-            showCancelButton: true,   
-            confirmButtonColor: "#DD6B55",   
-            confirmButtonText: "Evet",   
-            closeOnConfirm: false }, function(){
-        $http.delete(host + "/api/permission/" + item._id + "?token=" + $rootScope.mkb.token).success(function(resp) {
-            if (resp.status == false) {
-                console.log("error : ", JSON.stringify(resp));
-                stateControl(resp.code,resp.data);
-                return;
-            }
-            var el2 = {
-                name: $scope.list[index].service_label,
-                url: $scope.list[index].service_url,
-                disabled: false
-            }
-            $scope.sayfalar.push(el2);
-            $scope.list.splice(index, 1);
-            swal("Başarılı!", "Silme Başarılı!", "success")
-        }).error(function(err) {
-            console.log(JSON.stringify(err));
-            sweetAlert("Oops...", "Bir hata oluştu", "error");
-        })
+    $scope.deleteItem = function (index, item) {
+        swal({
+            title: "Emin misiniz?",
+            text: "Bu öğeyi silmek istedğinizden emin misiniz?",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#DD6B55",
+            confirmButtonText: "Evet",
+            closeOnConfirm: false
+        }, function () {
+            $http.delete(host + "/api/permission/" + item._id + "?token=" + $rootScope.mkb.token).success(function (resp) {
+                if (resp.status == false) {
+                    console.log("error : ", JSON.stringify(resp));
+                    stateControl(resp.code, resp.data);
+                    return;
+                }
+                var el2 = {
+                    name: $scope.list[index].service_label,
+                    url: $scope.list[index].service_url,
+                    disabled: false
+                }
+                $scope.sayfalar.push(el2);
+                $scope.list.splice(index, 1);
+                swal("Başarılı!", "Silme Başarılı!", "success")
+            }).error(function (err) {
+                console.log(JSON.stringify(err));
+                sweetAlert("Oops...", "Bir hata oluştu", "error");
+            })
         })
     }
 
