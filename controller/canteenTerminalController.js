@@ -3,6 +3,7 @@ mavikentApp.controller("GetOrderCtrl", function ($scope, $state, $rootScope, $ht
     $scope.urunEkle = false;
     $scope.host = host;
     $scope.firstOrder = {}
+    $scope.list = []
 
     function canteenListAll() {
         $http.post(host + "/api/order/search?token=" + $rootScope.mkb.token, {

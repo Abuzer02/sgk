@@ -38,28 +38,12 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td class="text-center" style="font-size:24px;">Lorem ipsum dolor</td>
-                        <td class="text-center" style="font-size:24px;">324</td>
-                        <td class="text-center" style="font-size:24px;">Emrullah Akgün</td>
+                    <tr ng-repeat="item in istekler">
+                        <td class="text-center" style="font-size:24px;" ng-bind="item.description"></td>
+                        <td class="text-center" style="font-size:24px;" ng-bind="item.room_no"></td>
+                        <td class="text-center" style="font-size:24px;" ng-bind="item.account_id.name"></td>
                         <td>
-                            <button class="btn btn-default btn-block btn-lg">İşlem</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="text-center" style="font-size:24px;">Lorem ipsum dolor</td>
-                        <td class="text-center" style="font-size:24px;">324</td>
-                        <td class="text-center" style="font-size:24px;">Emrullah Akgün</td>
-                        <td>
-                            <button class="btn btn-default btn-block btn-lg">İşlem</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="text-center" style="font-size:24px;">Lorem ipsum dolor</td>
-                        <td class="text-center" style="font-size:24px;">324</td>
-                        <td class="text-center" style="font-size:24px;">Emrullah Akgün</td>
-                        <td>
-                            <button class="btn btn-default btn-block btn-lg">İşlem</button>
+                            <button class="btn btn-default btn-block btn-lg" ng-click="istekAl(item,$index)">Onayla</button>
                         </td>
                     </tr>
                 </tbody>

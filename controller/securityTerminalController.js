@@ -4,7 +4,8 @@ mavikentApp.controller("SecturityTerminalCtrl", function ($scope, $state, $http,
     $scope.cikis = function () {
         $state.go("logout");
     }
-    var security = $interval(function () {
+
+    function getList() {
         $http.post(host + "/api/emergency/search?token=" + $rootScope.mkb.token, {
             floor_no: $rootScope.mkb.current_user.floor_id.name,
             isActive: "false"
@@ -21,8 +22,12 @@ mavikentApp.controller("SecturityTerminalCtrl", function ($scope, $state, $http,
             sweetAlert("Oops...", "Bir hata oluştu", "error");
             $interval.cancel(security);
         })
+    }
+    getList();
+    var security = $interval(function () {
+        getList();
 
-    }, 1000);
+    }, 10000);
 
 
     $scope.istekAl = function (item, index) {
@@ -35,8 +40,16 @@ mavikentApp.controller("SecturityTerminalCtrl", function ($scope, $state, $http,
                 stateControl(resp.code, resp.data);
                 return;
             }
-            console.log(resp, undefined, 4);
-            swal("Başarılı!", "İstek Başarılı ile Alındı!", "success")
+            $scope.istekler.splice(index, 1);
+            //  console.log(resp, undefined, 4);
+            swal({
+                title: "İstek",
+                text: "başarı ile onaylandı",
+                type: "success",
+                timer: 1000,
+                showConfirmButton: false
+            });
+
         }).error(function (err) {
             console.log(JSON.stringify(err));
             sweetAlert("Oops...", "Bir hata oluştu", "error");
