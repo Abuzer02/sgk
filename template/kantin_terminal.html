@@ -38,7 +38,7 @@
                     <p class="text-muted m-b-30 font-13">
                     </p>
                     <div class="row">
-                        <div class="col-md-9">
+                        <div class="col-md-12">
                             <form class="form-horizontal" role="form" name="form">
                                 <div class="form-group">
                                     <label class="col-md-2 control-label">Ürün Adı</label>
@@ -68,20 +68,6 @@
                                     <label class="col-md-2 control-label">Ekleyen</label>
                                     <div class="col-md-10">
                                         <input type="text" class="form-control" readonly="" ng-model="objUrun.updated_by">
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                        <div class="col-md-3">
-                            <form class="form-horizontal" role="form" method="post" id="myForm" enctype="multipart/form-data">
-                                <div class="form-group">
-                                    <img id="img" src="http://placehold.it/400x400" alt="" class="img-responsive">
-                                </div>
-                                <div class="form-group">
-                                    <div class="col-md-12">
-                                        <input type="button" value="Fotograf Seç" class="btn btn-primary btn-block" ng-click="resimSec($event)">
-                                        <input id="resim" type="file" name="mediaList" style="display:none;">
-
                                     </div>
                                 </div>
                             </form>

@@ -89,7 +89,13 @@ mavikentApp.controller("OrderCtrl", function ($scope, $rootScope, $http) {
                 stateControl(resp.code, resp.data);
                 return;
             }
-            alertify.success("Sipariş Başarılı");
+            swal({
+                title: "Sipariş",
+                text: "istek başarılı",
+                type: "success",
+                timer: 1000,
+                showConfirmButton: false
+            });
             $scope.sendObject = {};
             for (var i = 0; i < $scope.productList.length; i++) {
                 $scope.productList[i].piece = 0;
@@ -140,7 +146,7 @@ mavikentApp.controller("OrderCtrl", function ($scope, $rootScope, $http) {
                 stateControl(resp.code, resp.data);
                 return;
             }
-            alertify.success("Başarı ile silindi");
+
             $scope.favoriteList.splice(index, 1);
         }).error(function (err) {
             console.error(JSON.stringify(err));
@@ -171,11 +177,46 @@ mavikentApp.controller("OrderCtrl", function ($scope, $rootScope, $http) {
                 stateControl(resp.code, resp.data);
                 return;
             }
-            alertify.success("Sipariş Başarılı");
+            swal({
+                title: "Sipariş",
+                text: "istek başarılı",
+                type: "success",
+                timer: 1000,
+                showConfirmButton: false
+            });
             for (var i = 0; i < $scope.favoriteList.length; i++) {
                 $scope.favoriteList[i].piece = 0;
             }
             $scope.sendObject = {};
+        }).error(function (err) {
+            console.error(JSON.stringify(err));
+            sweetAlert("Oops...", "Bir hata oluştu", "error");
+        })
+    }
+    $scope.callCrew = function (description) {
+        $scope.callCrewObject = {
+                floor_id: $rootScope.mkb.current_user.floor_id._id,
+                floor_no: $rootScope.mkb.current_user.floor_id.name,
+                room_no: $rootScope.mkb.current_user.room_id.name,
+                desk_no: $rootScope.mkb.current_user.desk_id.name,
+                account_id: $rootScope.mkb.current_user._id,
+                description: description
+            }
+            // console.log($scope.callCrewObject)
+        $http.post(host + "/api/emergency/ui?token=" + $rootScope.mkb.token, $scope.callCrewObject).success(function (resp) {
+            if (resp.status == false) {
+                console.log("error : ", JSON.stringify(resp));
+                stateControl(resp.code, resp.data);
+                return;
+            }
+            console.log(resp.data);
+            swal({
+                title: "çağrı",
+                text: "istek başarılı",
+                type: "success",
+                timer: 1000,
+                showConfirmButton: false
+            });
         }).error(function (err) {
             console.error(JSON.stringify(err));
             sweetAlert("Oops...", "Bir hata oluştu", "error");

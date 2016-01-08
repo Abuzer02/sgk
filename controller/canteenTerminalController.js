@@ -3,7 +3,8 @@ mavikentApp.controller("GetOrderCtrl", function ($scope, $state, $rootScope, $ht
     $scope.urunEkle = false;
     $scope.host = host;
     $scope.firstOrder = {}
-    var kantin = $interval(function () {
+
+    function canteenListAll() {
         $http.post(host + "/api/order/search?token=" + $rootScope.mkb.token, {
             isActive: "false"
         }).success(function (resp) {
@@ -23,7 +24,11 @@ mavikentApp.controller("GetOrderCtrl", function ($scope, $state, $rootScope, $ht
             sweetAlert("Oops...", "Bir hata oluştu", "error");
             $interval.cancel(kantin);
         })
-    }, 1000);
+    }
+    canteenListAll();
+    var kantin = $interval(function () {
+        canteenListAll();
+    }, 10000);
 
 
 
@@ -37,6 +42,13 @@ mavikentApp.controller("GetOrderCtrl", function ($scope, $state, $rootScope, $ht
                 stateControl(resp.code, resp.data);
                 return;
             }
+            swal({
+                title: "Sipariş",
+                text: "başarı ile onaylandı",
+                type: "success",
+                timer: 1000,
+                showConfirmButton: false
+            });
             console.log(resp.data);
             $scope.firstOrder = {}
         }).error(function (err) {
@@ -58,30 +70,6 @@ mavikentApp.controller("GetOrderCtrl", function ($scope, $state, $rootScope, $ht
         $state.go("logout");
     }
 
-    $("#myForm").attr("action", host + "/upload?token=" + token);
-
-    $("#myForm").ajaxForm(function (resp) {
-        if (resp.status == false) {
-            console.log("error : ", JSON.stringify(resp));
-            stateControl(resp.code, resp.data);
-            return;
-        }
-        console.log(resp);
-        if (resp.state == true) {
-            $("#img").attr("src", host + "/media/original/" + resp.mediaList.mediaList.name);
-            $scope.pctr = resp.mediaList.mediaList.name;
-
-        } else {
-            sweetAlert("Oops...", "Bir hata oluştu", "error");
-        }
-    });
-    $scope.resimSec = function (e) {
-        e.preventDefault();
-        $("#resim").click();
-    }
-    $("#resim").change(function () {
-        $("#myForm").submit();
-    })
 
 
     function initiliaze() {
@@ -142,7 +130,13 @@ mavikentApp.controller("GetOrderCtrl", function ($scope, $state, $rootScope, $ht
                 }
                 $scope.IsEdit = false;
                 $scope.listOrder[$scope.listIndex] = resp.data;
-                swal("Başarılı!", "Güncelleme Başarılı!", "success")
+                swal({
+                    title: "Ürün",
+                    text: "başarılı ile güncellendi",
+                    type: "success",
+                    timer: 1000,
+                    showConfirmButton: false
+                });
                 initiliaze();
             }).error(function (err) {
                 console.error(JSON.stringify(err));
@@ -158,7 +152,13 @@ mavikentApp.controller("GetOrderCtrl", function ($scope, $state, $rootScope, $ht
                     return;
                 }
                 $scope.listOrder.push(resp.data);
-                swal("Başarılı!", "Ekleme Başarılı!", "success")
+                swal({
+                    title: "Ürün",
+                    text: "başarılı ile eklendi",
+                    type: "success",
+                    timer: 1000,
+                    showConfirmButton: false
+                });
                 initiliaze();
             }).error(function (err) {
                 console.error(JSON.stringify(err));
@@ -171,34 +171,29 @@ mavikentApp.controller("GetOrderCtrl", function ($scope, $state, $rootScope, $ht
 
 
     $scope.delete = function (id, index) {
-        swal({
-            title: "Emin misiniz?",
-            text: "Bu öğeyi silmek istedğinizden emin misiniz?",
-            type: "warning",
-            showCancelButton: true,
-            confirmButtonColor: "#DD6B55",
-            confirmButtonText: "Evet",
-            closeOnConfirm: false
-        }, function () {
-            $http.delete(host + "/api/product/" + id + "?token=" + token).success(function (resp) {
-                if (resp.status == false) {
-                    console.log("error : ", JSON.stringify(resp));
-                    stateControl(resp.code, resp.data);
-                    return;
-                }
-                $scope.listOrder.splice(index, 1);
-                swal("Başarılı!", "Silme Başarılı!", "success")
-            }).error(function (err) {
-                console.error(JSON.stringify(err));
-                sweetAlert("Oops...", "Bir hata oluştu", "error");
+        $http.delete(host + "/api/product/" + id + "?token=" + token).success(function (resp) {
+            if (resp.status == false) {
+                console.log("error : ", JSON.stringify(resp));
+                stateControl(resp.code, resp.data);
+                return;
+            }
+            $scope.listOrder.splice(index, 1);
+            swal({
+                title: "Ürün",
+                text: "başarılı ile silindi",
+                type: "success",
+                timer: 1000,
+                showConfirmButton: false
             });
+        }).error(function (err) {
+            console.error(JSON.stringify(err));
+            sweetAlert("Oops...", "Bir hata oluştu", "error");
         });
     }
 
     //edit function
 
     $scope.edit = function (id, index) {
-        $("#img").attr("src", host + "/media/original/" + $scope.listOrder[index].picture);
         $scope.pctr = $scope.listOrder[index].picture;
         $scope.IsEdit = true;
         $scope.listIndex = index;
