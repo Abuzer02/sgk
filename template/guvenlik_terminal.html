@@ -1,96 +1,69 @@
-<div class="card-container">
-    <div class="businesscard">
-
-        <div class="front" ng-show="!istekler[0]">
-            <div class="cd-slideshow-wrapper">
-                <ol class="cd-slideshow">
-                    <li class="visible" id="slide-1">
-                        <div class="cd-slider-content">
-                            <div class="content-wrapper">
-                                <div class="col-md-12">
-                                    <div class="row">
-
-                                        <div class="col-md-4 col-md-offset-4">
-                                            <img ng-src="{{host}}/media/original/{{$root.mkb.current_user.profile_picture}}" class="img-circle thumb-md">
-                                            <h2 style="font-size:24px">{{$root.mkb.current_user.name}}</h2>
-                                            <br>
-                                            <h2>Sosyal Güvenlik Kurumu</h2>
-                                            <p style="color:#fff">Bildirim bulunmamaktadır</p>
-                                            <a href="javascript:void(0)" class=" profile" ng-click="cikis()"><i class="glyphicon glyphicon-off" style="font-size:42px; color:#fff"></i></a>
-                                        </div>
-
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-                    </li>
-
-                </ol>
-                <!-- .cd-slideshow -->
+<header role="banner">
+    <div id="cd-logo">
+        <div class="form-inline">
+            <div class="form-gruop">
+                <a>
+                    <img style="margin-top: -4px" ng-src="{{host}}/media/original/{{$root.mkb.current_user.profile_picture}}" style="width: " class="img-circle thumb-md">
+                </a>
             </div>
-            <!-- .cd-slideshow-wrapper -->
         </div>
+    </div>
 
-        <div class="back" ng-show="istekler[0]">
-            <div class="cd-slideshow-wrapper">
-                <ol class="cd-slideshow">
-                    <li class="visible" id="slide-2">
-                        <div class="cd-slider-content">
-                            <div class="content-wrapper">
-                                <div class="container">
-                                    <div class="row">
-                                        <div class="col-sm-10 col-sm-offset-1">
+    <nav class="main-nav">
+        <ul>
+            <!-- inser more links here -->
 
-                                            <div class="col-sm-4">
-                                                <i class="glyphicon glyphicon-exclamation-sign pull-right " style="font-size:140px; color:#fff;"></i>
-                                            </div>
-                                            <div class="col-sm-8">
-                                                <div class="">
-                                                    <div class="row">
-                                                        <h2 style="font-size:78px" class="pull-left">{{istekler[0].account_id.name}}</h2>
-                                                    </div>
-                                                    <div class="row">
-                                                        <h2 style="font-size:58px" class="pull-left">{{istekler[0].room_no}} -  {{istekler[0].desk_no}}</h2>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <br>
-                                    <div class="col-sm-8 col-sm-offset-2">
-                                        <br>
 
-                                        <div style="padding:0">
-                                            <div class="msg msg-danger msg-danger-text">
-                                                <span style="" class="">{{istekler[0].description}}</span>
-                                            </div>
-                                        </div>
-                                        <br>
-                                        <h3 style="color:#fff">Bekleyen İstekler</h3>
-                                        <br>
-                                        <div class="row" ng-repeat="item in istekler track by $index">
-                                            <div class="col-sm-10">
-                                                <div class="msg msg-danger msg-danger-text">
-                                                    <span>Ofis :  {{item.room_no}} / </span> Masa : {{item.desk_no}} / Adı : {{item.account_id.name}}
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-2" style="padding:0">
-                                                <button class="btn btn-danger btn-block btn-lg" style="border-radius:0" ng-click="istekAl(item,$index)">İstek Al</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+            <li style="display:none">
+                <a href="javascript:void(0)" class=" profile" ng-click="urunEkleme()">
+                    <img ng-src="{{host}}/media/original/{{$root.mkb.current_user.profile_picture}}" class="img-circle">
+                </a>
+            </li>
 
-                            </div>
-                        </div>
-                    </li>
+            <li><a href="javascript:void(0)" class="cd-signin" ng-click="cikis()">Çıkış</a></li>
 
-                </ol>
-                <!-- .cd-slideshow -->
-            </div>
-            <!-- .cd-slideshow-wrapper -->
-
+        </ul>
+    </nav>
+</header>
+<div class="row" style="padding-top: 50px">
+    <div class="col-xs-10 col-xs-offset-1">
+        <div class="">
+            <table class="table-bordered">
+                <thead class="table table-condensed table-bordered">
+                    <tr>
+                        <th class="text-center" style="font-size:24px; width:400px;">Açıklama</th>
+                        <th class="text-center" style="width:100px; font-size:24px">Ofis</th>
+                        <th class="text-center" style="width:300px; font-size:24px">Ad</th>
+                        <th class="text-center" style="font-size:24px; width:300px">İşlem</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="text-center" style="font-size:24px;">Lorem ipsum dolor</td>
+                        <td class="text-center" style="font-size:24px;">324</td>
+                        <td class="text-center" style="font-size:24px;">Emrullah Akgün</td>
+                        <td>
+                            <button class="btn btn-default btn-block btn-lg">İşlem</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="text-center" style="font-size:24px;">Lorem ipsum dolor</td>
+                        <td class="text-center" style="font-size:24px;">324</td>
+                        <td class="text-center" style="font-size:24px;">Emrullah Akgün</td>
+                        <td>
+                            <button class="btn btn-default btn-block btn-lg">İşlem</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="text-center" style="font-size:24px;">Lorem ipsum dolor</td>
+                        <td class="text-center" style="font-size:24px;">324</td>
+                        <td class="text-center" style="font-size:24px;">Emrullah Akgün</td>
+                        <td>
+                            <button class="btn btn-default btn-block btn-lg">İşlem</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
     </div>
 </div>
