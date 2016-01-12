@@ -1,4 +1,4 @@
-var mavikentApp = angular.module('mavikentApp', ['ui.router', 'satellizer', 'ngStorage', 'ngSanitize', 'ui.select', "angular.filter","ngTagsInput"])
+var mavikentApp = angular.module('mavikentApp', ['ui.router', 'satellizer', 'ngStorage', 'ngSanitize', 'ui.select', "angular.filter", "ngTagsInput"])
 mavikentApp.run(function($rootScope, $location, $state, $http, $localStorage, $window, $interval) {
     $rootScope.mkb = {
         current_user: '',
@@ -55,18 +55,18 @@ mavikentApp.run(function($rootScope, $location, $state, $http, $localStorage, $w
     $rootScope.systemHour = new Date().getHours()
     $rootScope.systemMinutes = new Date().getMinutes()
     $rootScope.ayrac = ':'
-    $interval(function(){
-      if(parseFloat($rootScope.systemMinutes) < 10){
-        $rootScope.systemMinutes = '0' + new Date().getMinutes()
-      }
-      if($rootScope.ayrac == ':'){
-        $rootScope.ayrac = ' '
-      }else{
-        $rootScope.ayrac = ':'
-      }
-    },500)
-    
-    $rootScope.dateBeautify=dateBeautify;
+    $interval(function() {
+        if (parseFloat($rootScope.systemMinutes) < 10) {
+            $rootScope.systemMinutes = '0' + new Date().getMinutes()
+        }
+        if ($rootScope.ayrac == ':') {
+            $rootScope.ayrac = ' '
+        } else {
+            $rootScope.ayrac = ':'
+        }
+    }, 500)
+
+    $rootScope.dateBeautify = dateBeautify;
 
 })
 
@@ -191,6 +191,11 @@ mavikentApp.config(function($stateProvider, $urlRouterProvider, $authProvider) {
             url: "button",
             templateUrl: "template/button.html",
             controller: "ButtonCtrl"
+        })
+        .state("menu1.mesaj", {
+            url: "mesaj",
+            templateUrl: "template/mesaj.html",
+            controller: "MessageCtrl"
         })
         .state('logout', {
             url: 'logout',
@@ -386,12 +391,55 @@ mavikentApp.directive("passwordVerify", function() {
         }
     };
 });
-function dateBeautify(dateString){
-  var tempDate = new Date(dateString)
-  var _dateBeautify = tempDate.getDay() + '/' +
-                      tempDate.getMonth() + '/' +
-                      tempDate.getFullYear() + ' - ' +
-                      tempDate.getHours() + ':' + tempDate.getMinutes()
 
-  return _dateBeautify
+mavikentApp.directive('modal', function() {
+    return {
+        template: '<div class="modal fade">' +
+            '<div class="modal-dialog">' +
+            '<div class="modal-content">' +
+            '<div class="modal-header">' +
+            '<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>' +
+            '<h4 class="modal-title">{{ title }}</h4>' +
+            '</div>' +
+            '<div class="modal-body" ng-transclude></div>' +
+            '</div>' +
+            '</div>' +
+            '</div>',
+        restrict: 'E',
+        transclude: true,
+        replace: true,
+        scope: true,
+        link: function postLink(scope, element, attrs) {
+            scope.title = attrs.title;
+
+            scope.$watch(attrs.visible, function(value) {
+                if (value == true)
+                    $(element).modal('show');
+                else
+                    $(element).modal('hide');
+            });
+
+            $(element).on('shown.bs.modal', function() {
+                scope.$apply(function() {
+                    scope.$parent[attrs.visible] = true;
+                });
+            });
+
+            $(element).on('hidden.bs.modal', function() {
+                scope.$apply(function() {
+                    scope.$parent[attrs.visible] = false;
+                });
+            });
+        }
+    };
+});
+
+function dateBeautify(dateString) {
+    var tempDate = new Date(dateString)
+    var _dateBeautify = tempDate.getDay() + '/' +
+        tempDate.getMonth() + '/' +
+        tempDate.getFullYear() + ' - ' +
+        tempDate.getHours() + ':' + tempDate.getMinutes()
+
+    return _dateBeautify
 }

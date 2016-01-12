@@ -24,7 +24,7 @@ mavikentApp.controller("CanteenCtrl", function($scope, $state, $http, $localStor
     $http.get(host + "/api/account?token=" + token).success(function(resp) {
         if (resp.status == false) {
             console.log("error : ", JSON.stringify(resp));
-            //stateControl(resp.code,resp.data);
+            stateControl(resp.code, resp.data);
             return;
         }
         $scope.users = resp.data;

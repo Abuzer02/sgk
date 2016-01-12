@@ -1,10 +1,10 @@
-mavikentApp.controller("OrderCtrl", function ($scope, $rootScope, $http) {
+mavikentApp.controller("OrderCtrl", function($scope, $rootScope, $http, $interval) {
     $scope.productList = [];
     $scope.favoriteList = [];
     $scope.sendObject = {};
     $scope.canteen_id = "";
     $scope.host = host;
-    $http.get(host + "/api/product?token=" + $rootScope.mkb.token).success(function (resp) {
+    $http.get(host + "/api/product?token=" + $rootScope.mkb.token).success(function(resp) {
         if (resp.status == false) {
             console.log("error : ", JSON.stringify(resp));
             stateControl(resp.code, resp.data);
@@ -33,14 +33,14 @@ mavikentApp.controller("OrderCtrl", function ($scope, $rootScope, $http) {
 
         }
         // console.log($scope.productList);
-    }).error(function (err) {
+    }).error(function(err) {
         console.error(JSON.stringify(err));
         sweetAlert("Oops...", "Bir hata oluştu", "error");
     })
 
     $http.post(host + "/api/favorite/search?token=" + $rootScope.mkb.token, {
         account_id: $rootScope.mkb.current_user._id
-    }).success(function (resp) {
+    }).success(function(resp) {
         if (resp.status == false) {
             console.log("error : ", JSON.stringify(resp));
             stateControl(resp.code, resp.data);
@@ -48,24 +48,24 @@ mavikentApp.controller("OrderCtrl", function ($scope, $rootScope, $http) {
         }
         $scope.favoriteList = resp.data;
         // console.log($scope.productList);
-    }).error(function (err) {
+    }).error(function(err) {
         console.error(JSON.stringify(err));
         sweetAlert("Oops...", "Bir hata oluştu", "error");
     })
 
-    $scope.down = function (index) {
+    $scope.down = function(index) {
         if ($scope.productList[index].piece != 0) {
             $scope.productList[index].piece--;
         }
 
     }
-    $scope.up = function (index) {
+    $scope.up = function(index) {
         if ($scope.productList[index].piece != 101) {
             $scope.productList[index].piece++;
         }
 
     }
-    $scope.save = function () {
+    $scope.save = function() {
         $scope.sendObject = {
             room_no: $rootScope.mkb.current_user.room_id.name,
             desk_no: $rootScope.mkb.current_user.desk_id.name,
@@ -83,7 +83,7 @@ mavikentApp.controller("OrderCtrl", function ($scope, $rootScope, $http) {
             }
         }
         $scope.sendObject.total_price = totalPrice.toString();
-        $http.post(host + "/api/order?token=" + $rootScope.mkb.token, $scope.sendObject).success(function (resp) {
+        $http.post(host + "/api/order?token=" + $rootScope.mkb.token, $scope.sendObject).success(function(resp) {
             if (resp.status == false) {
                 console.log("error : ", JSON.stringify(resp));
                 stateControl(resp.code, resp.data);
@@ -100,12 +100,12 @@ mavikentApp.controller("OrderCtrl", function ($scope, $rootScope, $http) {
             for (var i = 0; i < $scope.productList.length; i++) {
                 $scope.productList[i].piece = 0;
             }
-        }).error(function (err) {
+        }).error(function(err) {
             console.error(JSON.stringify(err));
             sweetAlert("Oops...", "Bir hata oluştu", "error");
         })
     }
-    $scope.addFavorite = function (index) {
+    $scope.addFavorite = function(index) {
         var obj = {
                 account_id: $rootScope.mkb.current_user._id,
                 name: $scope.productList[index].name,
@@ -115,32 +115,32 @@ mavikentApp.controller("OrderCtrl", function ($scope, $rootScope, $http) {
             }
             //  $scope.favoriteList.push();
         $http.post(host + "/api/favorite?token=" +
-            $rootScope.mkb.token, obj).success(function (resp) {
+            $rootScope.mkb.token, obj).success(function(resp) {
             if (resp.status == false) {
                 console.log("error : ", JSON.stringify(resp));
                 stateControl(resp.code, resp.data);
                 return;
             }
             $scope.favoriteList.push(resp.data);
-        }).error(function (err) {
+        }).error(function(err) {
             console.error(JSON.stringify(err));
             sweetAlert("Oops...", "Bir hata oluştu", "error");
         })
     }
-    $scope.downFavorite = function (index) {
+    $scope.downFavorite = function(index) {
         if ($scope.favoriteList[index].piece != 0) {
             $scope.favoriteList[index].piece--;
         }
 
     }
-    $scope.upFavorite = function (index) {
+    $scope.upFavorite = function(index) {
         if ($scope.favoriteList[index].piece != 101) {
             $scope.favoriteList[index].piece++;
         }
 
     }
-    $scope.deleteFavorite = function (index) {
-        $http.delete(host + "/api/favorite/" + $scope.favoriteList[index]._id + "?token=" + $rootScope.mkb.token).success(function (resp) {
+    $scope.deleteFavorite = function(index) {
+        $http.delete(host + "/api/favorite/" + $scope.favoriteList[index]._id + "?token=" + $rootScope.mkb.token).success(function(resp) {
             if (resp.status == false) {
                 console.log("error : ", JSON.stringify(resp));
                 stateControl(resp.code, resp.data);
@@ -148,12 +148,12 @@ mavikentApp.controller("OrderCtrl", function ($scope, $rootScope, $http) {
             }
 
             $scope.favoriteList.splice(index, 1);
-        }).error(function (err) {
+        }).error(function(err) {
             console.error(JSON.stringify(err));
             sweetAlert("Oops...", "Bir hata oluştu", "error");
         });
     }
-    $scope.saveFromFavorite = function () {
+    $scope.saveFromFavorite = function() {
         $scope.sendObject = {
             room_no: $rootScope.mkb.current_user.room_id.name,
             desk_no: $rootScope.mkb.current_user.desk_id.name,
@@ -171,7 +171,7 @@ mavikentApp.controller("OrderCtrl", function ($scope, $rootScope, $http) {
             }
         }
         $scope.sendObject.total_price = totalPrice.toString();
-        $http.post(host + "/api/order?token=" + $rootScope.mkb.token, $scope.sendObject).success(function (resp) {
+        $http.post(host + "/api/order?token=" + $rootScope.mkb.token, $scope.sendObject).success(function(resp) {
             if (resp.status == false) {
                 console.log("error : ", JSON.stringify(resp));
                 stateControl(resp.code, resp.data);
@@ -188,12 +188,12 @@ mavikentApp.controller("OrderCtrl", function ($scope, $rootScope, $http) {
                 $scope.favoriteList[i].piece = 0;
             }
             $scope.sendObject = {};
-        }).error(function (err) {
+        }).error(function(err) {
             console.error(JSON.stringify(err));
             sweetAlert("Oops...", "Bir hata oluştu", "error");
         })
     }
-    $scope.callCrew = function (description) {
+    $scope.callCrew = function(description) {
         $scope.callCrewObject = {
                 floor_id: $rootScope.mkb.current_user.floor_id._id,
                 floor_no: $rootScope.mkb.current_user.floor_id.name,
@@ -203,7 +203,7 @@ mavikentApp.controller("OrderCtrl", function ($scope, $rootScope, $http) {
                 description: description
             }
             // console.log($scope.callCrewObject)
-        $http.post(host + "/api/emergency/ui?token=" + $rootScope.mkb.token, $scope.callCrewObject).success(function (resp) {
+        $http.post(host + "/api/emergency/ui?token=" + $rootScope.mkb.token, $scope.callCrewObject).success(function(resp) {
             if (resp.status == false) {
                 console.log("error : ", JSON.stringify(resp));
                 stateControl(resp.code, resp.data);
@@ -217,9 +217,69 @@ mavikentApp.controller("OrderCtrl", function ($scope, $rootScope, $http) {
                 timer: 1000,
                 showConfirmButton: false
             });
-        }).error(function (err) {
+        }).error(function(err) {
             console.error(JSON.stringify(err));
             sweetAlert("Oops...", "Bir hata oluştu", "error");
         })
     }
+    $scope.bildirimler = [];
+
+    function bildirimleriAl() {
+        $http.post(host + "/api/notification/get_notifications?token=" + $rootScope.mkb.token, {
+            accountId: $rootScope.mkb.current_user._id
+        }).success(function(resp) {
+            if (resp.status == false) {
+                console.log("error : ", JSON.stringify(resp));
+                stateControl(resp.code, resp.data);
+                $interval.cancel(bildirimlerYayınla);
+                return;
+            }
+            if (resp.data.length != 0) {
+                $scope.showModal = true;
+                $scope.bildirimler = resp.data;
+            }
+        }).error(function(err) {
+            console.error(JSON.stringify(err));
+            sweetAlert("Oops...", "Bir hata oluştu", "error");
+            $interval.cancel(bildirimlerYayınla);
+        })
+    }
+    bildirimleriAl();
+
+
+
+    var bildirimlerYayınla = $interval(function() {
+        bildirimleriAl();
+    }, 600000)
+
+    $scope.bildirimOnay = function() {
+        $http.put(host + "/api/notification?token=" + $rootScope.mkb.token, {
+            notificationId: $scope.bildirimler[0]._id,
+            accountId: $rootScope.mkb.current_user._id
+        }).success(function(resp) {
+            if (resp.status == false) {
+                console.log("error : ", JSON.stringify(resp));
+                stateControl(resp.code, resp.data);
+                return;
+            }
+            $scope.bildirimler.splice(0, 1);
+            $scope.showModal = false;
+            swal({
+                title: "çağrı",
+                text: "istek başarılı",
+                type: "success",
+                timer: 1000,
+                showConfirmButton: false
+            });
+            if ($scope.bildirimler.length > 0) {
+                $scope.showModal = true;
+            }
+        }).error(function(err) {
+            console.error(JSON.stringify(err));
+            sweetAlert("Oops...", "Bir hata oluştu", "error");
+
+        })
+    }
+
+
 })

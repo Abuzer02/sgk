@@ -60,6 +60,10 @@ mavikentApp.controller("PermissionCtrl", function($scope, $rootScope, $http, $fi
         name: "Yönlendirme Servisi",
         url: "navigation",
         disabled: false
+    }, {
+        name: "Bildirim Servisi",
+        url: "notification",
+        disabled: false
     }];
 
     $scope.account_loaded = false;

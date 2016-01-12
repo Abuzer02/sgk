@@ -157,6 +157,18 @@
     </div>
 </section>
 
+<modal title="Bildirim mecut" visible="showModal">
+    <form role="form">
+        <div class="form-group">
+            <label for="" ng-bind="bildirimler[0].title"></label>
+        </div>
+        <div class="form-group">
+            <label for="" ng-bind="bildirimler[0].content"></label>
+        </div>
+        <button type="submit" class="btn btn-success pull-right" ng-click="bildirimOnay()">Gördüm</button>
+    </form>
+</modal>
+
 <!--
 <section class="visible" >
     <br>
