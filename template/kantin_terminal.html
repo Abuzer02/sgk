@@ -204,7 +204,7 @@
                         <th style="font-size:24px; width:1px;" class="text-center"></th>
                     </thead>
                     <tbody>
-                        <tr ng-repeat="item in list track by $index">
+                        <tr ng-repeat="item in list track by $index" ng-if="item._id!=firstOrder._id">
                             <td style="font-size:22px;" class="text-center" ng-bind="$index+1"></td>
                             <td style="font-size:22px;" class="text-center" ng-bind="item.room_no"></td>
                             <td style="font-size:22px;" class="text-center" ng-bind="item.desk_no"></td>

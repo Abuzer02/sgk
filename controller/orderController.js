@@ -93,7 +93,7 @@ mavikentApp.controller("OrderCtrl", function($scope, $rootScope, $http, $interva
                 title: "Sipariş",
                 text: "istek başarılı",
                 type: "success",
-                timer: 1000,
+                timer: 750,
                 showConfirmButton: false
             });
             $scope.sendObject = {};
@@ -181,7 +181,7 @@ mavikentApp.controller("OrderCtrl", function($scope, $rootScope, $http, $interva
                 title: "Sipariş",
                 text: "istek başarılı",
                 type: "success",
-                timer: 1000,
+                timer: 750,
                 showConfirmButton: false
             });
             for (var i = 0; i < $scope.favoriteList.length; i++) {
@@ -214,7 +214,7 @@ mavikentApp.controller("OrderCtrl", function($scope, $rootScope, $http, $interva
                 title: "çağrı",
                 text: "istek başarılı",
                 type: "success",
-                timer: 1000,
+                timer: 750,
                 showConfirmButton: false
             });
         }).error(function(err) {
@@ -265,10 +265,10 @@ mavikentApp.controller("OrderCtrl", function($scope, $rootScope, $http, $interva
             $scope.bildirimler.splice(0, 1);
             $scope.showModal = false;
             swal({
-                title: "çağrı",
-                text: "istek başarılı",
+                title: "Bildirim",
+                text: "başarılı ile onaylandı",
                 type: "success",
-                timer: 1000,
+                timer: 750,
                 showConfirmButton: false
             });
             if ($scope.bildirimler.length > 0) {

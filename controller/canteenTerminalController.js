@@ -2,7 +2,9 @@ mavikentApp.controller("GetOrderCtrl", function($scope, $state, $rootScope, $htt
     $scope.siparis = true;
     $scope.urunEkle = false;
     $scope.host = host;
-    $scope.firstOrder = {}
+    $scope.firstOrder = {
+        _id: ""
+    }
     $scope.list = []
 
     function canteenListAll() {
@@ -31,6 +33,7 @@ mavikentApp.controller("GetOrderCtrl", function($scope, $state, $rootScope, $htt
     $scope.siparisGoster = function(index) {
         $scope.firstOrder = $scope.list[index];
         $scope.list.splice(index, 1)
+        window.scrollTo(0, 0);
     }
 
     $scope.onayla = function() {
@@ -51,7 +54,9 @@ mavikentApp.controller("GetOrderCtrl", function($scope, $state, $rootScope, $htt
                 showConfirmButton: false
             });
             console.log(resp.data);
-            $scope.firstOrder = {}
+            $scope.firstOrder = {
+                _id: $scope.firstOrder._id
+            }
         }).error(function(err) {
             console.log(JSON.stringify(err))
             sweetAlert("Oops...", "Bir hata oluştu", "error");

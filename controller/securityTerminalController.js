@@ -28,7 +28,7 @@ mavikentApp.controller("SecturityTerminalCtrl", function($scope, $state, $http, 
     var security = $interval(function() {
         getList();
 
-    }, 1000);
+    }, 10000);
 
 
     $scope.istekAl = function(item, index) {

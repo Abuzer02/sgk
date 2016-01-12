@@ -1,4 +1,6 @@
-
+<div class="mkbloading" ng-show="$root.loading">
+    <img src="../assets/images/loading.gif" class="ajax-loader" />
+</div>
 <div class="row">
     <div class="col-sm-12">
         <div class="card-box">
@@ -8,14 +10,14 @@
             <div class="row">
                 <div class="col-md-6">
                     <form class="form-horizontal" role="form">
-                           <div class="form-group">
+                        <div class="form-group">
                             <label class="col-md-2 control-label">Kat No</label>
                             <div class="col-md-10">
                                 <ui-select class="form-control" ng-model="floor.selected" theme="select2" ng-disabled="disabled" ng-change=deg()>
-                                    <ui-select-match  placeholder="Kat no seçiniz">{{$select.selected.name}}</ui-select-match>
+                                    <ui-select-match placeholder="Kat no seçiniz">{{$select.selected.name}}</ui-select-match>
                                     <ui-select-choices repeat="floor in floors | propsFilter: {name: $select.search, id: $select.search}">
-                                      <div ng-bind-html="floor.name | highlight: $select.search"></div>
-                                      <small>
+                                        <div ng-bind-html="floor.name | highlight: $select.search"></div>
+                                        <small>
                                         Kat Adı: {{floor.name}}
                                         
                                       </small>

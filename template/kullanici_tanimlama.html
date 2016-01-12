@@ -1,4 +1,6 @@
-
+<div class="mkbloading" ng-show="$root.loading">
+    <img src="../assets/images/loading.gif" class="ajax-loader" />
+</div>
 <div class="row">
     <div class="col-sm-12">
         <div class="card-box">
@@ -11,10 +13,10 @@
                         <div class="form-group">
                             <label class="col-md-2 control-label">E-mail</label>
                             <div class="col-md-10">
-                               <input type="email" name="email" ng-model="obj.email" class="form-control" placeholder="lütfen email adresinizi gideriniz" required>
-                                    <span style="color:red" ng-show="form.email.$dirty && form.email.$invalid">
+                                <input type="email" name="email" ng-model="obj.email" class="form-control" placeholder="lütfen email adresinizi gideriniz" required>
+                                <span style="color:red" ng-show="form.email.$dirty && form.email.$invalid">
                                     <span ng-show="form.email.$error.email">lütfen email adresinizi doğru giriniz</span>
-                                    </span>
+                                </span>
                             </div>
                         </div>
                         <div class="form-group">
@@ -35,12 +37,13 @@
                                 <input data-ng-model='obj.password' type="password" name='password' placeholder='şifre giriniz' class="form-control">
                             </div>
                         </div>
-                            <div class="form-group">
+                        <div class="form-group">
                             <label class="col-md-2 control-label">Şifre Tekrar</label>
                             <div class="col-md-10">
-                                 <input ng-model='password_verify' class="form-control" type="password" name='confirm_password' placeholder='tekrar şifre giriniz' data-password-verify="obj.password"><div ng-show="form.confirm_password.$error.passwordVerify" style="color:red;">Şifreler eşleşmedi</div>
+                                <input ng-model='password_verify' class="form-control" type="password" name='confirm_password' placeholder='tekrar şifre giriniz' data-password-verify="obj.password">
+                                <div ng-show="form.confirm_password.$error.passwordVerify" style="color:red;">Şifreler eşleşmedi</div>
                             </div>
-                            
+
                         </div>
                         <div class="form-group">
                             <label class="col-md-2 control-label">Telefon</label>
@@ -67,10 +70,10 @@
                             <label class="col-md-2 control-label">Kat No</label>
                             <div class="col-md-10">
                                 <ui-select class="form-control" ng-model="floor.selected" theme="select2" ng-disabled="disabled" ng-change="degKat()">
-                                    <ui-select-match  placeholder="Kat  seçiniz">{{$select.selected.name}}</ui-select-match>
+                                    <ui-select-match placeholder="Kat  seçiniz">{{$select.selected.name}}</ui-select-match>
                                     <ui-select-choices repeat="floor in floors | propsFilter: {name: $select.search}">
-                                      <div ng-bind-html="floor.name | highlight: $select.search"></div>
-                                      <small>
+                                        <div ng-bind-html="floor.name | highlight: $select.search"></div>
+                                        <small>
                                         kat adı: {{floor.name}}
                                       </small>
                                     </ui-select-choices>
@@ -83,8 +86,8 @@
                                 <ui-select class="form-control" ng-model="office.selected" theme="select2" ng-disabled="disabled" ng-change="degOfis()">
                                     <ui-select-match placeholder="Oda seçiniz">{{$select.selected.name}}</ui-select-match>
                                     <ui-select-choices repeat="office in offices | propsFilter: {name: $select.search}">
-                                      <div ng-bind-html="office.name | highlight: $select.search"></div>
-                                      <small>
+                                        <div ng-bind-html="office.name | highlight: $select.search"></div>
+                                        <small>
                                         no: {{office.name}}
                                       </small>
                                     </ui-select-choices>
@@ -97,8 +100,8 @@
                                 <ui-select class="form-control" ng-model="desk.selected" theme="select2" ng-disabled="disabled">
                                     <ui-select-match placeholder="Masa seçiniz">{{$select.selected.name}}</ui-select-match>
                                     <ui-select-choices repeat="desk in desks | propsFilter: {name: $select.search}">
-                                      <div ng-bind-html="desk.name | highlight: $select.search"></div>
-                                      <small>
+                                        <div ng-bind-html="desk.name | highlight: $select.search"></div>
+                                        <small>
                                         no: {{desk.name}}
                                       </small>
                                     </ui-select-choices>
@@ -108,11 +111,11 @@
                         <div class="form-group">
                             <label class="col-md-2 control-label">Rol</label>
                             <div class="col-md-10">
-                                <ui-select class="form-control" ng-model="role.selected" theme="select2" ng-disabled="disabled" >
+                                <ui-select class="form-control" ng-model="role.selected" theme="select2" ng-disabled="disabled">
                                     <ui-select-match placeholder="Rol seçiniz">{{$select.selected.name}}</ui-select-match>
                                     <ui-select-choices repeat="role in roles | propsFilter: {name: $select.search}">
-                                      <div ng-bind-html="role.name | highlight: $select.search"></div>
-                                      <small>
+                                        <div ng-bind-html="role.name | highlight: $select.search"></div>
+                                        <small>
                                         Rol: {{role.name}}
                                       </small>
                                     </ui-select-choices>
@@ -122,11 +125,11 @@
                         <div class="form-group">
                             <label class="col-md-2 control-label">Görev</label>
                             <div class="col-md-10">
-                                <ui-select class="form-control" ng-model="task.selected" theme="select2" ng-disabled="disabled" >
+                                <ui-select class="form-control" ng-model="task.selected" theme="select2" ng-disabled="disabled">
                                     <ui-select-match placeholder="Görev seçiniz">{{$select.selected.name}}</ui-select-match>
                                     <ui-select-choices repeat="task in tasks | propsFilter: {name: $select.search}">
-                                      <div ng-bind-html="task.name | highlight: $select.search"></div>
-                                      <small>
+                                        <div ng-bind-html="task.name | highlight: $select.search"></div>
+                                        <small>
                                         görev: {{task.name}}
                                       </small>
                                     </ui-select-choices>
@@ -140,14 +143,14 @@
                 <div class="col-md-3">
                     <form class="form-horizontal" role="form" method="post" id="myForm" enctype="multipart/form-data">
                         <div class="form-group">
-                            <img  id="img" src="http://placehold.it/400x400" alt="" class="img-responsive">
+                            <img id="img" src="http://placehold.it/400x400" alt="" class="img-responsive">
                         </div>
                         <div class="form-group">
                             <label class="col-md-4 control-label">Resim Yükle</label>
                             <div class="col-md-8">
-                                    <input type="button" value="Fotograf Seç" class="btn btn-success" ng-click="resimSec($event)">
-                                     <input id="resim" type="file" name="mediaList" style="display:none;">
-                                
+                                <input type="button" value="Fotograf Seç" class="btn btn-success" ng-click="resimSec($event)">
+                                <input id="resim" type="file" name="mediaList" style="display:none;">
+
                             </div>
                         </div>
                     </form>
@@ -155,7 +158,7 @@
 
 
             </div>
-            
+
             <div class="row">
                 <div class="col-md-12">
                     <div class="pull-right">
@@ -176,11 +179,11 @@
             <div class="table-responsive">
                 <table id="mainTable" class="table">
                     <thead style="background-color:#36404a">
-                        <tr >
-                            <th style="color:#000;" >E-mail</th>
-                            <th style="color:#000;" >Kullanıcı Adı</th>
-                            <th style="color:#000;" >Adı Soyadı</th>
-                            <th style="color:#000;" >Telefon</th>
+                        <tr>
+                            <th style="color:#000;">E-mail</th>
+                            <th style="color:#000;">Kullanıcı Adı</th>
+                            <th style="color:#000;">Adı Soyadı</th>
+                            <th style="color:#000;">Telefon</th>
                             <th style="color:#000;">Aktif</th>
                             <th style="color:#000;">Oluşturan</th>
                             <th style="color:#000;">Kat No</th>

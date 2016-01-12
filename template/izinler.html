@@ -1,4 +1,6 @@
-
+<div class="mkbloading" ng-show="$root.loading">
+    <img src="../assets/images/loading.gif" class="ajax-loader" />
+</div>
 <div class="row">
     <div class="col-sm-12">
         <div class="card-box">
@@ -10,16 +12,18 @@
                     <form class="form-horizontal" role="form">
                         <div class="form-group">
                             <div class="col-md-12">
-                              <ui-select class="form-control" ng-model="user.selected" theme="select2" ng-disabled="role.selected !=''" ng-change="userChange()">
-                                  <ui-select-match placeholder="Kullanıcı seçiniz">{{$select.selected.name}} <button class="clear" ng-click="clearUser($event)">X</button></ui-select-match>
-                                  <ui-select-null-choice>No person</ui-select-null-choice>
-                                   <ui-select-choices repeat="user in users | propsFilter: {name: $select.search}">
-                                    <div ng-bind-html="user.name | highlight: $select.search"></div>
-                                    <small>
+                                <ui-select class="form-control" ng-model="user.selected" theme="select2" ng-disabled="role.selected !=''" ng-change="userChange()">
+                                    <ui-select-match placeholder="Kullanıcı seçiniz">{{$select.selected.name}}
+                                        <button class="clear" ng-click="clearUser($event)">X</button>
+                                    </ui-select-match>
+                                    <ui-select-null-choice>No person</ui-select-null-choice>
+                                    <ui-select-choices repeat="user in users | propsFilter: {name: $select.search}">
+                                        <div ng-bind-html="user.name | highlight: $select.search"></div>
+                                        <small>
                                       Rol: {{user.role_id.name}} , Görev : {{user.task_id.name}}
                                     </small>
-                                  </ui-select-choices>
-                              </ui-select>
+                                    </ui-select-choices>
+                                </ui-select>
                             </div>
                         </div>
 
@@ -30,11 +34,13 @@
                     <form class="form-horizontal" role="form">
                         <div class="form-group">
                             <div class="col-md-12">
-                              <ui-select class="form-control" ng-model="role.selected" theme="select2" ng-disabled="user.selected != ''" ng-change="roleChange()" >
-                                    <ui-select-match placeholder="Rol seçiniz">{{$select.selected.name}}<button class="clear" ng-click="clearRole($event)">X</button></ui-select-match>
+                                <ui-select class="form-control" ng-model="role.selected" theme="select2" ng-disabled="user.selected != ''" ng-change="roleChange()">
+                                    <ui-select-match placeholder="Rol seçiniz">{{$select.selected.name}}
+                                        <button class="clear" ng-click="clearRole($event)">X</button>
+                                    </ui-select-match>
                                     <ui-select-choices repeat="role in roles | propsFilter: {name: $select.search}">
-                                      <div ng-bind-html="role.name | highlight: $select.search"></div>
-                                      <small>
+                                        <div ng-bind-html="role.name | highlight: $select.search"></div>
+                                        <small>
                                         Rol: {{role.name}}
                                       </small>
                                     </ui-select-choices>
@@ -66,20 +72,20 @@
                                 </div>
                             </div>
                             <ul class="list-group" id="ulIzinsiz">
-                                <li class="list-group-item"  ng-repeat="item in sayfalar track by $index" ng-bind="item.name" ng-click="al(item,$index)" ng-hide="item.disabled"></li>
+                                <li class="list-group-item" ng-repeat="item in sayfalar track by $index" ng-bind="item.name" ng-click="al(item,$index)" ng-hide="item.disabled"></li>
                             </ul>
                         </div>
                     </div>
                     <div class="list-arrows col-md-2 pull-left">
                         <div class="arrow-padd" style="padding-left:20px;">
                             <div class=" move-left">
-                                <input type="checkbox" ng-model="saveCheck" > Ekle
+                                <input type="checkbox" ng-model="saveCheck"> Ekle
                             </div>
                             <div class="move-left">
-                                <input type="checkbox" ng-model="readCheck" > Oku
+                                <input type="checkbox" ng-model="readCheck"> Oku
                             </div>
                             <div class="move-left">
-                                <input type="checkbox" ng-model="editCheck" > Düzenle
+                                <input type="checkbox" ng-model="editCheck"> Düzenle
                             </div>
                             <div class="move-left">
                                 <input type="checkbox" ng-model="deleteCheck"> Sil

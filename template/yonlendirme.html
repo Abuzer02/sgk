@@ -1,4 +1,6 @@
-
+<div class="mkbloading" ng-show="$root.loading">
+    <img src="../assets/images/loading.gif" class="ajax-loader" />
+</div>
 <div class="row">
     <div class="col-sm-12">
         <div class="card-box">
@@ -8,28 +10,28 @@
             <div class="row">
                 <div class="col-md-6">
                     <form class="form-horizontal" role="form">
-                           <div class="form-group">
+                        <div class="form-group">
                             <label class="col-md-2 control-label">Rol</label>
                             <div class="col-md-10">
                                 <ui-select class="form-control" ng-model="role.selected" theme="select2" ng-disabled="disabled" ng-change="degKat()">
-                                    <ui-select-match  placeholder="rol seçiniz">{{$select.selected.name}}</ui-select-match>
+                                    <ui-select-match placeholder="rol seçiniz">{{$select.selected.name}}</ui-select-match>
                                     <ui-select-choices repeat="role in roles | propsFilter: {name: $select.search, id: $select.search}">
-                                      <div ng-bind-html="role.name | highlight: $select.search"></div>
-                                      <small>
+                                        <div ng-bind-html="role.name | highlight: $select.search"></div>
+                                        <small>
                                         rol : {{role.name}}
                                       </small>
                                     </ui-select-choices>
                                 </ui-select>
                             </div>
                         </div>
-                           <div class="form-group">
+                        <div class="form-group">
                             <label class="col-md-2 control-label">Görev</label>
                             <div class="col-md-10">
                                 <ui-select class="form-control" ng-model="task.selected" theme="select2" ng-disabled="disabled" ng-change="degOfis()">
-                                    <ui-select-match  placeholder="görev seçiniz">{{$select.selected.name}}</ui-select-match>
+                                    <ui-select-match placeholder="görev seçiniz">{{$select.selected.name}}</ui-select-match>
                                     <ui-select-choices repeat="task in tasks | propsFilter: {name: $select.search, id: $select.search}">
-                                      <div ng-bind-html="task.name | highlight: $select.search"></div>
-                                      <small>
+                                        <div ng-bind-html="task.name | highlight: $select.search"></div>
+                                        <small>
                                         Görev : {{task.name}}
                                       </small>
                                     </ui-select-choices>
@@ -40,10 +42,10 @@
                             <label class="col-md-2 control-label">Sayfa</label>
                             <div class="col-md-10">
                                 <ui-select class="form-control" ng-model="page.selected" theme="select2" ng-disabled="disabled" ng-change="degOfis()">
-                                    <ui-select-match  placeholder="yönlendiileceği sayfayı seçiniz">{{$select.selected.name}}</ui-select-match>
+                                    <ui-select-match placeholder="yönlendiileceği sayfayı seçiniz">{{$select.selected.name}}</ui-select-match>
                                     <ui-select-choices repeat="page in pages | propsFilter: {name: $select.search, id: $select.search}">
-                                      <div ng-bind-html="page.name | highlight: $select.search"></div>
-                                      <small>
+                                        <div ng-bind-html="page.name | highlight: $select.search"></div>
+                                        <small>
                                         Sayfa : {{page.name}}
                                       </small>
                                     </ui-select-choices>
