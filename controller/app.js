@@ -162,11 +162,11 @@ mavikentApp.config(function($stateProvider, $urlRouterProvider, $authProvider) {
             templateUrl: 'template/kantin_tanimi.html',
             controller: "CanteenCtrl"
         })
-        .state('menu1.odaci_tanimlama', {
+        /*.state('menu1.odaci_tanimlama', {
             url: 'odaci_tanimlama',
             templateUrl: 'template/odaci_tanimlama.html',
             controller: "CrewCtrl"
-        })
+        })*/
         .state('menu1.ofis_tanimi', {
             url: 'ofis_tanimi',
             templateUrl: 'template/ofis_tanimi.html',

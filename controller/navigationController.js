@@ -7,7 +7,19 @@ mavikentApp.controller("NavigationCtrl", function($scope, $state, $http, $localS
     $scope.list = [];
     $scope.tasks = [];
     $scope.roles = [];
-    $scope.pages = [{name : "Admin Paneli" , page_url :"menu1.dashboard"},{name : "Genel Kullanıcı" , page_url : "menu2.siparis"},{name : "Çay Ocağı" , page_url : "kantin"},{name : "Oda Servisi" , page_url : "odaci"},{name : "Güvenlik" , page_url : "guvenlik"}];
+    $scope.pages = [{
+        name: "Admin Paneli",
+        page_url: "menu1.dashboard"
+    }, {
+        name: "Genel Kullanıcı",
+        page_url: "menu2.siparis"
+    }, {
+        name: "Çay Ocağı",
+        page_url: "kantin"
+    }, {
+        name: "Hizmet",
+        page_url: "guvenlik"
+    }];
 
     function initialize() {
         $scope.role = {
@@ -32,7 +44,7 @@ mavikentApp.controller("NavigationCtrl", function($scope, $state, $http, $localS
     $http.get(host + "/api/role?token=" + token).success(function(resp) {
         if (resp.status == false) {
             console.log("error : ", JSON.stringify(resp));
-            stateControl(resp.code,resp.data);
+            stateControl(resp.code, resp.data);
             return;
         }
         $scope.roles = resp.data;
@@ -45,7 +57,7 @@ mavikentApp.controller("NavigationCtrl", function($scope, $state, $http, $localS
     $http.get(host + "/api/task?token=" + token).success(function(resp) {
         if (resp.status == false) {
             console.log("error : ", JSON.stringify(resp));
-            stateControl(resp.code,resp.data);
+            stateControl(resp.code, resp.data);
             return;
         }
         $scope.tasks = resp.data;
@@ -55,17 +67,17 @@ mavikentApp.controller("NavigationCtrl", function($scope, $state, $http, $localS
         console.error(JSON.stringify(err));
         sweetAlert("Oops...", "Bir hata oluştu", "error");
     });
-    
+
     $http.get(host + "/api/navigation?token=" + token).success(function(resp) {
         if (resp.status == false) {
             console.log("error : ", JSON.stringify(resp));
-            stateControl(resp.code,resp.data);
+            stateControl(resp.code, resp.data);
             return;
         }
-        for(var i=0;i<$scope.pages.length;i++){
-            for(var j=0;j<resp.data.length;j++){
-                if(resp.data[j].page_url == $scope.pages[i].page_url){
-                    resp.data[j].page_name=$scope.pages[i].name;
+        for (var i = 0; i < $scope.pages.length; i++) {
+            for (var j = 0; j < resp.data.length; j++) {
+                if (resp.data[j].page_url == $scope.pages[i].page_url) {
+                    resp.data[j].page_name = $scope.pages[i].name;
                 }
             }
         }
@@ -77,7 +89,7 @@ mavikentApp.controller("NavigationCtrl", function($scope, $state, $http, $localS
         sweetAlert("Oops...", "Bir hata oluştu", "error");
     });
 
-    
+
     $scope.save = function() {
         $scope.obj.role = $scope.role.selected._id;
         $scope.obj.task = $scope.task.selected._id;
@@ -88,12 +100,12 @@ mavikentApp.controller("NavigationCtrl", function($scope, $state, $http, $localS
             $http.put(host + "/api/navigation?token=" + token, $scope.obj).success(function(resp) {
                 if (resp.status == false) {
                     console.log("error : ", JSON.stringify(resp));
-                    stateControl(resp.code,resp.data);
+                    stateControl(resp.code, resp.data);
                     return;
                 }
-                for(var i=0;i<$scope.pages.length;i++){
-                    if(resp.data.page_url == $scope.pages[i].page_url){
-                        resp.data.page_name=$scope.pages[i].name;
+                for (var i = 0; i < $scope.pages.length; i++) {
+                    if (resp.data.page_url == $scope.pages[i].page_url) {
+                        resp.data.page_name = $scope.pages[i].name;
                     }
                 }
                 $scope.IsEdit = false;
@@ -110,12 +122,12 @@ mavikentApp.controller("NavigationCtrl", function($scope, $state, $http, $localS
             $http.post(host + "/api/navigation?token=" + token, $scope.obj).success(function(resp) {
                 if (resp.status == false) {
                     console.log("error : ", JSON.stringify(resp));
-                    stateControl(resp.code,resp.data);
+                    stateControl(resp.code, resp.data);
                     return;
                 }
-                for(var i=0;i<$scope.pages.length;i++){
-                    if(resp.data.page_url == $scope.pages[i].page_url){
-                        resp.data.page_name=$scope.pages[i].name;
+                for (var i = 0; i < $scope.pages.length; i++) {
+                    if (resp.data.page_url == $scope.pages[i].page_url) {
+                        resp.data.page_name = $scope.pages[i].name;
                     }
                 }
                 $scope.list.push(resp.data);
@@ -132,26 +144,27 @@ mavikentApp.controller("NavigationCtrl", function($scope, $state, $http, $localS
     //delete function
 
     $scope.delete = function(id, index) {
-          swal({  
-            title: "Emin misiniz?",   
-            text: "Bu öğeyi silmek istedğinizden emin misiniz?",   
-            type: "warning",  
-            showCancelButton: true,   
-            confirmButtonColor: "#DD6B55",   
-            confirmButtonText: "Evet",   
-            closeOnConfirm: false }, function(){
-        $http.delete(host + "/api/navigation/" + id + "?token=" + token).success(function(resp) {
-            if (resp.status == false) {
-                console.log("error : ", JSON.stringify(resp));
-                stateControl(resp.code,resp.data);
-                return;
-            }
-            $scope.list.splice(index, 1);
-            swal("Başarılı!", "Silme Başarılı!", "success")
-        }).error(function(err) {
-            console.error(JSON.stringify(err));
-            sweetAlert("Oops...", "Bir hata oluştu", "error");
-        });
+        swal({
+            title: "Emin misiniz?",
+            text: "Bu öğeyi silmek istedğinizden emin misiniz?",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#DD6B55",
+            confirmButtonText: "Evet",
+            closeOnConfirm: false
+        }, function() {
+            $http.delete(host + "/api/navigation/" + id + "?token=" + token).success(function(resp) {
+                if (resp.status == false) {
+                    console.log("error : ", JSON.stringify(resp));
+                    stateControl(resp.code, resp.data);
+                    return;
+                }
+                $scope.list.splice(index, 1);
+                swal("Başarılı!", "Silme Başarılı!", "success")
+            }).error(function(err) {
+                console.error(JSON.stringify(err));
+                sweetAlert("Oops...", "Bir hata oluştu", "error");
+            });
         });
     }
 
@@ -169,13 +182,16 @@ mavikentApp.controller("NavigationCtrl", function($scope, $state, $http, $localS
         $scope.role = {
             selected: $filter('getById')($scope.roles, $scope.list[index].role._id)
         }
-        for(var i=0;i<$scope.pages.length;i++){
-            if($scope.pages[i].page_url == $scope.list[index].page_url){
+        for (var i = 0; i < $scope.pages.length; i++) {
+            if ($scope.pages[i].page_url == $scope.list[index].page_url) {
                 $scope.page = {
-                    selected: {name : $scope.pages[i].name, page_url : $scope.pages[i].page_url} 
+                    selected: {
+                        name: $scope.pages[i].name,
+                        page_url: $scope.pages[i].page_url
+                    }
                 }
             }
         }
-        
+
     }
 });

@@ -53,7 +53,7 @@ mavikentApp.controller("PermissionCtrl", function($scope, $rootScope, $http, $fi
         url: "product",
         disabled: false
     }, {
-        name: "Acil Çağrı Servisi",
+        name: "Çağrı Servisi",
         url: "emergency",
         disabled: false
     }, {
