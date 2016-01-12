@@ -68,14 +68,23 @@ mavikentApp.run(function($rootScope, $location, $state, $http, $localStorage, $w
 
     $rootScope.dateBeautify = dateBeautify;
 
+    $rootScope.$on('loading:progress', function() {
+        $rootScope.loading = true;
+    });
+
+    $rootScope.$on('loading:finish', function() {
+        $rootScope.loading = false;
+    });
+
 })
 
-mavikentApp.config(function($stateProvider, $urlRouterProvider, $authProvider) {
+mavikentApp.config(function($stateProvider, $httpProvider, $urlRouterProvider, $authProvider) {
     // Satellizer configuration that specifies which API
     // route the JWT should be retrieved from
     $authProvider.baseUrl = host;
     $authProvider.loginUrl = '/auth/signin';
 
+    $httpProvider.interceptors.push('httpInterceptor');
     // Redirect to the auth state if any other states
     // are requested other than users
     $urlRouterProvider.otherwise('/login');
@@ -430,6 +439,27 @@ mavikentApp.directive('modal', function() {
                     scope.$parent[attrs.visible] = false;
                 });
             });
+        }
+    };
+});
+mavikentApp.factory('httpInterceptor', function($q, $rootScope, $log) {
+
+    var loadingCount = 0;
+
+    return {
+        request: function(config) {
+            if (++loadingCount === 1) $rootScope.$broadcast('loading:progress');
+            return config || $q.when(config);
+        },
+
+        response: function(response) {
+            if (--loadingCount === 0) $rootScope.$broadcast('loading:finish');
+            return response || $q.when(response);
+        },
+
+        responseError: function(response) {
+            if (--loadingCount === 0) $rootScope.$broadcast('loading:finish');
+            return $q.reject(response);
         }
     };
 });

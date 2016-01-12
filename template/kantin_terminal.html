@@ -1,3 +1,6 @@
+<div class="mkbloading" ng-show="$root.loading">
+    <img src="../assets/images/loading.gif" class="ajax-loader" />
+</div>
 <header role="banner">
     <div id="cd-logo">
         <div class="form-inline">
@@ -28,10 +31,10 @@
     </nav>
 </header>
 
-<div class="row" style="padding-top: 50px">
+<div class="row" style="padding-top: 50px" ng-hide="siparis">
     <div class="col-md-10 col-md-offset-1">
         <!--Ürün Ekle-->
-        <div class="row" ng-hide="siparis">
+        <div class="row">
             <div class="col-sm-12">
                 <div class="card-box">
                     <h4 class="m-t-0 header-title"><b>Ürün Tanımı</b></h4>
@@ -97,11 +100,11 @@
                         <table id="mainTable" class="table">
                             <thead style="background-color:#36404a">
                                 <tr>
-                                    <th style="color:#000;">ürün adi</th>
-                                    <th style="color:#000;">ürün fiyatı</th>
-                                    <th style="color:#000;">sıra</th>
-                                    <th style="color:#000;">ekleyen</th>
-                                    <th style="width:90px; color:#000;">İşlem</th>
+                                    <th style="color:#000;">ÜRÜN ADI</th>
+                                    <th style="color:#000;">ÜRÜN FİYATI</th>
+                                    <th style="color:#000;">SIRA</th>
+                                    <th style="color:#000;">EKLEYEN</th>
+                                    <th style="width:90px; color:#000;">İŞLEM</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -125,13 +128,13 @@
 </div>
 
 <!--Gelen ilk ürün (ana ekran)--->
-<div class="row" style="padding-top: 50px">
+<div class="row" style="padding-top: 50px" ng-hide="urunEkle">
     <div class="col-md-10 col-md-offset-1">
         <!--Ürün Ekle-->
 
 
         <!--Gelen ilk ürün (ana ekran)--->
-        <div class="text-center" ng-hide="urunEkle">
+        <div class="text-center">
             <div class="row">
                 <div class="jumbotron" style="background-color: #343642; border-radius: 12px">
                     <div class="row">
@@ -156,9 +159,9 @@
                     <table class="table table-striped" style="background-color: white">
                         <thead>
                             <th style="width:20px; font-size:24px">#</th>
-                            <th style="font-size:24px;" class="text-center">Ürün Adı</th>
-                            <th style="font-size:24px;" class="text-center">Özelliği</th>
-                            <th style="font-size:24px;" class="text-center">Miktarı</th>
+                            <th style="font-size:24px;" class="text-center">ÜRÜN ADI</th>
+                            <th style="font-size:24px;" class="text-center">ÖZELLİĞİ</th>
+                            <th style="font-size:24px;" class="text-center">MİKTARI</th>
                             <th style="font-size:24px;" class="text-center" style="width:1px;"></th>
                         </thead>
                         <tbody>
@@ -195,9 +198,9 @@
                 <table class="table table-striped" style="background-color: white">
                     <thead>
                         <th style="width:50px; font-size:22px;">#</th>
-                        <th class="text-center" style="font-size:22px;">Ofis No</th>
-                        <th style="font-size:24px;" class="text-center">Masa No</th>
-                        <th style="font-size:24px;" class="text-center">İsim</th>
+                        <th class="text-center" style="font-size:22px;">OFİS NO</th>
+                        <th style="font-size:24px;" class="text-center">MASA NO</th>
+                        <th style="font-size:24px;" class="text-center">İSİM</th>
                         <th style="font-size:24px; width:1px;" class="text-center"></th>
                     </thead>
                     <tbody>
@@ -206,7 +209,9 @@
                             <td style="font-size:22px;" class="text-center" ng-bind="item.room_no"></td>
                             <td style="font-size:22px;" class="text-center" ng-bind="item.desk_no"></td>
                             <td style="font-size:22px;" class="text-center" ng-bind="item.account_id.name"></td>
-                            <td class="text-center"></td>
+                            <td class="text-center">
+                                <button class="btn btn-warning btn-block" ng-click="siparisGoster($index)">Sipariş Göster</button>
+                            </td>
                         </tr>
                     </tbody>
                 </table>

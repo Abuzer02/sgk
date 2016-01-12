@@ -15,11 +15,7 @@ mavikentApp.controller("GetOrderCtrl", function($scope, $state, $rootScope, $htt
                 $interval.cancel(kantin);
                 return;
             }
-            $scope.firstOrder = resp.data[0];
-            resp.data.splice(0, 1);
             $scope.list = resp.data;
-            console.log($scope.list);
-
         }).error(function(err) {
             console.log(JSON.stringify(err));
             sweetAlert("Oops...", "Bir hata oluştu", "error");
@@ -30,9 +26,12 @@ mavikentApp.controller("GetOrderCtrl", function($scope, $state, $rootScope, $htt
 
     var kantin = $interval(function() {
         canteenListAll();
-    }, 1000);
+    }, 10000);
 
-
+    $scope.siparisGoster = function(index) {
+        $scope.firstOrder = $scope.list[index];
+        $scope.list.splice(index, 1)
+    }
 
     $scope.onayla = function() {
         $http.put(host + "/api/order?token=" + $rootScope.mkb.token, {
