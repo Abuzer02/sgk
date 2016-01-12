@@ -27,13 +27,6 @@
 
 
                 <ul class="nav navbar-nav navbar-right pull-right">
-                    <li class="dropdown hidden-xs">
-                        <a href="#dashboard" data-target="#" class="dropdown-toggle waves-effect waves-light" data-toggle="dropdown" aria-expanded="true">
-                            <i class="icon-bell"></i> <span class="badge badge-xs badge-danger">3</span>
-                        </a>
-                        <ul class="dropdown-menu dropdown-menu-lg">
-                        </ul>
-                    </li>
                     <li class="hidden-xs">
                         <a href="" class="waves-effect waves-light" ng-click="fullScreen()">
                             <i class="icon-size-fullscreen"></i>
@@ -67,19 +60,19 @@
                         <a href="" ng-click="git('menu1.dashboard',$event)" class="waves-effect "><i class="ti-home"></i> <span> Anasayfa </span> </a>
                     </li>
                     <li class="has_sub">
-                        <a href="" class="waves-effect"><i class="ti-user"></i> <span class="label label-primary pull-right">3</span><span>Kullanicilar </span> </a>
-                        <ul class="list-unstyled">
-                            <li><a href="" ng-click='git("menu1.rol",$event)'>Rol Tanımlama</a></li>
-                            <li><a href="" ng-click='git("menu1.gorev",$event)'>Görev Tanımlama</a></li>
-                            <li><a href="" ng-click='git("menu1.kullanici_tanimlama",$event)'>Kullanıcı Tanımlama</a></li>
-                        </ul>
-                    </li>
-                    <li class="has_sub">
                         <a href="" class="waves-effect"><i class="ti-layout-accordion-merged"></i> <span class="label label-pink pull-right">3</span> <span>Yerlesim </span> </a>
                         <ul class="list-unstyled">
                             <li><a href="" ng-click='git("menu1.kat_tanimlama",$event)'>Kat Tanımlama</a></li>
                             <li><a href="" ng-click='git("menu1.ofis_tanimi",$event)'>Ofis Tanımlama</a></li>
                             <li><a href="" ng-click='git("menu1.masa_tanimi",$event)'>Masa Tanımlama</a></li>
+                        </ul>
+                    </li>
+                    <li class="has_sub">
+                        <a href="" class="waves-effect"><i class="ti-user"></i> <span class="label label-primary pull-right">3</span><span>Kullanicilar </span> </a>
+                        <ul class="list-unstyled">
+                            <li><a href="" ng-click='git("menu1.rol",$event)'>Rol Tanımlama</a></li>
+                            <li><a href="" ng-click='git("menu1.gorev",$event)'>Görev Tanımlama</a></li>
+                            <li><a href="" ng-click='git("menu1.kullanici_tanimlama",$event)'>Kullanıcı Tanımlama</a></li>
                         </ul>
                     </li>
                     <li class="has_sub">
@@ -101,7 +94,7 @@
                         <a href="" ng-click='git("menu1.yonlendirme",$event)' class="waves-effect"><i class="ti-link"></i> <span>Sayfa Yönlendirme </span> </a>
                     </li>
                     <li class="has_sub">
-                        <a href="" ng-click='git("menu1.mesaj",$event)' class="waves-effect"><i class="ti-link"></i> <span>Bildirim Yap </span> </a>
+                        <a href="" ng-click='git("menu1.mesaj",$event)' class="waves-effect"><i class="ti-bell"></i> <span>Bildirim Yap </span> </a>
                     </li>
                 </ul>
                 <div class="clearfix"></div>
