@@ -6,19 +6,13 @@ mavikentApp.controller("CanteenCtrl", function($scope, $state, $http, $localStor
     $scope.editId;
     $scope.list = [];
     $scope.users = [];
-    $scope.floors = [];
 
     function initiliaze() {
         $scope.obj = {
             name: "",
-            floor_id: "",
             canteen_order: "",
             canteen_boy_id: "",
             updated_by: $rootScope.mkb.current_user.name
-        };
-
-        $scope.floor = {
-            selected: ""
         };
         $scope.user = {
             selected: ""
@@ -40,23 +34,10 @@ mavikentApp.controller("CanteenCtrl", function($scope, $state, $http, $localStor
         sweetAlert("Oops...", "Bir hata oluştu", "error");
     });
 
-    $http.get(host + "/api/floor?token=" + token).success(function(resp) {
-        if (resp.status == false) {
-            console.log("error : ", JSON.stringify(resp));
-            stateControl(resp.code,resp.data);
-            return;
-        }
-
-        $scope.floors = resp.data;
-
-    }).error(function(err) {
-        console.error(JSON.stringify(err));
-        sweetAlert("Oops...", "Bir hata oluştu", "error");
-    });
     $http.get(host + "/api/canteen?token=" + token).success(function(resp) {
         if (resp.status == false) {
             console.log("error : ", JSON.stringify(resp));
-            stateControl(resp.code,resp.data);
+            stateControl(resp.code, resp.data);
             return;
         }
         $scope.list = resp.data;
@@ -68,13 +49,12 @@ mavikentApp.controller("CanteenCtrl", function($scope, $state, $http, $localStor
 
     //add function
     $scope.save = function() {
-        $scope.obj.floor_id = $scope.floor.selected._id;
         $scope.obj.canteen_boy_id = $scope.user.selected._id;
         if ($scope.IsEdit) {
             $http.put(host + "/api/canteen?token=" + token, $scope.obj).success(function(resp) {
                 if (resp.status == false) {
                     console.log("error : ", JSON.stringify(resp));
-                    stateControl(resp.code,resp.data);
+                    stateControl(resp.code, resp.data);
                     return;
                 }
                 $scope.IsEdit = false;
@@ -94,7 +74,7 @@ mavikentApp.controller("CanteenCtrl", function($scope, $state, $http, $localStor
             $http.post(host + "/api/canteen?token=" + token, $scope.obj).success(function(resp) {
                 if (resp.status == false) {
                     console.log("error : ", JSON.stringify(resp));
-                    stateControl(resp.code,resp.data);
+                    stateControl(resp.code, resp.data);
                     return;
                 }
                 $scope.list.push(resp.data);
@@ -111,26 +91,27 @@ mavikentApp.controller("CanteenCtrl", function($scope, $state, $http, $localStor
 
 
     $scope.delete = function(id, index) {
-        swal({  
-            title: "Emin misiniz?",   
-            text: "Bu öğeyi silmek istedğinizden emin misiniz?",   
-            type: "warning",  
-            showCancelButton: true,   
-            confirmButtonColor: "#DD6B55",   
-            confirmButtonText: "Evet",   
-            closeOnConfirm: false }, function(){
-        $http.delete(host + "/api/canteen/" + id + "?token=" + token).success(function(resp) {
-            if (resp.status == false) {
-                console.log("error : ", JSON.stringify(resp));
-                stateControl(resp.code,resp.data);
-                return;
-            }
-            $scope.list.splice(index, 1);
-            swal("Başarılı!", "Öğe Başarılı ile Silindi!", "success")
-        }).error(function(err) {
-            console.error(JSON.stringify(err));
-            sweetAlert("Oops...", "Bir hata oluştu", "error");
-        });
+        swal({
+            title: "Emin misiniz?",
+            text: "Bu öğeyi silmek istedğinizden emin misiniz?",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#DD6B55",
+            confirmButtonText: "Evet",
+            closeOnConfirm: false
+        }, function() {
+            $http.delete(host + "/api/canteen/" + id + "?token=" + token).success(function(resp) {
+                if (resp.status == false) {
+                    console.log("error : ", JSON.stringify(resp));
+                    stateControl(resp.code, resp.data);
+                    return;
+                }
+                $scope.list.splice(index, 1);
+                swal("Başarılı!", "Öğe Başarılı ile Silindi!", "success")
+            }).error(function(err) {
+                console.error(JSON.stringify(err));
+                sweetAlert("Oops...", "Bir hata oluştu", "error");
+            });
         });
     }
 
@@ -141,14 +122,10 @@ mavikentApp.controller("CanteenCtrl", function($scope, $state, $http, $localStor
         $scope.listIndex = index;
         $scope.editId = id;
         $scope.obj.name = $scope.list[index].name;
-        $scope.obj.floor_id = $scope.list[index].floor_id;
         $scope.obj.canteen_boy_id = $scope.list[index].canteen_boy_id;
         $scope.obj.canteen_order = $scope.list[index].canteen_order;
         $scope.obj.updated_by = $rootScope.mkb.current_user.name;
         $scope.obj._id = id;
-        $scope.floor = {
-            selected: $filter('getById')($scope.floors, $scope.obj.floor_id._id)
-        }
         $scope.user = {
             selected: $filter('getById')($scope.users, $scope.obj.canteen_boy_id._id)
         }

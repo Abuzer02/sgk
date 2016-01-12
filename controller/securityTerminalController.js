@@ -1,7 +1,7 @@
-mavikentApp.controller("SecturityTerminalCtrl", function ($scope, $state, $http, $rootScope, $interval) {
+mavikentApp.controller("SecturityTerminalCtrl", function($scope, $state, $http, $rootScope, $interval) {
     $scope.istekler = [];
     $scope.host = host;
-    $scope.cikis = function () {
+    $scope.cikis = function() {
         $state.go("logout");
     }
 
@@ -9,7 +9,7 @@ mavikentApp.controller("SecturityTerminalCtrl", function ($scope, $state, $http,
         $http.post(host + "/api/emergency/search?token=" + $rootScope.mkb.token, {
             floor_no: $rootScope.mkb.current_user.floor_id.name,
             isActive: "false"
-        }).success(function (resp) {
+        }).success(function(resp) {
             if (resp.status == false) {
                 console.log("error : ", JSON.stringify(resp));
                 stateControl(resp.code, resp.data);
@@ -17,24 +17,25 @@ mavikentApp.controller("SecturityTerminalCtrl", function ($scope, $state, $http,
                 return;
             }
             $scope.istekler = resp.data;
-        }).error(function (err) {
+        }).error(function(err) {
             console.log(JSON.stringify(err));
             sweetAlert("Oops...", "Bir hata oluştu", "error");
             $interval.cancel(security);
         })
     }
     getList();
-    var security = $interval(function () {
+
+    var security = $interval(function() {
         getList();
 
-    }, 10000);
+    }, 1000);
 
 
-    $scope.istekAl = function (item, index) {
+    $scope.istekAl = function(item, index) {
         $http.put(host + "/api/emergency?token=" + $rootScope.mkb.token, {
             _id: item._id,
             isActive: true
-        }).success(function (resp) {
+        }).success(function(resp) {
             if (resp.status == false) {
                 console.log("error : ", JSON.stringify(resp));
                 stateControl(resp.code, resp.data);
@@ -50,7 +51,7 @@ mavikentApp.controller("SecturityTerminalCtrl", function ($scope, $state, $http,
                 showConfirmButton: false
             });
 
-        }).error(function (err) {
+        }).error(function(err) {
             console.log(JSON.stringify(err));
             sweetAlert("Oops...", "Bir hata oluştu", "error");
         })
