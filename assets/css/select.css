@@ -94,6 +94,7 @@ body > .select2-container.open {
   top: 50%;
   right: 10px;
   margin-top: -2px;
+  color: #fff;
 }
 
 /* Fix Bootstrap dropdown position when inside a input-group */
