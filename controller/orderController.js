@@ -281,5 +281,40 @@ mavikentApp.controller("OrderCtrl", function($scope, $rootScope, $http, $interva
         })
     }
 
+    $scope.show1Modal = false;
+    $scope.toggleModal = function() {
+        $scope.show1Modal = !$scope.show1Modal;
+    };
+    $scope.newPass = {
+        password: ""
+    }
+    $scope.updatePass = function() {
+        $http.put(host + "/api/account?token=" + $rootScope.mkb.token, {
+            _id: $rootScope.mkb.current_user._id,
+            password: $scope.newPass.password
+        }).success(function(resp) {
+            if (resp.status == false) {
+                console.log("error : ", JSON.stringify(resp));
+                stateControl(resp.code, resp.data);
+                return;
+            }
+            $scope.newPass = {
+                password: ""
+            }
+            console.log(resp.data);
+            $scope.show1Modal = false;
+            swal({
+                title: "Başarılı",
+                text: "şifre değişimi başarılı",
+                type: "success",
+                timer: 1000,
+                showConfirmButton: false
+            });
+        }).error(function(err) {
+            console.error(JSON.stringify(err));
+            sweetAlert("Oops...", "Bir hata oluştu", "error");
+        })
+    }
+
 
 })

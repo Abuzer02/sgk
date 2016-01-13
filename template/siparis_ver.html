@@ -2,7 +2,7 @@
     <img src="../assets/images/loading.gif" class="ajax-loader" />
 </div>
 <header role="banner" style="position:fixed; z-index:10">
-    <div id="cd-logo">
+    <!--<div id="cd-logo">
         <div class="form-inline">
             <div class="form-gruop">
                 <a>
@@ -19,7 +19,30 @@
             <li><a href="javascript:void(0)" class="cd-signin" ng-click="cikis()">Çıkış</a></li>
 
         </ul>
-    </nav>
+    </nav>-->
+
+    <div class="navbar navbar-default" role="navigation">
+        <div class="container">
+            <div class="">
+                <div class="pull-left">
+                </div>
+
+
+
+                <ul class="nav navbar-nav navbar-right pull-right">
+                    <li class="dropdown " style="">
+                        <a style="padding-top:10px" href="" class="dropdown-toggle profile" data-toggle="dropdown" aria-expanded="true"><img ng-src="{{host}}/media/original/{{$root.mkb.current_user.profile_picture}}" alt="user-img" class="img-circle"> </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="javascript:void(0)" ng-click="toggleModal()"><i class="ti-settings m-r-5"></i> Şifremi Yenile</a></li>
+                            <li><a href="javascript:void(0)" ng-click="cikis()"><i class="ti-power-off m-r-5"></i> Çıkış</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <!--/.nav-collapse -->
+        </div>
+    </div>
+
 </header>
 
 <section class="visible">
@@ -489,3 +512,32 @@
 
 </section>
 -->
+<modal title="Şifremi Değiştir" visible="show1Modal">
+    <form role="form" name="form" novalidate>
+        <div class="form-group">
+            <div class="row">
+                <label class="col-md-12 control-label">Yeni Şifre</label>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col-md-10">
+                    <input data-ng-model='newPass.password' type="password" name='password' placeholder=' yeni şifre giriniz' class="form-control">
+                </div>
+            </div>
+
+        </div>
+        <div class="form-group">
+            <div class="row">
+                <label class="col-md-12 control-label">Yeni Şifre Tekrar</label>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col-md-10">
+                    <input ng-model='password_verify' class="form-control" type="password" name='confirm_password' placeholder='yeni şifreyi tekrar giriniz' data-password-verify="newPass.password">
+                    <div ng-show="form.confirm_password.$error.passwordVerify" style="color:red;">Şifreler eşleşmedi</div>
+                </div>
+            </div>
+        </div>
+        <button type="submit" class="btn btn-default pull-right" ng-click="updatePass()">Değiştir</button>
+    </form>
+</modal>
