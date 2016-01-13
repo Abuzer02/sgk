@@ -94,9 +94,7 @@ mavikentApp.controller("NavigationCtrl", function($scope, $state, $http, $localS
         $scope.obj.role = $scope.role.selected._id;
         $scope.obj.task = $scope.task.selected._id;
         $scope.obj.page_url = $scope.page.selected.page_url;
-        console.log($scope.obj);
         if ($scope.IsEdit) {
-            console.log("here 1");
             $http.put(host + "/api/navigation?token=" + token, $scope.obj).success(function(resp) {
                 if (resp.status == false) {
                     console.log("error : ", JSON.stringify(resp));

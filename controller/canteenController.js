@@ -58,7 +58,6 @@ mavikentApp.controller("CanteenCtrl", function($scope, $state, $http, $localStor
                     return;
                 }
                 $scope.IsEdit = false;
-                console.log(JSON.stringify(resp.data));
                 $scope.list[$scope.listIndex] = resp.data;
                 swal("Başarılı!", "Güncelleme Başarılı!", "success")
                 initiliaze();

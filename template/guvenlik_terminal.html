@@ -49,7 +49,15 @@
         </div>
     </div>
 </header>
-<div class="row" style="padding-top: 50px">
+<br>
+<br>
+<br>
+<div class="row" ng-if="istekler.length == 0">
+    <div class="col-md-12">
+        <h1 class="text-center" style="font-size:22px">Çağrı Bulunmamaktadır</h1>
+    </div>
+</div>
+<div class="row" style="padding-top: 50px" ng-if="istekler.length != 0">
     <div class="col-xs-10 col-xs-offset-1">
         <div class="">
             <table class="table-bordered">

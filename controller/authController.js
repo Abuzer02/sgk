@@ -8,13 +8,12 @@ function AuthController($scope, $auth, $state, $rootScope, $localStorage, $http)
         }
     }
 
-    vm.login = function() {
+    vm.login = function () {
         var credentials = {
             username: vm.username,
             password: vm.password
         }
-        $auth.login(credentials).then(function(response) {
-            console.log(response);
+        $auth.login(credentials).then(function (response) {
             if (response.data.state) {
                 $scope.message = stateControl(response.data.code);
                 if (!$localStorage["token"]) {
@@ -37,15 +36,15 @@ function AuthController($scope, $auth, $state, $rootScope, $localStorage, $http)
         });
     }
     $scope.showModal = false;
-    $scope.toggleModal = function() {
+    $scope.toggleModal = function () {
         $scope.showModal = !$scope.showModal;
     };
     $scope.newPass = {
         email: "",
         password: ""
     }
-    $scope.updatePass = function() {
-        $http.put(host + "/forgot/password", $scope.newPass).success(function(resp) {
+    $scope.updatePass = function () {
+        $http.put(host + "/forgot/password", $scope.newPass).success(function (resp) {
             if (resp.status == false) {
                 console.log("error : ", JSON.stringify(resp));
                 stateControl(resp.code, resp.data);
@@ -55,7 +54,6 @@ function AuthController($scope, $auth, $state, $rootScope, $localStorage, $http)
                 email: "",
                 password: ""
             }
-            console.log(resp.data);
             $scope.showModal = false;
             swal({
                 title: "Başarılı",
@@ -64,7 +62,7 @@ function AuthController($scope, $auth, $state, $rootScope, $localStorage, $http)
                 timer: 1000,
                 showConfirmButton: false
             });
-        }).error(function(err) {
+        }).error(function (err) {
             console.error(JSON.stringify(err));
             sweetAlert("Oops...", "Bir hata oluştu", "error");
         })

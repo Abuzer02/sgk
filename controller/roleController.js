@@ -29,7 +29,6 @@ mavikentApp.controller("RoleCtrl", function($scope, $state, $http, $localStorage
     $scope.save = function() {
         if ($scope.IsEdit) {
             $http.put(host + "/api/role/?token=" + token, $scope.obj).success(function(resp) {
-                console.log(JSON.stringify(resp));
                 if (resp.status == false) {
                     console.log("error : ", JSON.stringify(resp));
                     return;
