@@ -1025,8 +1025,8 @@ xsigin/signup popup
 
 .ajax-loader {
     position: absolute;
-    left: 50%;
-    top: 50%;
+    left: 40%;
+    top: 30%;
     margin-left: -32px;
     /* -1 * image width / 2 */
     margin-top: -32px;
