@@ -1,7 +1,8 @@
-mavikentApp.controller("GetOrderCtrl", function ($scope, $state, $rootScope, $http, $interval) {
+mavikentApp.controller("GetOrderCtrl", function($scope, $state, $rootScope, $http, $interval) {
     $scope.siparis = true;
     $scope.urunEkle = false;
     $scope.host = host;
+    $scope.countOrder = 0;
     $scope.firstOrder = {
         _id: ""
     }
@@ -10,7 +11,7 @@ mavikentApp.controller("GetOrderCtrl", function ($scope, $state, $rootScope, $ht
     function canteenListAll() {
         $http.post(host + "/api/order/search?token=" + $rootScope.mkb.token, {
             isActive: "false"
-        }).success(function (resp) {
+        }).success(function(resp) {
             if (resp.status == false) {
                 console.log("error : ", JSON.stringify(resp));
                 stateControl(resp.code, resp.data);
@@ -19,11 +20,12 @@ mavikentApp.controller("GetOrderCtrl", function ($scope, $state, $rootScope, $ht
             }
             console.log("list : ", $scope.list.length);
             console.log("resp : ", resp.data.length);
-            if ($scope.list.length != resp.data.length) {
+            if ($scope.countOrder != resp.data.length) {
                 siparisVarMp3.play();
             }
             $scope.list = resp.data;
-        }).error(function (err) {
+            $scope.countOrder = resp.data.length;
+        }).error(function(err) {
             console.log(JSON.stringify(err));
             sweetAlert("Oops...", "Bir hata oluştu", "error");
             $interval.cancel(kantin);
@@ -31,27 +33,28 @@ mavikentApp.controller("GetOrderCtrl", function ($scope, $state, $rootScope, $ht
     }
     canteenListAll();
 
-    var kantin = $interval(function () {
+    var kantin = $interval(function() {
         canteenListAll();
     }, 10000);
 
-    $scope.siparisGoster = function (index) {
+    $scope.siparisGoster = function(index) {
         $scope.firstOrder = $scope.list[index];
         $scope.list.splice(index, 1)
         window.scrollTo(0, 0);
     }
 
-    $scope.onayla = function () {
+    $scope.onayla = function() {
         if ($scope.firstOrder.basket != undefined) {
             $http.put(host + "/api/order?token=" + $rootScope.mkb.token, {
                 _id: $scope.firstOrder._id,
                 isActive: true
-            }).success(function (resp) {
+            }).success(function(resp) {
                 if (resp.status == false) {
                     console.log("error : ", JSON.stringify(resp));
                     stateControl(resp.code, resp.data);
                     return;
                 }
+                $scope.countOrder--;
                 swal({
                     title: "Sipariş",
                     text: "başarı ile onaylandı",
@@ -62,7 +65,7 @@ mavikentApp.controller("GetOrderCtrl", function ($scope, $state, $rootScope, $ht
                 $scope.firstOrder = {
                     _id: $scope.firstOrder._id
                 }
-            }).error(function (err) {
+            }).error(function(err) {
                 console.log(JSON.stringify(err))
                 sweetAlert("Oops...", "Bir hata oluştu", "error");
             })
@@ -81,7 +84,7 @@ mavikentApp.controller("GetOrderCtrl", function ($scope, $state, $rootScope, $ht
     $scope.listOrder = [];
     $scope.pctr = "";
     $scope.host = host;
-    $scope.cikis = function () {
+    $scope.cikis = function() {
         $state.go("logout");
     }
 
@@ -103,7 +106,7 @@ mavikentApp.controller("GetOrderCtrl", function ($scope, $state, $rootScope, $ht
 
     initiliaze();
 
-    $http.get(host + "/api/canteen?token=" + token).success(function (resp) {
+    $http.get(host + "/api/canteen?token=" + token).success(function(resp) {
         if (resp.status == false) {
             console.log("error : ", JSON.stringify(resp));
             stateControl(resp.code, resp.data);
@@ -111,12 +114,12 @@ mavikentApp.controller("GetOrderCtrl", function ($scope, $state, $rootScope, $ht
         }
         $scope.objUrun.canteen_id = resp.data[0]._id;
 
-    }).error(function (err) {
+    }).error(function(err) {
         console.error(JSON.stringify(err));
         sweetAlert("Oops...", "Bir hata oluştu", "error");
     });
 
-    $http.get(host + "/api/product?token=" + token).success(function (resp) {
+    $http.get(host + "/api/product?token=" + token).success(function(resp) {
         if (resp.status == false) {
             console.log("error : ", JSON.stringify(resp));
             stateControl(resp.code, resp.data);
@@ -124,20 +127,20 @@ mavikentApp.controller("GetOrderCtrl", function ($scope, $state, $rootScope, $ht
         }
         $scope.listOrder = resp.data;
 
-    }).error(function (err) {
+    }).error(function(err) {
         console.error(JSON.stringify(err));
         sweetAlert("Oops...", "Bir hata oluştu", "error");
     });
 
     //add function
 
-    $scope.save = function () {
+    $scope.save = function() {
         $scope.objUrun.picture = $scope.pctr;
         for (var i = 0; i < $scope.spec_arr.length; i++) {
             $scope.objUrun.product_specs.push($scope.spec_arr[i].text);
         }
         if ($scope.IsEdit) {
-            $http.put(host + "/api/product?token=" + token, $scope.objUrun).success(function (resp) {
+            $http.put(host + "/api/product?token=" + token, $scope.objUrun).success(function(resp) {
                 if (resp.status == false) {
                     console.log("error : ", JSON.stringify(resp));
                     stateControl(resp.code, resp.data);
@@ -153,14 +156,14 @@ mavikentApp.controller("GetOrderCtrl", function ($scope, $state, $rootScope, $ht
                     showConfirmButton: false
                 });
                 initiliaze();
-            }).error(function (err) {
+            }).error(function(err) {
                 console.error(JSON.stringify(err));
                 sweetAlert("Oops...", "Bir hata oluştu", "error");
             });
 
         } else {
 
-            $http.post(host + "/api/product?token=" + token, $scope.objUrun).success(function (resp) {
+            $http.post(host + "/api/product?token=" + token, $scope.objUrun).success(function(resp) {
                 if (resp.status == false) {
                     console.log("error : ", JSON.stringify(resp));
                     stateControl(resp.code, resp.data);
@@ -175,7 +178,7 @@ mavikentApp.controller("GetOrderCtrl", function ($scope, $state, $rootScope, $ht
                     showConfirmButton: false
                 });
                 initiliaze();
-            }).error(function (err) {
+            }).error(function(err) {
                 console.error(JSON.stringify(err));
                 sweetAlert("Oops...", "Bir hata oluştu", "error");
             });
@@ -185,8 +188,8 @@ mavikentApp.controller("GetOrderCtrl", function ($scope, $state, $rootScope, $ht
 
 
 
-    $scope.delete = function (id, index) {
-        $http.delete(host + "/api/product/" + id + "?token=" + token).success(function (resp) {
+    $scope.delete = function(id, index) {
+        $http.delete(host + "/api/product/" + id + "?token=" + token).success(function(resp) {
             if (resp.status == false) {
                 console.log("error : ", JSON.stringify(resp));
                 stateControl(resp.code, resp.data);
@@ -200,7 +203,7 @@ mavikentApp.controller("GetOrderCtrl", function ($scope, $state, $rootScope, $ht
                 timer: 1000,
                 showConfirmButton: false
             });
-        }).error(function (err) {
+        }).error(function(err) {
             console.error(JSON.stringify(err));
             sweetAlert("Oops...", "Bir hata oluştu", "error");
         });
@@ -208,7 +211,7 @@ mavikentApp.controller("GetOrderCtrl", function ($scope, $state, $rootScope, $ht
 
     //edit function
 
-    $scope.edit = function (id, index) {
+    $scope.edit = function(id, index) {
         $scope.pctr = $scope.listOrder[index].picture;
         $scope.IsEdit = true;
         $scope.listIndex = index;
@@ -227,27 +230,27 @@ mavikentApp.controller("GetOrderCtrl", function ($scope, $state, $rootScope, $ht
 
     }
 
-    $scope.siparisler = function () {
+    $scope.siparisler = function() {
         $scope.siparis = true;
         $scope.urunEkle = false;
     }
-    $scope.urunEkleme = function () {
+    $scope.urunEkleme = function() {
         $scope.siparis = false;
         $scope.urunEkle = true;
     }
 
     $scope.show1Modal = false;
-    $scope.toggleModal = function () {
+    $scope.toggleModal = function() {
         $scope.show1Modal = !$scope.show1Modal;
     };
     $scope.newPass = {
         password: ""
     }
-    $scope.updatePass = function () {
+    $scope.updatePass = function() {
         $http.put(host + "/api/account?token=" + $rootScope.mkb.token, {
             _id: $rootScope.mkb.current_user._id,
             password: $scope.newPass.password
-        }).success(function (resp) {
+        }).success(function(resp) {
             if (resp.status == false) {
                 console.log("error : ", JSON.stringify(resp));
                 stateControl(resp.code, resp.data);
@@ -264,7 +267,7 @@ mavikentApp.controller("GetOrderCtrl", function ($scope, $state, $rootScope, $ht
                 timer: 1000,
                 showConfirmButton: false
             });
-        }).error(function (err) {
+        }).error(function(err) {
             console.error(JSON.stringify(err));
             sweetAlert("Oops...", "Bir hata oluştu", "error");
         })
